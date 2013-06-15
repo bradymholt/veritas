@@ -26,6 +26,7 @@ gem 'twitter-bootstrap-rails'
 gem 'therubyracer'
 gem 'carrierwave'
 gem 'fog'
+gem 'mysql2'
 
 
 # To use ActiveModel has_secure_password

@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   # DELETE /sessions/1
   # DELETE /sessions/1.json
   def destroy
-    session[:role] = nil
+    session[:logged_in] = nil
     redirect_to :login
   end
 end

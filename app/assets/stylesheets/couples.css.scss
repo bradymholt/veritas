@@ -3,5 +3,5 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #roster tbody tr {display:none;} /* default, will be changed by js at runtime */
-form#edit_couple,form#new_couple .husband_fields { background-color: $husband_color; }
-form#edit_couple,form#new_couple .wife_fields { background-color: $wife_color; }
+form#edit_couple,form#new_couple .husband_fields { background-color: blue; }
+form#edit_couple,form#new_couple .wife_fields { background-color: pink; }

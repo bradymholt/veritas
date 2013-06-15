@@ -7,4 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Setting.delete_all
-Setting.create(group_name: 'Group Name', user_password: 'group_password')
+Setting.create(group_name: 'Group Name', user_password: 'group_password', admin_password: 'admin_password')
