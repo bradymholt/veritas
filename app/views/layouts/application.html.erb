@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%=Setting.cached.group_name%></title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" id="nav_title" href="#"><%=Setting.cached.group_name%></a>
+      <ul class="nav">
+        <%=nav_link("Roster", couples_path) %>
+        <%=nav_link("Attendance", attendances_path) %>
+        <%=nav_link("Contact Queue", contact_queue_items_path) %>
+        <%=nav_link("Podcast", podcasts_path) %>
+        <%=nav_link("Reports", '/reports') %>
+        <%=nav_link("Settings", '/settings') %>
+      </ul>
+      <p class="text-right"><%=link_to 'Logout', '/logout' %></p>
+    </div>
+
+  </div>
+  <div id="content">
+    <%= yield %>
+  </div>
+</body>
+</html>

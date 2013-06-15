@@ -1,0 +1,12 @@
+document.write('
+<% @couples.each do |c| %>
+<div>
+	<span style="font-size:larger; font-weight:bold;"><%=c.full_name%></span><br/>
+	<%=c.address%>, <%=c.city_state_zip%>
+	<div style="magin:left:10px;">
+		<%=c.husband_name%> - <%=c.husband_email%> / <%=c.husband_phone%><br/>
+		<%=c.wife_name%> - <%=c.wife_email%> / <%=c.wife_phone%>
+	</div>
+</div>
+<% end %>
+');

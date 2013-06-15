@@ -1,0 +1,59 @@
+<h1>Contact Queue</h1>
+<% if flash[:notice] %>
+<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
+<% end %>
+  <% if @pending.count == 0 %>
+  <div class="alert alert-info">
+    There are no contact queue items.
+  </div>
+  <%else%>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+       <th>Date Added</th>
+       <th>Name</th>
+       <th>Last Sunday Attendance</th>
+       <th>Reason</th>
+       <th></th>
+     </tr>
+   </thead>
+   <tbody>
+    <% @pending.each do |pending| %>
+    <tr>
+      <td><%=pending.created_at.strftime('%m/%d/%Y')%></td>
+      <td><a href="<%=edit_couple_url(pending.couple.id)%>"><%=pending.couple.full_name%></a></td>
+      <td><%=pending.couple.last_attendance_date.strftime('%m/%d/%Y')%></td>
+      <td><%=pending.reason%></td>
+      <td><%= link_to 'Contact', edit_contact_queue_item_url(pending), :class => 'btn btn-primary' %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%end%>
+<% if @completed.count > 0 %>
+<div id="completed">
+  <fieldset><legend>Recently Completed</legend>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date Contacted</th>
+          <th>Name</th>
+          <th>Reason</th>
+          <th>Contacted By</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @completed.each do |completed| %>
+        <tr>
+          <td><%=completed.completed_date.strftime('%m/%d/%Y')%></td>
+          <td><a href="<%=edit_couple_url(completed.couple.id)%>"><%=completed.couple.full_name%></a></td>
+          <td><%=completed.reason%></td>
+          <td><%=completed.completed_by%></td>
+          <td><%=completed.completed_notes%></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%end%>

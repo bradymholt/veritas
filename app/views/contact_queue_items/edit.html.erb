@@ -1,0 +1,55 @@
+<h1>Contact <%=@contact_queue_item.couple.full_name_first%></h1>
+<%= form_for(@contact_queue_item) do |f| %>
+<% if @contact_queue_item.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@contact_queue_item.errors.count, "error") %> prohibited this contact_queue_item from being saved:</h2>
+
+	<ul>
+		<% @contact_queue_item.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+<%= f.label :completed_notes, "Contact Notes" %>
+<%= f.text_area :completed_notes, :rows => 3, :cols =>"", :class => 'span6' %>
+<fieldset>
+	<legend>Contact Info</legend>
+	<div class="well">
+	<div class="row">
+		<div class="span3">
+			<strong><%= @contact_queue_item.couple.husband_name %></strong>
+		</div>
+		<div class="span9">
+			<strong><%= @contact_queue_item.couple.wife_name %></strong>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<%=@contact_queue_item.couple.husband_phone %>
+		</div>
+		<div class="span9">
+			<%=@contact_queue_item.couple.wife_phone %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			<%=@contact_queue_item.couple.husband_email %>
+		</div>
+		<div class="span9">
+			<%=@contact_queue_item.couple.wife_email %>
+		</div>
+	</div>
+</div>
+</fieldset>
+<div class="form-actions">
+	<%= f.submit "Complete", :class => "btn btn-primary btn-large" %>
+	<%= link_to 'Cancel', contact_queue_items_path, :class => "btn" %>
+</div>
+<% end %>
+<script type="text/javascript">
+$(function() {
+	$('#contact_queue_item_completed_notes').focus();
+});
+</script>

@@ -1,0 +1,14 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#login-container {
+  background-color: white; padding:10px;
+  margin: 0 auto;
+  margin-top:50px;
+  width: 450px; /* Whatever exact width you are looking for (not bound by preset bootstrap widths) */
+}
+
+#sessions { background-color: #646464;}
+#sessions h1 { float:right; font-size:1.95em; line-height:20px;}
+#sessions label { font-size:larger; font-weight:bold;}

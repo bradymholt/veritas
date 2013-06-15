@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Veritas Class</title>
+  <meta name="viewport" id="vp" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+  <!--Omit width=device-width for iPhone 5 -->
+  <meta name="viewport" id="vp" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <link rel="apple-touch-icon" href="<%=image_path('app_icon.png')%>" />
+  <link rel="apple-touch-icon" sizes="72x72" href="<%=image_path('app_icon.png')%>" />
+  <link rel="apple-touch-icon" sizes="114x114" href="<%=image_path('app_icon.png')%>" />
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+  <%= stylesheet_link_tag "mobile" %>
+  <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+  <script type="text/javascript">
+    $(document).on("mobileinit", function(){
+      //$.mobile.defaultPageTransition = 'slide';
+    });
+    $(document).on('pagehide', function (e) {
+      //prevent first page from being cached
+      var page = $(e.target);
+      if (!$.mobile.page.prototype.options.domCache
+          && (!page.attr('data-dom-cache')
+              || page.attr('data-dom-cache') == "false")
+          ) {
+          page.remove();
+      }
+    });
+  </script>
+</head>
+<body>
+<%= yield %>
+</body>
+</html>

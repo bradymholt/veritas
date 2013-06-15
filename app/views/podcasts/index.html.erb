@@ -1,0 +1,47 @@
+<h1>Podcast</h1>
+<% if flash[:notice] %>
+<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
+<% end %>
+<div class="row">
+  <div class="span2">
+     <a href="<%=podcasts_path(:rss)%>"><i class="icon-bookmark"></i>Podcast Feed</a>
+  </div>
+  <div class="span10">
+   <%= link_to 'New Podcast Item', new_podcast_path, :class => 'btn btn-small btn-success' %>
+  </div>
+</div>
+<% if @podcasts.count == 0 %>
+<div class="alert alert-info">
+  There are no podcast items.
+</div>
+<%else%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Speaker</th>
+      <th>Title</th>
+      <th></td>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @podcasts.each do |p| %>
+      <tr>
+        <td><%=p.date.strftime('%m/%d/%Y')%></td>
+        <td><%=p.speaker%></td>
+        <td><%=p.title%></td>
+        <td>
+          <% if !p.audio_url.blank? %>
+          <a href="<%=p.audio_url%>"><i class="icon-download"></i>Download</a>
+          <% end %>
+        </td>
+        <td><%= link_to 'Edit', edit_podcast_path(p) %></td>
+        <td><%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% end %>
+

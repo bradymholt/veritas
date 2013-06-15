@@ -1,0 +1,99 @@
+<ul id="attendance_date" class="nav nav-pills">
+  <% @dates.each do |d| %>
+  <li><a href="#" class="date_link" date="<%=d[:date]%>"><%=d[:description]%></a></li>
+  <% end %> 
+</ul>
+<div class="row">
+  <div class="span5">
+    <h2>Members</h2>
+    <table id="member_attendance" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Couple</th>
+          <th>Husband Present</th>
+          <th>Wife Present</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @members.each do |c| %>
+        <tr couple_id='<%=c.id%>'>
+          <td><a href="<%=edit_couple_url(c)%>"><%=c.full_name%></a></td>
+          <td class="husband"><input type="checkbox" class="husband_present"/></td>
+          <td class="wife"><input type="checkbox" class="wife_present"/></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="span5">
+    <% if @visitors.count > 0 %>
+    <h2>Visitors</h2>
+    <table id="visitor_attendance" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Couple</th>
+          <th>Husband Present</th>
+          <th>Wife Present</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @visitors.each do |c| %>
+        <tr couple_id='<%=c.id%>'>
+         <td><a href="<%=edit_couple_url(c)%>"><%=c.full_name%></a></td>
+         <td class="husband"><input type="checkbox" class="husband_present"/></td>
+         <td class="wife"><input type="checkbox" class="wife_present"/></td>
+       </tr>
+       <% end %>
+     </tbody>
+   </table>
+   <%end%>
+ </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.date_link').click(function(){
+    selectDate($(this));
+  });
+
+  $('input.husband_present, input.wife_present').change(function(){
+    var couple_row = $(this).closest('tr');
+    var date = $('#attendance_date li.active a.date_link').attr('date');
+    save(date, couple_row.attr('couple_id'), 
+      $('.husband_present', couple_row).prop('checked'), $('.wife_present', couple_row).prop('checked'));
+  });
+
+  selectDate($('#attendance_date .date_link').first());
+});
+
+function selectDate(dateLink){
+ $('#attendance_date li').removeClass('active');
+ dateLink.closest('li').addClass('active');
+ load(dateLink.attr('date'));
+}
+
+function load(date)
+{
+  $('input.husband_present, input.wife_present').prop('checked', false);
+  $.getJSON('/attendances/' + date, function(data) {
+    $.each(data, function(key, val) {
+      $('tr[couple_id="' + val.couple_id + '"] input.husband_present').prop('checked', val.husband_present);
+      $('tr[couple_id="' + val.couple_id + '"] input.wife_present').prop('checked', val.wife_present);
+    });
+  });
+}
+
+function save(date, couple_id, husband_present, wife_present){
+  var request = { 'husband_present' : husband_present, 'wife_present' : wife_present}
+  $.ajax({
+    url: 'attendances/' + date + '/' + couple_id,
+    type: 'PUT',
+    data: JSON.stringify(request),
+    contentType: 'application/json'
+  }).done(function(data){
+   console.log('done');
+ }).fail(function(jqXHR, textStatus) {
+  console.log('fail');
+});
+}
+</script>

@@ -1,0 +1,54 @@
+<%= form_for @podcast, :html => {:multipart => true} do |f| %>
+<% if @podcast.errors.any? %>
+<div class="alert alert-error">
+  <ul>
+    <% @podcast.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div class="row">
+  <div class="span2">
+   <%= f.label :date %>
+   <%= text_field_tag "date", f.object.date.strftime('%m/%d/%Y'), :class => 'date' %>
+   <%=  f.hidden_field :date %>
+ </div>
+ <div class="span3">
+   <%= f.label :speaker %>
+   <%= f.text_field :speaker %>
+ </div>
+ <div class="span7">
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+</div>
+</div>
+<div class="row">
+  <div class="span3">
+   <%= f.label :audio, "Current Audio File" %>
+   <%= @podcast.audio.path%>
+ </div>
+ <div class="span7">
+  <% if !@podcast.audio.path.blank? %>
+  <%= f.label :remove_audio, "Remove Audio File" %>
+   <%= f.check_box :remove_audio %>
+   <% end %>
+ </div>
+</div>
+<div class="row">
+  <div class="span12">
+    <%= label_tag "New Audio File" %>
+    <%= f.file_field :audio %>
+  </div>
+</div>
+<div class="form-actions">
+  <%= f.submit "Save", :class => "btn btn-primary btn-large" %>
+  <%= link_to 'Cancel', podcasts_path, :class => "btn" %>
+</div>
+
+<% end %>
+<script type="text/javascript">
+$(function() {
+  $('#date').datepicker({dateFormat: 'mm/dd/yy', altField: '#podcast_date', altFormat: 'yy-mm-dd'});
+});
+</script>

@@ -1,0 +1,83 @@
+<%= form_for(@couple) do |f| %>
+<% if @couple.errors.any? %>
+<div class="alert alert-error">
+  <ul>
+    <% @couple.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div class="well">
+<%= f.label :is_member, "Member", :class => "checkbox inline" %>
+<%= f.check_box :is_member %>
+<%= f.label :is_active, "Active", :class => "checkbox inline" %>
+<%= f.check_box :is_active %>
+</div>
+<fieldset>
+  <legend>Couple Information</legend>
+  <div class="row">
+    <div class="span3">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+      <%= f.label :home_phone %>
+      <%= f.text_field :home_phone %>
+    </div>
+    <div class="span9">
+      <%= f.label :anniversary %>
+      <%= text_field_tag "anniversary", f.object.anniversary.try(:strftime, '%m/%d'), :class=>'date' %>
+      <%= f.hidden_field :anniversary %>
+      <%= f.label :city_state_zip %>
+      <%= f.text_field :city_state_zip %>
+    </div>
+  </div>
+    <div class="row">
+    <div class="span3 husband_fields">
+      <%= f.label :husband_name %>
+      <%= f.text_field :husband_name %>
+      <%= f.label :husband_email %>
+      <%= f.text_field :husband_email %>
+      <%= f.label :husband_phone %>
+      <%= f.text_field :husband_phone %>
+      <%= f.label :husband_birthday %>
+      <%= text_field_tag "husband_birthday", f.object.husband_birthday.try(:strftime, '%m/%d'), :class=>'date' %>
+      <%= f.hidden_field :husband_birthday %>
+    </div>
+    <div class="span3 wife_fields">
+      <%= f.label :wife_name %>
+      <%= f.text_field :wife_name %>
+      <%= f.label :wife_email %>
+      <%= f.text_field :wife_email %>
+      <%= f.label :wife_phone %>
+      <%= f.text_field :wife_phone %>
+      <%= f.label :wife_birthday %>
+      <%= f.hidden_field :wife_birthday %>
+      <%= text_field_tag "wife_birthday", f.object.wife_birthday.try(:strftime, '%m/%d'), :class=>'date' %>
+    </div>
+  </div>
+</fieldset>
+<fieldset>
+  <legend>Notes</legend>
+  <div class="row">
+    <div class="span12">
+      <%= f.text_area :notes, :rows => 3, :cols =>"", :class => 'span6' %>
+    </div>
+  </div>
+</fieldset>
+<div class="form-actions">
+  <%= f.submit "Save", :class => "btn btn-primary btn-large" %>
+  <%= link_to 'Cancel', couples_path, :class => "btn" %>
+</div>
+<% end %>
+<script type="text/javascript">
+$(function() {
+  $('#husband_birthday').datepicker({dateFormat: 'mm/dd', altField: '#couple_husband_birthday', altFormat: 'yy-mm-dd'});
+  $('#wife_birthday').datepicker({dateFormat: 'mm/dd', altField: '#couple_wife_birthday', altFormat: 'yy-mm-dd'});
+  $('#anniversary').datepicker({dateFormat: 'mm/dd', altField: '#couple_anniversary_birthday', altFormat: 'yy-mm-dd'});
+  $('.date').change(function(){
+    if (!$(this).val()) $('#' + 'couple_' + $(this).attr('id')).val('');
+  });
+});
+</script>

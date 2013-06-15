@@ -1,0 +1,47 @@
+<h1>Settings</h1>
+<% if flash[:notice] %>
+<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
+<% end %>
+<%= form_for @settings do |f| %>
+<% if @settings.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@settings.errors.count, "error") %> prohibited this setting from being saved:</h2>
+  <ul>
+    <% @settings.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<%=f.label :group_name %>
+<%=f.text_field :group_name %>	
+<% if !@settings.logo.blank? %>
+<div>
+  <label for='logo'>Current Group Logo</label>
+  <%= image_tag(@settings.logo_url, :id => 'logo') if @settings.logo? %>
+</div>
+<% end %>
+<%= label_tag :logo, "New Group Logo" %>
+<%= f.file_field :logo %>
+<%=f.label :user_password %>
+<%=f.text_field :user_password %>  
+<%=f.label :admin_password %>
+<%=f.text_field :admin_password %>  
+<%=f.label :contact_email%>
+<%=f.text_field :contact_email %> 
+<%=f.label :podcast_title%>
+<%=f.text_field :podcast_title %> 
+<%=f.label :podcast_description%>
+<%=f.text_field :podcast_description %> 
+<% if !@settings.podcast_image.blank? %>
+<div>
+  <label for='logo'>Current Podcast Image</label>
+  <%= image_tag(@settings.podcast_image_url, :id => 'pocast_image') if @settings.podcast_image? %>
+</div>
+<% end %>
+<%= label_tag :podcast_image, "New Podcast Image" %>
+<%= f.file_field :podcast_image %>
+<div class="form-actions">
+  <%= f.submit "Save", :class => "btn btn-primary btn-large" %>
+</div>
+<% end %>

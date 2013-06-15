@@ -1,0 +1,21 @@
+<h1>Listing demos</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @demos.each do |demo| %>
+  <tr>
+    <td><%= link_to 'Show', demo %></td>
+    <td><%= link_to 'Edit', edit_demo_path(demo) %></td>
+    <td><%= link_to 'Destroy', demo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Demo', new_demo_path %>

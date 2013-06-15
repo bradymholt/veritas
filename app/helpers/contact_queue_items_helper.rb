@@ -1,0 +1,2 @@
+module ContactQueueItemsHelper
+end
