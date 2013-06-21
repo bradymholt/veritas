@@ -1,0 +1,4 @@
+#roster tbody tr {display:none;} /* default, will be changed by js at runtime */
+form#edit_family,form#new_family .husband_fields { background-color: $husband_color; padding-left:8px; }
+form#edit_family,form#new_family .wife_fields { background-color: $wife_color; padding-left: 8px;}
+#roster td.full_name { font-size:larger; font-weight:bold;}

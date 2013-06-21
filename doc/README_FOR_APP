@@ -1,2 +1,15 @@
 Use this README file to introduce your application and point to useful places in the API for learning more.
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+TODO
+--
+
+email notification for contact queue
+signups
+deprecate shutterfly site
+contact queue history on roster
+Advanced settings
+Contact queue settings
+
+FIXED/TEST
+--

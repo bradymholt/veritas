@@ -1,11 +1,12 @@
 <div id="login-container">
 	<%= image_tag(Setting.cached.logo_url) if Setting.cached.logo? %>
 	<h1><%=Setting.cached.group_name%></h1>
+	<%=Setting.cached.group_description%>
 	<hr/>
 	<% if flash[:error] %>
 	<div class="alert alert-error"><i class="icon-remove-sign"></i><%= flash[:error] %></div>
 	<% end %>
-	<%= form_tag sessions_path, :class => 'form-horizontal' do |f| %>
+	<%= form_tag login_path, :class => 'form-horizontal' do |f| %>
 	<div class="control-group">
 		<%= label_tag :password, nil, :class => 'control-label' %>
 		<div class="controls">

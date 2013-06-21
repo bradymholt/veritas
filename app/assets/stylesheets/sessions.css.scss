@@ -6,9 +6,10 @@
   background-color: white; padding:10px;
   margin: 0 auto;
   margin-top:50px;
-  width: 450px; /* Whatever exact width you are looking for (not bound by preset bootstrap widths) */
+  width: 450px;
 }
 
 #sessions { background-color: #646464;}
-#sessions h1 { float:right; font-size:1.95em; line-height:20px;}
+#sessions h1 { font-size:1.95em; line-height:20px; }
+#sessions img { float:right;}
 #sessions label { font-size:larger; font-weight:bold;}

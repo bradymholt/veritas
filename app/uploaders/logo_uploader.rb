@@ -4,7 +4,7 @@ class LogoUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
   # include Sprockets::Helpers::RailsHelper
@@ -17,7 +17,13 @@ class LogoUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    nil
+    "images"
+  end
+
+  def filename
+    if original_filename 
+      "logo.#{file.extension}"
+    end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -29,7 +35,7 @@ class LogoUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  # process :scale => [200, 300]
+  process :resize_to_limit => [200, 70]
   #
   # def scale(width, height)
   #   # do something

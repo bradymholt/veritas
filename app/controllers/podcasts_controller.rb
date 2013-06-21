@@ -1,8 +1,11 @@
 class PodcastsController < ApplicationController
+   skip_before_filter :require_login, :only => [:index]
+   skip_before_filter :require_admin, :only => [:index]
+
   # GET /podcasts
   # GET /podcasts.json
   def index
-    @podcasts = Podcast.order('date DESC').limit(50)
+    @podcasts = Podcast.order('date DESC').limit(30)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -35,7 +38,12 @@ class PodcastsController < ApplicationController
 
   # GET /podcasts/1/edit
   def edit
-    @podcast = Podcast.find(params[:id])
+    if params[:id] == 'last'
+      @podcast = Podcast.last
+      redirect_to edit_podcast_url(@podcast)
+    else
+      @podcast = Podcast.find(params[:id])
+    end
   end
 
   # POST /podcasts
@@ -75,7 +83,7 @@ class PodcastsController < ApplicationController
     @podcast.destroy
 
     respond_to do |format|
-      format.html { redirect_to podcasts_url }
+      format.html { redirect_to podcasts_url, notice: 'Podcast was successfully delete.' }
       format.json { head :no_content }
     end
   end

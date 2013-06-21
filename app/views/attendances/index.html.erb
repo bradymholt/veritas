@@ -9,17 +9,15 @@
     <table id="member_attendance" class="table table-striped">
       <thead>
         <tr>
-          <th>Couple</th>
-          <th>Husband Present</th>
-          <th>Wife Present</th>
+          <th>Family</th>
+          <th>Present</th>
         </tr>
       </thead>
       <tbody>
         <% @members.each do |c| %>
-        <tr couple_id='<%=c.id%>'>
-          <td><a href="<%=edit_couple_url(c)%>"><%=c.full_name%></a></td>
-          <td class="husband"><input type="checkbox" class="husband_present"/></td>
-          <td class="wife"><input type="checkbox" class="wife_present"/></td>
+        <tr>
+          <td><a href="<%=edit_family_url(c)%>"><%=c.full_name%></a></td>
+          <td><input type="checkbox" family_id="<%=c.id%>" class="present"/></td>
         </tr>
         <% end %>
       </tbody>
@@ -31,17 +29,15 @@
     <table id="visitor_attendance" class="table table-striped">
       <thead>
         <tr>
-          <th>Couple</th>
-          <th>Husband Present</th>
-          <th>Wife Present</th>
+          <th>Family</th>
+          <th>Present</th>
         </tr>
       </thead>
       <tbody>
         <% @visitors.each do |c| %>
-        <tr couple_id='<%=c.id%>'>
-         <td><a href="<%=edit_couple_url(c)%>"><%=c.full_name%></a></td>
-         <td class="husband"><input type="checkbox" class="husband_present"/></td>
-         <td class="wife"><input type="checkbox" class="wife_present"/></td>
+        <tr family_id='<%=c.id%>'>
+         <td><a href="<%=edit_family_url(c)%>"><%=c.full_name%></a></td>
+          <td><input type="checkbox" family_id="<%=c.id%>" class="present"/></td>
        </tr>
        <% end %>
      </tbody>
@@ -56,11 +52,9 @@ $(document).ready(function() {
     selectDate($(this));
   });
 
-  $('input.husband_present, input.wife_present').change(function(){
-    var couple_row = $(this).closest('tr');
+  $('input.present').change(function(){
     var date = $('#attendance_date li.active a.date_link').attr('date');
-    save(date, couple_row.attr('couple_id'), 
-      $('.husband_present', couple_row).prop('checked'), $('.wife_present', couple_row).prop('checked'));
+    save(date, $(this).attr('family_id'), $(this).prop('checked'));
   });
 
   selectDate($('#attendance_date .date_link').first());
@@ -74,19 +68,18 @@ function selectDate(dateLink){
 
 function load(date)
 {
-  $('input.husband_present, input.wife_present').prop('checked', false);
+  $('input.present').prop('checked', false);
   $.getJSON('/attendances/' + date, function(data) {
     $.each(data, function(key, val) {
-      $('tr[couple_id="' + val.couple_id + '"] input.husband_present').prop('checked', val.husband_present);
-      $('tr[couple_id="' + val.couple_id + '"] input.wife_present').prop('checked', val.wife_present);
+      $('input.present[family_id="' + val.family_id + '"]').prop('checked', val.present);
     });
   });
 }
 
-function save(date, couple_id, husband_present, wife_present){
-  var request = { 'husband_present' : husband_present, 'wife_present' : wife_present}
+function save(date, family_id, present){
+  var request = { 'present' : present }
   $.ajax({
-    url: 'attendances/' + date + '/' + couple_id,
+    url: 'attendances/' + date + '/' + family_id,
     type: 'PUT',
     data: JSON.stringify(request),
     contentType: 'application/json'

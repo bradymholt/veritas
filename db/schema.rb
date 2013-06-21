@@ -11,21 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130611025106) do
+ActiveRecord::Schema.define(:version => 20130621181211) do
 
   create_table "attendances", :force => true do |t|
-    t.integer  "couple_id"
+    t.integer  "family_id"
     t.date     "date"
-    t.boolean  "husband_present"
-    t.boolean  "wife_present"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "present"
   end
 
   create_table "contact_queue_items", :force => true do |t|
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.integer  "couple_id"
+    t.integer  "family_id"
     t.string   "reason"
     t.boolean  "is_completed"
     t.date     "completed_date"
@@ -33,7 +32,12 @@ ActiveRecord::Schema.define(:version => 20130611025106) do
     t.string   "completed_notes"
   end
 
-  create_table "couples", :force => true do |t|
+  create_table "demos", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "families", :force => true do |t|
     t.string   "last_name"
     t.string   "address"
     t.string   "city_state_zip"
@@ -53,11 +57,7 @@ ActiveRecord::Schema.define(:version => 20130611025106) do
     t.boolean  "is_active"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-  end
-
-  create_table "demos", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "photo"
   end
 
   create_table "mobiles", :force => true do |t|
@@ -80,16 +80,26 @@ ActiveRecord::Schema.define(:version => 20130611025106) do
   end
 
   create_table "settings", :force => true do |t|
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "group_name"
     t.string   "user_password"
     t.string   "admin_password"
     t.string   "logo"
     t.string   "contact_email"
-    t.string   "podcast_title"
-    t.string   "podcast_description"
-    t.string   "podcast_image"
+    t.string   "app_icon"
+    t.string   "group_description"
+    t.string   "aws_bucket_name"
+    t.string   "aws_access_key"
+    t.string   "aws_secret_access_key"
+    t.string   "smtp_server"
+    t.string   "smtp_username"
+    t.string   "smtp_password"
+    t.integer  "smtp_port"
+    t.boolean  "smtp_tls"
+    t.text     "welcome_email_html",       :limit => 255
+    t.string   "google_calendar_username"
+    t.string   "google_calendar_password"
   end
 
 end

@@ -1,0 +1,98 @@
+<div data-role="page" id="attendance_page">
+	<div data-role="header" data-id="head" data-theme="b">
+		<a data-rel="back" data-icon="arrow-l">Back</a>
+		<h1>Attendance</h1>
+	</div>
+	<div data-role="content">	
+		<h2>Attendance for <%=@last_sunday_date_description%></h2>
+		<ul data-role="listview">
+			<li><a href="#members_attendance">Members</a></li>
+			<li><a href="#visitors_attendance">Visitors</a></li>
+		</ul>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<div data-role="page" id="members_attendance">
+	<div data-role="header" data-id="head" data-theme="b">
+		<a data-rel="back" data-icon="arrow-l">Back</a>
+		<h1>Members</h1>
+	</div>
+	<div data-role="content">	
+		<ul data-role="listview">
+			<% @members.each do |m|%>
+		<li>
+			<label data-corners="false">
+				<input type="checkbox" family_id="<%=m.id%>" id="present_<%=m.id%>" class="present" />
+				<label for="present_<%=m.id%>">
+					<label> 
+						<h3><%=m.full_name%></h3>
+					</label> 
+				</label>
+
+			</label>
+		</li>
+		<% end %>
+	</ul>
+</div><!-- /content -->
+</div><!-- /page -->
+
+<div data-role="page" id="visitors_attendance">
+	<div data-role="header" data-id="head" data-theme="b">
+		<a data-rel="back" data-icon="arrow-l">Back</a>
+		<h1>Visitors</h1>
+	</div>
+	<div data-role="content">	
+		<ul data-role="listview">
+			<% @visitors.each do |v|%>
+			<li>
+			<label data-corners="false">
+				<input type="checkbox" family_id="<%=v.id%>" id="present_<%=v.id%>" class="present" />
+				<label for="present_<%=v.id%>">
+					<label> 
+						<h3><%=v.full_name%></h3>
+					</label> 
+				</label>
+
+			</label>
+		</li>
+			<% end %>
+		</ul>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<script type="text/javascript">
+$('#members_attendance, #visitors_attendance').on('pageinit', function( event ) {
+	load();
+
+	$('input.present').change(function(){
+		var list_item = $(this).closest('li');
+		var present_check = list_item.find('input.present');
+		save(present_check.attr('family_id'), present_check.prop('checked'));
+	});
+});
+
+function load()
+{
+	$('input.present').prop('checked', false);
+	$.getJSON('/attendances/last', function(data) {
+		$.each(data, function(key, val) {
+			var present_check = $('input.present[family_id="' + val.family_id + '"]');
+			present_check.prop('checked', val.present ).checkboxradio().checkboxradio('refresh');
+		});
+	});
+}
+
+function save(family_id, present){
+	var request = { 'present' : present }
+	$.ajax({
+		url: 'attendances/last/' + family_id,
+		type: 'PUT',
+		data: JSON.stringify(request),
+		contentType: 'application/json'
+	}).done(function(data){
+		console.log('done');
+	}).fail(function(jqXHR, textStatus) {
+		console.log('fail');
+	});
+}
+</script>

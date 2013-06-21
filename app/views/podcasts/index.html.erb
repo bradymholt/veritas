@@ -4,11 +4,12 @@
 <% end %>
 <div class="row">
   <div class="span2">
-     <a href="<%=podcasts_path(:rss)%>"><i class="icon-bookmark"></i>Podcast Feed</a>
-  </div>
-  <div class="span10">
    <%= link_to 'New Podcast Item', new_podcast_path, :class => 'btn btn-small btn-success' %>
-  </div>
+ </div>
+ <div class="span10">
+  <a href="/podcast"><i class="icon-bookmark"></i>Podcast Feed</a>
+  
+</div>
 </div>
 <% if @podcasts.count == 0 %>
 <div class="alert alert-info">

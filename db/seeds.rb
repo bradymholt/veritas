@@ -7,4 +7,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Setting.delete_all
-Setting.create(group_name: 'Group Name', user_password: 'group_password', admin_password: 'admin_password')
+Setting.create(
+	group_name: 'Group Name', 
+	group_description: 'Group Description', 
+	user_password: 'group_password', 
+	admin_password: 'admin_password',
+	aws_bucket_name: 'bucket',
+	aws_access_key: 'JKFLKJDF90',
+	aws_secret_acess_key: '9898DJKFJDKDDF')

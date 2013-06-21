@@ -1,0 +1,27 @@
+<!-- Login -->
+<div data-role="page" id="login_page">
+    <div data-role="content" data-theme="d">
+        <div>
+           <%= image_tag(Setting.cached.logo_url) if Setting.cached.logo? %>
+       </div>
+       <h1><%=Setting.cached.group_name%>  </h1>
+       <p><%=Setting.cached.group_description%></p>
+        <% if flash[:error] %>
+        <div class="alert alert-error"><i class="icon-remove-sign"></i><%= flash[:error] %></div>
+        <% end %>
+        <%= form_tag login_path, :class => 'form-horizontal', :data => {:ajax => 'false'} do |f| %>
+        <div data-role="fieldcontain">
+            <label for="password">
+                Password:
+            </label>
+            <%= password_field_tag :password %>
+        </div>
+        <%= submit_tag "Login", :data => {:theme => 'b'} %>
+        <% end %>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).on("pageshow", function(){
+      $('#password').focus();
+    });
+  </script>

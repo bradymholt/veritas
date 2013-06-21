@@ -1,8 +1,8 @@
 namespace :db do
 	desc "Erase and fill database with test records"
 	task :populate => :environment do
-		Couple.delete_all
-		Couple.create(
+		Family.delete_all
+		Family.create(
 			[
 				{   :last_name => 'Holt', 
 					:husband_name => 'Brady', 
@@ -47,10 +47,10 @@ namespace :db do
 		)
 
 		ContactQueueItem.delete_all
-		c = Couple.first
+		c = Family.first
 		ContactQueueItem.create(
 			[
-				{ :couple_id => c.id, :reason => 'Absent for 2 weeks' }
+				{ :family_id => c.id, :reason => 'Absent for 2 weeks' }
 			]
 		)
 	end

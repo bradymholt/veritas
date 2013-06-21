@@ -27,6 +27,10 @@ gem 'therubyracer'
 gem 'carrierwave'
 gem 'fog'
 gem 'mysql2'
+gem 'mini_magick'
+gem 'mail', '>= 2.1.3'
+gem 'ckeditor'
+gem 'gcal4ruby', :git => 'git://github.com/SeabourneConsulting/GCal4Ruby.git'
 
 
 # To use ActiveModel has_secure_password

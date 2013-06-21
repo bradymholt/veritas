@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CoupleTest < ActiveSupport::TestCase
+class FamiliesTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

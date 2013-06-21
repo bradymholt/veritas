@@ -2,11 +2,11 @@ class ReportsController < ApplicationController
 
 	def email_list
 		if params[:type] == 'men'
-			@emails = Couple.husband_emails
+			@emails = Family.husband_emails
 		elsif params[:type] == 'women'
-			@emails = Couple.wife_emails
+			@emails = Family.wife_emails
 		else 
-			@emails = Couple.all_emails
+			@emails = Family.all_emails
 		end
 	end	
 end

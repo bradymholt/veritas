@@ -1,18 +1,26 @@
 VeritasWeb::Application.routes.draw do
-  match "login" => "sessions#new"
+  match "login" => "sessions#new", :via => [:get]
+  match "login" => "sessions#create", :via => [:post]
   match "logout" => "sessions#destroy"
   resources :sessions
-  resources :settings, :mobiles, :demos
-  resources :couples, :path => "roster"
-  resources :podcasts, :path => "podcast"
+  resources :settings, :demos
+  match "families/members" => "families#members", :as => "members"
+  resources :families
+  resources :podcasts
   resources :contact_queue_items, :path => "contact-queue"
-  match "attendances/:date" => 'attendances#show'
-  match "attendances/:date/:couple_id" => 'attendances#update'
+  match "attendances/:date" => 'attendances#show', :as => "attendances_by_date"
+  match "attendances/:date/:family_id" => 'attendances#update'
   resources :attendances
   match "reports" => "reports#index"
   match "reports/:action" => "reports#%{action}"
+  match "podcast" => "podcasts#index", :defaults => { :format => 'rss' }
+  match "admin" => redirect("/families")
+  match "mobile" => redirect("/?mobile=1")
 
+  root :to => 'default#index'
 
+  #catch all redirect to root
+  match '*path' => redirect('/')   unless Rails.env.development?
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -63,7 +71,6 @@ VeritasWeb::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'default#index'
 
   # See how all your routes lay out with "rake routes"
 

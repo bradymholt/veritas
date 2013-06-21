@@ -1,0 +1,19 @@
+<!-- Login -->
+<div data-role="page" id="main_page">
+    <div data-role="header" data-id="head" data-theme="b">
+        <a data-role="button" href="/logout" class="ui-btn-right">
+            Logout
+        </a>
+      <h1><%=Setting.cached.group_name%></h1>
+  </div>
+    <div data-role="content-primary">
+        <ul data-role="listview">
+            <li><a href="<%=members_url%>">Contacts</a></li>
+            <li><a href="<%=podcasts_url%>">Podcast</a></li>
+            <% if is_admin? %>
+            <li><a data-ajax="false" href="<%=attendances_url%>">Attendance<%= image_tag "lock_icon.png", :class => 'ui-li-icon' %></a></li>
+            <% end %>
+             <li><a data-ajax="false" href="/?mobile=0">Desktop Website</a></li>
+        </ul>
+    </div>
+</div>

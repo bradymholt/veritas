@@ -2,10 +2,8 @@
 <% if flash[:notice] %>
 <div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
 <% end %>
-<%= form_for @settings do |f| %>
 <% if @settings.errors.any? %>
-<div id="error_explanation">
-  <h2><%= pluralize(@settings.errors.count, "error") %> prohibited this setting from being saved:</h2>
+<div class="alert alert-error">
   <ul>
     <% @settings.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
@@ -13,8 +11,11 @@
   </ul>
 </div>
 <% end %>
+<%= form_for @settings do |f| %>
 <%=f.label :group_name %>
 <%=f.text_field :group_name %>	
+<%=f.label :group_description%>
+<%=f.text_area :group_description, :rows => 3, :cols =>""  %> 
 <% if !@settings.logo.blank? %>
 <div>
   <label for='logo'>Current Group Logo</label>
@@ -24,23 +25,25 @@
 <%= label_tag :logo, "New Group Logo" %>
 <%= f.file_field :logo %>
 <%=f.label :user_password %>
-<%=f.text_field :user_password %>  
+<%=f.password_field :user_password, :value => @settings.user_password %>  
 <%=f.label :admin_password %>
-<%=f.text_field :admin_password %>  
+<%=f.password_field :admin_password, :value => @settings.admin_password %>  
+<%=f.label :google_calendar_username %>
+<%=f.text_field :google_calendar_username %>  
+<%=f.label :google_calendar_password %>
+<%=f.password_field :google_calendar_password, :value => @settings.google_calendar_password %> 
 <%=f.label :contact_email%>
 <%=f.text_field :contact_email %> 
-<%=f.label :podcast_title%>
-<%=f.text_field :podcast_title %> 
-<%=f.label :podcast_description%>
-<%=f.text_field :podcast_description %> 
-<% if !@settings.podcast_image.blank? %>
+<% if !@settings.app_icon.blank? %>
 <div>
-  <label for='logo'>Current Podcast Image</label>
-  <%= image_tag(@settings.podcast_image_url, :id => 'pocast_image') if @settings.podcast_image? %>
+  <label for='app_icon_image'>Current App Icon </label>
+  <%= image_tag(@settings.app_icon_url, :id => 'app_icon_image') if @settings.app_icon? %>
 </div>
 <% end %>
-<%= label_tag :podcast_image, "New Podcast Image" %>
-<%= f.file_field :podcast_image %>
+<%= label_tag :app_icon, "New App Icon (300x300 size is best)" %>
+<%= f.file_field :app_icon %>
+<%=f.label :welcome_email_html%>
+<%= f.cktext_area :welcome_email_html %>
 <div class="form-actions">
   <%= f.submit "Save", :class => "btn btn-primary btn-large" %>
 </div>

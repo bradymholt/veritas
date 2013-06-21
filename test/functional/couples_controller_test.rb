@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class CouplesControllerTest < ActionController::TestCase
+class FamiliesControllerTest < ActionController::TestCase
   setup do
-    @couple = couples(:one)
+    @family = families(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:couples)
+    assert_not_nil assigns(:families)
   end
 
   test "should get new" do
@@ -16,34 +16,34 @@ class CouplesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create couple" do
-    assert_difference('Couple.count') do
-      post :create, couple: {  }
+  test "should create family" do
+    assert_difference('Family.count') do
+      post :create, family: {  }
     end
 
-    assert_redirected_to couple_path(assigns(:couple))
+    assert_redirected_to family_path(assigns(:family))
   end
 
-  test "should show couple" do
-    get :show, id: @couple
+  test "should show family" do
+    get :show, id: @family
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @couple
+    get :edit, id: @family
     assert_response :success
   end
 
-  test "should update couple" do
-    put :update, id: @couple, couple: {  }
-    assert_redirected_to couple_path(assigns(:couple))
+  test "should update family" do
+    put :update, id: @family, couple: {  }
+    assert_redirected_to family_path(assigns(:family))
   end
 
-  test "should destroy couple" do
-    assert_difference('Couple.count', -1) do
-      delete :destroy, id: @couple
+  test "should destroy family" do
+    assert_difference('Family.count', -1) do
+      delete :destroy, id: @family
     end
 
-    assert_redirected_to couples_path
+    assert_redirected_to families_path
   end
 end

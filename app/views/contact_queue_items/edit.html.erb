@@ -1,4 +1,4 @@
-<h1>Contact <%=@contact_queue_item.couple.full_name_first%></h1>
+<h1>Contact <%=@contact_queue_item.family.full_name_first%></h1>
 <%= form_for(@contact_queue_item) do |f| %>
 <% if @contact_queue_item.errors.any? %>
 <div id="error_explanation">
@@ -11,34 +11,35 @@
 	</ul>
 </div>
 <% end %>
-
 <%= f.label :completed_notes, "Contact Notes" %>
 <%= f.text_area :completed_notes, :rows => 3, :cols =>"", :class => 'span6' %>
+<%= f.label :completed_by, "Contacted By" %>
+<%= f.text_field :completed_by %>
 <fieldset>
 	<legend>Contact Info</legend>
 	<div class="well">
 	<div class="row">
 		<div class="span3">
-			<strong><%= @contact_queue_item.couple.husband_name %></strong>
+			<strong><%= @contact_queue_item.family.husband_name %></strong>
 		</div>
 		<div class="span9">
-			<strong><%= @contact_queue_item.couple.wife_name %></strong>
+			<strong><%= @contact_queue_item.family.wife_name %></strong>
 		</div>
 	</div>
 	<div class="row">
 		<div class="span3">
-			<%=@contact_queue_item.couple.husband_phone %>
+			<%=@contact_queue_item.family.husband_phone %>
 		</div>
 		<div class="span9">
-			<%=@contact_queue_item.couple.wife_phone %>
+			<%=@contact_queue_item.family.wife_phone %>
 		</div>
 	</div>
 	<div class="row">
 		<div class="span3">
-			<%=@contact_queue_item.couple.husband_email %>
+			<%=@contact_queue_item.family.husband_email %>
 		</div>
 		<div class="span9">
-			<%=@contact_queue_item.couple.wife_email %>
+			<%=@contact_queue_item.family.wife_email %>
 		</div>
 	</div>
 </div>

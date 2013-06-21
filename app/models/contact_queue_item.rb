@@ -1,6 +1,6 @@
 class ContactQueueItem < ActiveRecord::Base
 	attr_protected
-	belongs_to :couple
+	belongs_to :family
 	after_initialize :default_values
 	 
 	def default_values

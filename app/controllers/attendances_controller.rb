@@ -3,7 +3,7 @@ class AttendancesController < ApplicationController
   # GET /attendances.json
   def index
     @dates = []
-    current_sunday = (DateTime.now - DateTime.now.wday).to_date
+    @last_sunday_date_description = last_sunday_date.strftime('%m/%d/%Y')
     current_sunday_description = 'Last Sunday - '
     last_sunday_descritpion = ''
     if DateTime.now.wday == 0
@@ -11,16 +11,16 @@ class AttendancesController < ApplicationController
       last_sunday_descritpion = 'Last Sunday - '
     end
 
-    @dates << { :date => current_sunday, :description => current_sunday_description + current_sunday.strftime('%m/%d/%Y')  }
-    @dates << { :date => current_sunday - 1.week, :description => last_sunday_descritpion + ( current_sunday - 1.week).strftime('%m/%d/%Y')  }
+    @dates << { :date => last_sunday_date, :description => current_sunday_description + @last_sunday_date_description  }
+    @dates << { :date => last_sunday_date - 1.week, :description => last_sunday_descritpion + ( last_sunday_date - 1.week).strftime('%m/%d/%Y')  }
     
     for i in 2..3
-      date = current_sunday - i.week
+      date = last_sunday_date - i.week
       @dates <<  { :date => date, :description => date.strftime('%m/%d/%Y') }
     end
 
-     @members = Couple.where(:is_active => true, :is_member => true)
-     @visitors = Couple.where(:is_active => true, :is_member => false)
+    @members = Family.where(:is_active => true, :is_member => true)
+    @visitors = Family.where(:is_active => true, :is_member => false)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,17 +30,34 @@ class AttendancesController < ApplicationController
   # GET /attendances/1
   # GET /attendances/1.json
   def show
-    @attendance = Attendance.where(:date =>  params[:date])
+    date = params[:date]
+    if date == 'last'
+      date = last_sunday_date
+    end
+    
+    @attendance = Attendance.where(:date => date)
 
     respond_to do |format|
       format.json { render json: @attendance }
+      format.mobile { render json: @attendance }
     end
   end
 
   def update
-    Attendance.mark_attendance(params[:couple_id], params[:date], (params[:husband_present] == true), (params[:wife_present] == true))
-    respond_to do |format|
-        format.json { head :no_content }
+    date = params[:date]
+
+    if date == 'last'
+      date = last_sunday_date
     end
+
+    Attendance.mark_attendance(params[:family_id], date, (params[:present] == true))
+    respond_to do |format|
+      format.json { head :no_content }
+      format.mobile { head :no_content }
+    end
+  end
+
+  def last_sunday_date
+    (DateTime.now - DateTime.now.wday).to_date
   end
 end

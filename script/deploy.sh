@@ -8,7 +8,7 @@ echo "rake assets:precompile"
 bundle exec rake assets:precompile
 mv ./config/database_orig.yml ./config/database.yml
 echo "copying files..."
-rsync -rvuz ~/dev/veritas_web/ bholt@geekytidbits.com:web/veritas --exclude='.git/' --exclude='log/'
+rsync -rvuz ~/dev/veritas_web/ bholt@geekytidbits.com:web/veritas --exclude='.git/' --exclude='log/' --exclude='tmp/cache' --delete
 echo "removing local precompiled assets"
 rm -r ~/dev/veritas_web/public/assets/*
 echo "bundle install"
