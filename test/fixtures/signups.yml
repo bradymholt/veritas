@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  description: MyString
+  send_reminder_email: false
+  send_reminder_email_days: 1
+  visible_admin_only: false
+  signup_slots: 1
+
+two:
+  title: MyString
+  description: MyString
+  send_reminder_email: false
+  send_reminder_email_days: 1
+  visible_admin_only: false
+  signup_slots: 1

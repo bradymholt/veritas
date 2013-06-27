@@ -1,0 +1,19 @@
+#content.default {  background-color: #808080; margin:0px; }
+#content.default h2 { font-size: 18px; }
+#content.default #wrapper {
+	width:1000px;
+	margin: 0 auto;
+	padding: 0 5px 0 5px;
+	background-color: white;
+}
+
+#content.default .row { margin: 0 auto;}
+
+#podcast-item-detail { font-style: italic;}
+
+.default .member { border-bottom: solid 1px #d4d4d4; padding-bottom: 10px;}
+
+.member .husband, .member .wife { margin-left:10px; width:215px;}
+.signup-detail { font-size:smaller;}
+.signup .title { font-weight: bold;}
+.admin #member-logout { display:none; }

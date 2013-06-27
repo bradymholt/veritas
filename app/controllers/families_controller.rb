@@ -1,10 +1,8 @@
 class FamiliesController < ApplicationController
-  skip_before_filter :require_login, :only => :members #for shutterfly member list
-  skip_before_filter :require_admin, :only => [:members, :show]
-  before_filter :store_request_in_thread
+  skip_before_filter :require_admin
   
   def index
-    @families = Family.order('last_name').all
+    @families = Family.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,12 +11,11 @@ class FamiliesController < ApplicationController
   end
 
   def members
-    @families = Family.where(:is_member => true, :is_active => true).order('last_name')
-
-    respond_to do |format|
-      format.js
-      format.mobile
-    end
+     @families = Family.where(:is_member => true)
+     respond_to do |format|
+        format.html # index.html.erb
+        format.mobile
+      end
   end
 
   def show
@@ -48,10 +45,6 @@ class FamiliesController < ApplicationController
 
     respond_to do |format|
       if @family.save
-        if @family.send_welcome_email 
-          FamilyMailer.welcome(@family, request.host).deliver
-        end
-        
         format.html { redirect_to families_url, notice: 'Family was successfully created.' }
         format.json { render json: @family, status: :created, location: @family }
       else
@@ -66,7 +59,7 @@ class FamiliesController < ApplicationController
 
     respond_to do |format|
       if @family.update_attributes(params[:family])
-        format.html { redirect_to families_url, notice: 'Family was successfully updated.' }
+        format.html { redirect_to params[:redirect_to] || families_url, notice: 'Family was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -89,9 +82,5 @@ class FamiliesController < ApplicationController
       format.html { redirect_to families_url, notice: 'Family was successfully marked inactive.' }
       format.json { head :no_content }
     end
-  end
-
-  def store_request_in_thread
-    Thread.current[:request] = request
   end
 end

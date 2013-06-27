@@ -1,4 +1,3 @@
-<h1>Settings</h1>
 <% if flash[:notice] %>
 <div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
 <% end %>
@@ -12,39 +11,98 @@
 </div>
 <% end %>
 <%= form_for @settings do |f| %>
-<%=f.label :group_name %>
-<%=f.text_field :group_name %>	
-<%=f.label :group_description%>
-<%=f.text_area :group_description, :rows => 3, :cols =>""  %> 
-<% if !@settings.logo.blank? %>
-<div>
-  <label for='logo'>Current Group Logo</label>
-  <%= image_tag(@settings.logo_url, :id => 'logo') if @settings.logo? %>
+<div class="row">
+  <div class="span4">
+   <fieldset><legend>Group Information</legend>
+    <%=f.label :group_name %>
+    <%=f.text_field :group_name %>	
+    <%=f.label :group_description%>
+    <%=f.text_area :group_description, :rows => 3, :cols =>""  %>
+    <%=f.label :contact_email%>
+    <%=f.text_field :contact_email %>  
+    <%=f.label :host_name, "Website Host Name" %>
+    <%=f.text_field :host_name %>  
+  </fieldset>
+  <fieldset><legend>Passwords</legend>
+   <%=f.label :user_password %>
+   <%=f.password_field :user_password, :value => @settings.user_password %>  
+   <%=f.label :admin_password %>
+   <%=f.password_field :admin_password, :value => @settings.admin_password %> 
+ </fieldset>
 </div>
-<% end %>
-<%= label_tag :logo, "New Group Logo" %>
-<%= f.file_field :logo %>
-<%=f.label :user_password %>
-<%=f.password_field :user_password, :value => @settings.user_password %>  
-<%=f.label :admin_password %>
-<%=f.password_field :admin_password, :value => @settings.admin_password %>  
-<%=f.label :google_calendar_username %>
-<%=f.text_field :google_calendar_username %>  
-<%=f.label :google_calendar_password %>
-<%=f.password_field :google_calendar_password, :value => @settings.google_calendar_password %> 
-<%=f.label :contact_email%>
-<%=f.text_field :contact_email %> 
-<% if !@settings.app_icon.blank? %>
-<div>
+<div class="span3">
+ <fieldset><legend>Google Calendar</legend>
+   <%=f.label :google_calendar_username %>
+   <%=f.text_field :google_calendar_username %>  
+   <%=f.label :google_calendar_password %>
+   <%=f.password_field :google_calendar_password, :value => @settings.google_calendar_password %>
+ </fieldset>
+ <fieldset><legend>Contact Queue</legend>
+   <%=f.label :contact_queue_notify_email %> 
+   <%=f.text_field :contact_queue_notify_email %> 
+   <label class="checkbox">
+    <input type="checkbox" id="contact-queue-visitors" %>
+    Add Visitors to Contact Queue
+  </label>
+  <div id="contact-queue-visitor-weeks" class="checkbox_dependent">
+    <span class="help-inline">each attendance up to</span>
+    <%= f.select(:contact_queue_visitors_present_weeks, Array(1..6), { :include_blank => '--' } )%>
+    <span class="help-inline">weeks</span>
+  </div>
+  <label class="checkbox">
+    <input type="checkbox" id="contact-queue-members" %>
+    Add Members to Contact Queue
+  </label>
+  <div id="contact-queue-members-weeks" class="checkbox_dependent">
+   <span class="help-inline">when absent</span>
+   <%= f.select(:contact_queue_members_absent_weeks, Array(1..6), { :include_blank => '--' } )%>
+   <span class="help-inline">weeks</span>
+ </div>
+</fieldset>
+</div>
+<div class="span5">
+ <% if !@settings.logo.blank? %>
+
+ <label for='logo'>Current Group Logo</label>
+ <%= image_tag(@settings.logo_url, :id => 'logo') if @settings.logo? %>
+
+ <% end %>
+ <%= label_tag :logo, "New Group Logo" %>
+ <%= f.file_field :logo %>
+ <% if !@settings.app_icon.blank? %>
+ <div>
   <label for='app_icon_image'>Current App Icon </label>
   <%= image_tag(@settings.app_icon_url, :id => 'app_icon_image') if @settings.app_icon? %>
 </div>
 <% end %>
 <%= label_tag :app_icon, "New App Icon (300x300 size is best)" %>
 <%= f.file_field :app_icon %>
-<%=f.label :welcome_email_html%>
-<%= f.cktext_area :welcome_email_html %>
+</div>
+</div>
+<div  class="row">
+  <div class="span12">
+    <% if !@settings.banner.blank? %>
+  <div>
+     <label for='banner'>Current Banner</label>
+    <%= image_tag(@settings.banner_url, :id => 'banner') if @settings.banner? %>
+  </div>
+ <% end %>
+ <%= label_tag :banner, "New Banner  (980x280 size is best)" %>
+ <%= f.file_field :banner %>
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
+   <%=f.label :welcome_email_html%>
+   <%= f.cktext_area :welcome_email_html, :ckeditor => {:width=>'980', :height=> '400', :toolbar => 'mini'} %>
+ </div>
+</div>
 <div class="form-actions">
   <%= f.submit "Save", :class => "btn btn-primary btn-large" %>
 </div>
 <% end %>
+<script type="text/javascript">
+$(function() {
+  Settings.initEdit();
+});
+</script>

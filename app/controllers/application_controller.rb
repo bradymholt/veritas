@@ -1,13 +1,23 @@
 class ApplicationController < ActionController::Base
+  layout :get_layout
   before_filter :prepare_for_mobile
   before_filter :require_login
   before_filter :require_admin
+  before_filter :store_request_in_thread
   protect_from_forgery
   helper_method :mobile_device?, :is_admin?
+
+  def get_layout
+      request.xhr? ? 'xhr' : 'application'
+  end
 
   def prepare_for_mobile
     session[:mobile_param] = params[:mobile] if params[:mobile]
     request.format = :mobile if mobile_device?
+  end
+
+  def store_request_in_thread
+    Thread.current[:request] = request
   end
 
   def require_login

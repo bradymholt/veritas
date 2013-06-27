@@ -1,0 +1,21 @@
+<div id="signup_details">
+	<%= @signup.details%>
+	<% if @signup.send_reminder_email %>
+	<div id="reminder_note">Note: A reminder email will be sent <%=@signup.send_reminder_email_days%> days before to those who signup.</div>
+	<% end %>
+</div>
+<%= form_for(@signup) do |f| %>
+<div id="slots">
+	<table class="table table-striped">
+		<tr><th>Date</th><th></th><th>Comments</th></tr>
+		<%= f.fields_for :signup_slots do |slot| %>
+		<tr class="<%= slot.object.family_id.nil? ? 'success' : ''%>">
+			<td><%=slot.object.date.strftime('%a, %m/%d')%></td>
+			<td><%= slot.select(:family_id,  options_from_collection_for_select(@families, 'id', 'full_name', slot.object.family_id), {:include_blank => '--Sign Up--'})%>
+			</td>
+			<td><%= slot.text_field :notes, :class=>'notes' %></td></tr>
+			<% end %>
+		</table>
+
+	</div>
+	<% end %>

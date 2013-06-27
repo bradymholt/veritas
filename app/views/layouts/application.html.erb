@@ -10,12 +10,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if is_admin? %>
   <div class="navbar">
     <div class="navbar-inner">
-      <a class="brand" id="nav_title" href="#"><%=Setting.cached.group_name%> ADMIN</a>
+      <a class="brand" id="nav_title" href="#">ADMIN PANEL</a>
       <ul class="nav">
+        <%=nav_link("Home", root_path) %>
         <%=nav_link("Roster", families_path) %>
         <%=nav_link("Attendance", attendances_path) %>
+        <%=nav_link("Signups", signups_path) %>
         <%=nav_link("Contact Queue", contact_queue_items_path) %>
         <%=nav_link("Podcast", podcasts_path) %>
         <%=nav_link("Reports", '/reports') %>
@@ -23,9 +26,9 @@
       </ul>
       <p class="text-right"><%=link_to 'Logout', '/logout' %></p>
     </div>
-
   </div>
-  <div id="content">
+  <% end %>
+  <div id="content" class="<%=params[:controller]%> <%= is_admin? ? 'admin' : ''%>">
     <%= yield %>
   </div>
 </body>

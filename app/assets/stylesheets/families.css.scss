@@ -1,4 +1,7 @@
 #roster tbody tr {display:none;} /* default, will be changed by js at runtime */
-form#edit_family,form#new_family .husband_fields { background-color: $husband_color; padding-left:8px; }
-form#edit_family,form#new_family .wife_fields { background-color: $wife_color; padding-left: 8px;}
+input.husband_field, .husband_fields input { background-color: $husband_color;}
+input.wife_field, .wife_fields input { background-color: $wife_color;}
 #roster td.full_name { font-size:larger; font-weight:bold;}
+.xhr.families h1 { display:none; }
+.edit-member { font-size:10px; margin-right: 5px;}
+.member .names { font-weight:bold; font-size:larger;}

@@ -22,7 +22,7 @@ end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass', '~> 2.3.2.0'
 gem 'therubyracer'
 gem 'carrierwave'
 gem 'fog'
@@ -31,7 +31,6 @@ gem 'mini_magick'
 gem 'mail', '>= 2.1.3'
 gem 'ckeditor'
 gem 'gcal4ruby', :git => 'git://github.com/SeabourneConsulting/GCal4Ruby.git'
-
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

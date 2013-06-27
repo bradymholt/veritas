@@ -1,0 +1,50 @@
+<% if flash[:notice] %>
+<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
+<% end %>
+<div>
+ <%= link_to 'New Signup', new_signup_path, :class => 'btn btn-small btn-success' %>
+</div>
+<% if @signups.count == 0 %>
+<div class="alert alert-info">
+  There are currently no signups.  Click the 'New Signup' button above to create one.
+</div>
+<%else%>
+<table id="signups" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Details</th>
+      <th>Date Range</th>
+      <th>Slots</th>
+      <th></th>
+  </tr>
+</thead>
+<tbody>
+  <% @signups.each do |s| %>
+  <tr>
+    <td class="title"><%= link_to s.title, edit_signup_path(s)%><%=%></td>
+    <td><%=s.details%></td>
+    <td>
+      <% if !s.date_min.nil? %>
+       <%=s.date_min.try(:strftime, '%B %d')%> - <%=s.date_max.try(:strftime, '%B %d')%><br/>
+      <% else %>
+       <p class="text-error">No dates</p>
+      <% end %>
+    </td>
+    <td>
+      <% if s.slot_count > 0 %>
+        <%=s.slot_count%> signup slots
+        <% if s.unslotted_count > 0 %>
+          <br/><strong><%=s.unslotted_count%> unassigned</strong>
+        <% end %>
+      <% else %>
+        <p class="text-error">No signup slots</p>
+      <% end %>
+    </td>
+    <td class="actions"><%= link_to 'Edit', edit_signup_path(s), :class=>'edit' %><%= link_to 'Delete', s, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+<% end %>
+

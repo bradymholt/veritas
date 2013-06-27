@@ -3,13 +3,17 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #login-container {
-  background-color: white; padding:10px;
+  background-color: white;
+  border: solid 2px #515151;
   margin: 0 auto;
   margin-top:50px;
   width: 450px;
+  padding:15px;
 }
 
-#sessions { background-color: #646464;}
+#sessions { background-color: #808080;}
 #sessions h1 { font-size:1.95em; line-height:20px; }
 #sessions img { float:right;}
-#sessions label { font-size:larger; font-weight:bold;}
+#sessions #password_fields { font-size:larger; font-weight:bold;}
+#remember { float:right; }
+#remember input, #remember label  { margin:5px; display:inline-block; }

@@ -1,0 +1,9 @@
+<h2>Members<i class="icon-user"></i></h2>
+<div id="members">
+	<% @families.each do |f| %>
+	<%= render :partial => 'families/show', :locals => { :family => f }  %>
+	<% end %>
+</div>
+<div id="edit-member-dialog" class="modal-dialog" title="Edit Member">
+	<p>Loading...</p>
+</div>

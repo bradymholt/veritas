@@ -1,0 +1,22 @@
+<div data-role="page" id="edit_podcast_page">
+	 <div data-role="header" data-id="head" data-theme="b">
+	 	<a data-rel="back" data-icon="arrow-l">Back</a>
+      <h1>Edit Podcast</h1>
+  </div>
+	<div data-role="content">	
+		 <% if flash[:error] %>
+        <div class="alert alert-error"><i class="icon-remove-sign"></i><%= flash[:error] %></div>
+        <% end %>
+        <%= form_for @podcast, :data => {:ajax => 'false'} do |f| %>
+       
+       <label for="date">Date</label>
+	   <div id="date"><%=f.object.date.strftime('%m/%d/%Y')%></div>
+	   <%=  f.hidden_field :date %>
+	   <%= f.label :speaker %>
+	   <%= f.text_field :speaker %>
+	   <%= f.label :title %>
+	   <%= f.text_field :title %>
+        <%= submit_tag "Save", :data => {:theme => 'b'} %>
+        <% end %>
+	</div><!-- /content -->
+</div><!-- /page -->

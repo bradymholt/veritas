@@ -1,9 +1,15 @@
 namespace :app do
 	desc "App bots"
-	task :bots => :environment do
+	task :weekly_bots => :environment do
 		Rake::Task["app:roster_bot"].execute
 		Rake::Task["app:contact_queue_bot"].execute
 		Rake::Task["app:calendar_bot"].execute
+	end
+
+	desc "Signup reminder bot"
+	task :signup_reminder_bot => :environment do
+		puts "[signup_reminder_bot]"
+		SignupReminderSender.send_due
 	end
 
 	desc "Roster bot"
@@ -19,9 +25,7 @@ namespace :app do
 	desc "Contact queue bot"
 	task :contact_queue_bot => :environment do
 		puts "[contact_queue_bot]"
-
-		ContactQueueEngine.queue_new_visitors
-		ContactQueueEngine.queue_absent_members
+		ContactQueueEngine.queue_all
 	end
 
 	desc "Calendar bot"
@@ -29,7 +33,7 @@ namespace :app do
 		puts "[calendar_bot]"
 		settings = Setting.first
 		if !settings.google_calendar_username.blank? && !settings.google_calendar_password.blank?
-			sync_families = Family.where(:is_member => true, :is_active => true)
+			sync_families = Family.where(:is_member => true)
 			GoogleCalendarSynchronizer.sync_families(settings.google_calendar_username, settings.google_calendar_password, sync_families)
 		else
 			"No calendar sync in configured."

@@ -1,4 +1,3 @@
-<h1>Contact Queue</h1>
 <% if flash[:notice] %>
 <div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
 <% end %>
@@ -19,7 +18,7 @@
    </thead>
    <tbody>
     <% @pending.each do |pending| %>
-    <tr>
+    <tr class="<%= !pending.family.is_member ? 'warning' : ''%>">
       <td><%=pending.created_at.try(:strftime, '%m/%d/%Y')%></td>
       <td><%=pending.family.full_name%></td>
       <td><%=pending.family.last_attendance_date.try(:strftime, '%m/%d/%Y')%></td>
@@ -39,7 +38,7 @@
           <th>Date Contacted</th>
           <th>Name</th>
           <th>Reason</th>
-          <th>Contacted By</th>
+          <th>Completed By</th>
           <th>Notes</th>
         </tr>
       </thead>

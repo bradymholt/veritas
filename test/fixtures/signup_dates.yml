@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  signup_id: 1
+  date: 2013-06-22
+  family_id: 1
+
+two:
+  signup_id: 1
+  date: 2013-06-22
+  family_id: 1

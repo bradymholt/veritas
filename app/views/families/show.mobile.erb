@@ -1,10 +1,10 @@
 <div data-role="page"  id="family_show_page">
 	<div data-role="header" data-id="head" data-theme="b">
 		<a data-rel="back" data-icon="arrow-l">Back</a>
-		<h1>Contact</h1>
+		<h1>Member</h1>
 	</div>
 	<div data-role="content">	
-		<div style="float:right">
+		<div class="pull-right">
 			<%= image_tag(@family.photo_url(:thumb)) %>
 		</div>
 		<h1><%=@family.full_name%></h1>

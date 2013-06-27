@@ -8,12 +8,12 @@
   </div>
     <div data-role="content-primary">
         <ul data-role="listview">
-            <li><a href="<%=members_url%>">Contacts</a></li>
+            <li><a href="<%=members_url%>">Members</a></li>
             <li><a href="<%=podcasts_url%>">Podcast</a></li>
             <% if is_admin? %>
             <li><a data-ajax="false" href="<%=attendances_url%>">Attendance<%= image_tag "lock_icon.png", :class => 'ui-li-icon' %></a></li>
             <% end %>
-             <li><a data-ajax="false" href="/?mobile=0">Desktop Website</a></li>
+             <li><a data-ajax="false" href="/?mobile=0">Desktop Site</a></li>
         </ul>
     </div>
 </div>

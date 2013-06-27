@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621181211) do
+ActiveRecord::Schema.define(:version => 20130627210936) do
 
   create_table "attendances", :force => true do |t|
     t.integer  "family_id"
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(:version => 20130621181211) do
   end
 
   create_table "settings", :force => true do |t|
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.string   "group_name"
     t.string   "user_password"
     t.string   "admin_password"
@@ -97,9 +97,33 @@ ActiveRecord::Schema.define(:version => 20130621181211) do
     t.string   "smtp_password"
     t.integer  "smtp_port"
     t.boolean  "smtp_tls"
-    t.text     "welcome_email_html",       :limit => 255
+    t.text     "welcome_email_html",                   :limit => 255
     t.string   "google_calendar_username"
     t.string   "google_calendar_password"
+    t.string   "host_name"
+    t.integer  "contact_queue_members_absent_weeks"
+    t.string   "contact_queue_notify_email"
+    t.integer  "contact_queue_visitors_present_weeks"
+    t.string   "banner"
+  end
+
+  create_table "signup_slots", :force => true do |t|
+    t.integer  "signup_id"
+    t.date     "date"
+    t.integer  "family_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "notes"
+  end
+
+  create_table "signups", :force => true do |t|
+    t.string   "title"
+    t.string   "details"
+    t.boolean  "send_reminder_email"
+    t.integer  "send_reminder_email_days"
+    t.boolean  "visible_admin_only"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
 end

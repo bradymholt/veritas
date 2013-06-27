@@ -74,7 +74,7 @@ $('#members_attendance, #visitors_attendance').on('pageinit', function( event ) 
 function load()
 {
 	$('input.present').prop('checked', false);
-	$.getJSON('/attendances/last', function(data) {
+	$.getJSON('/attendances/<%=@last_sunday_date%>', function(data) {
 		$.each(data, function(key, val) {
 			var present_check = $('input.present[family_id="' + val.family_id + '"]');
 			present_check.prop('checked', val.present ).checkboxradio().checkboxradio('refresh');
@@ -85,7 +85,7 @@ function load()
 function save(family_id, present){
 	var request = { 'present' : present }
 	$.ajax({
-		url: 'attendances/last/' + family_id,
+		url: 'attendances/<%=@last_sunday_date%>/' + family_id,
 		type: 'PUT',
 		data: JSON.stringify(request),
 		contentType: 'application/json'

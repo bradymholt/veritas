@@ -8,22 +8,43 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require twitter-bootstrap-static/bootstrap
- *=require twitter-bootstrap-static/fontawesome
  *= require jquery.ui.datepicker
+  *= require jquery.ui.dialog
  *= require_self
  */
 
+@import "bootstrap";
 @import "variables.css.scss";
 @import "attendances.css.scss";
 @import "contact_queue_items.css.scss";
 @import "families.css.scss";
+@import "signups.css.scss";
 @import "sessions.css.scss";
+@import "podcasts.css.scss";
+@import "default.css.scss";
+@import "settings.css.scss";
 
+.modal-dialog { display:none; }
+.admin_fields { padding: 8px; background-color: #faf4d8; margin-bottom: 15px; width:650px;}
 input.date { width: 75px;}
 #content { margin: 5px;}
 form { padding:10px;}
 .nowrap { white-space:nowrap; }
+td.actions a { padding: 0 5px 0 5px; }
+td.actions a.edit { font-weight: bold; }
+.checkbox_dependent { margin-left:20px; font-style:italic;}
+.field_with_errors { color: #b94a48;}
+.field_with_errors input,
+.field_with_errors select,
+.field_with_errors textarea {
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+/* xhr */
+.xhr .form-actions { display: none; }
 
 /* bootstrap overrides */
 i { margin: 4px;}
@@ -31,4 +52,6 @@ i { margin: 4px;}
 .alert { margin-top: 5px;}
 .alert ul { margin-bottom: 0px;}
 input[type="file"] { padding:5px;}
+.navbar { margin-bottom: 0px;}
+
 

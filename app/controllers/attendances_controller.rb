@@ -3,9 +3,11 @@ class AttendancesController < ApplicationController
   # GET /attendances.json
   def index
     @dates = []
+    @last_sunday_date = last_sunday_date
     @last_sunday_date_description = last_sunday_date.strftime('%m/%d/%Y')
     current_sunday_description = 'Last Sunday - '
     last_sunday_descritpion = ''
+
     if DateTime.now.wday == 0
       current_sunday_description = 'Today - '
       last_sunday_descritpion = 'Last Sunday - '
@@ -19,8 +21,8 @@ class AttendancesController < ApplicationController
       @dates <<  { :date => date, :description => date.strftime('%m/%d/%Y') }
     end
 
-    @members = Family.where(:is_active => true, :is_member => true)
-    @visitors = Family.where(:is_active => true, :is_member => false)
+    @members = Family.where(:is_member => true)
+    @visitors = Family.where(:is_member => false)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,10 +47,6 @@ class AttendancesController < ApplicationController
 
   def update
     date = params[:date]
-
-    if date == 'last'
-      date = last_sunday_date
-    end
 
     Attendance.mark_attendance(params[:family_id], date, (params[:present] == true))
     respond_to do |format|

@@ -1,0 +1,4 @@
+<tr>
+	<td><%=slot.object.date.strftime('%a, %m/%d')%></td>
+	<td><%= slot.select(:family_id,  options_from_collection_for_select(@families, 'id', 'full_name', slot.object.family_id), {:include_blank => '--Sign Up--'})%></td>
+	<td><%= slot.text_field :notes, :class=>'notes' %></td></tr>

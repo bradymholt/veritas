@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
 //= require jquery.ui.datepicker
+//= require jquery-ui.multidatespicker
+//= require jquery.ui.dialog
 //= require ckeditor/init
 //= require_tree .

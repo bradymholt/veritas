@@ -1,7 +1,0 @@
-// Place all the styles related to the couples controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-#roster tbody tr {display:none;} /* default, will be changed by js at runtime */
-form#edit_couple,form#new_couple .husband_fields { background-color: blue; }
-form#edit_couple,form#new_couple .wife_fields { background-color: pink; }

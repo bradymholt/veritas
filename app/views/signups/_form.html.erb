@@ -1,0 +1,65 @@
+<%= form_for(@signup) do |f| %>
+<% if @signup.errors.any? %>
+<div class="alert alert-error">
+  <ul>
+    <% @signup.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div class="row">
+  <div class="span3">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <%= f.label :details %>
+    <%= f.text_area :details, :rows => 10, :cols =>"" %>
+    <label class="checkbox">
+      <%= f.check_box :send_reminder_email %>
+      Send Reminder Email
+    </label>
+    <div id="reminder_days_container" class="checkbox_dependent">
+        <%= f.select(:send_reminder_email_days, Array(0..7),  :class=>'reminder_days') %><span class="help-inline">days before event</span>
+    </div>
+    <label class="checkbox">
+      <%= f.check_box :visible_admin_only %>
+      Visible to Admins Only
+    </label>
+  </div>
+  <div class="span4">
+    <label for="signup-dates">Signup Dates</label>
+    <div id="signup-dates">
+    </div>
+    <em>Click calendar days above to add signup dates.  To remove dates, click 'remove' next to the corresponding slots on the right.</em>
+  </div>
+  <div class="span5">
+    <label for="slots">Signup Slots</label>
+    <div id="no-slots-message" class="alert alert-info">
+      There are currently no signup slots because no dates have been selected.  To add signup slots, specify signup dates on the calendar.
+    </div>
+    <table id="slots" class="table table-striped">
+      <thead><tr><th>Date</th><th>Assigned to</th><th>Comments</th><th></th></tr></thead>
+      <tbody>
+        <%= f.fields_for(:signup_slots) do |slot| %>
+        <tr class="<%=slot.object.new_record? ? 'slotTemplate' : 'slot'%>">
+          <td><span class='dateDisplay'><%=slot.object.date.try(:strftime, '%m/%d/%Y')%></span><%= slot.hidden_field(:date, :class=>'date', :value => slot.object.date.try(:strftime, '%Y-%m-%d')) %></td>
+          <td><%= slot.select(:family_id,  options_from_collection_for_select(@families, 'id', 'full_name', slot.object.family_id), {:include_blank => 'None'})%></td>
+          <td><%= slot.text_field :notes, :class=>'notes' %></td>
+          <td><a href="#" class="removeSlot">remove</a> <%= slot.hidden_field :id %><%= slot.hidden_field(:_destroy, :class=>'destroy', :value=> slot.object.new_record? ? '1' : '') %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="form-actions">
+  <%= f.submit "Save", :class => "btn btn-primary btn-large" %>
+  <%= link_to 'Cancel', signups_path, :class => "btn" %>
+</div>
+<% end %>
+
+<script type="text/javascript">
+$(function() {
+  Signups.initEdit();
+});
+</script>

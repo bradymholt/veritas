@@ -1,0 +1,24 @@
+// Place all the styles related to the Signups controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#signup-dates .ui-widget-content .ui-state-highlight .ui-state-active, .ui-widget-content .ui-state-highlight .ui-state-default{
+	 background:none;
+	 background-color:#9efba9;
+ }
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	background: #e6e6e6 url(/assets/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+}
+
+/*today*/
+.ui-datepicker-today .ui-state-highlight {
+	background: none;
+	background-color:#fcfac7;
+}
+
+#slots input.notes { width: 100px;}
+#signup_send_reminder_email_days { width:50px;}
+.slotTemplate { display:none; }
+#signups td.title { font-weight: bold;}
+#signup_details #reminder_note { font-weight: bold; font-size:smaller;}

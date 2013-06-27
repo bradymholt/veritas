@@ -16,6 +16,12 @@
             </label>
             <%= password_field_tag :password %>
         </div>
+        <div data-role="fieldcontain">
+            <label for="remember_me">
+               Stay logged in
+            </label>
+            <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+        </div>
         <%= submit_tag "Login", :data => {:theme => 'b'} %>
         <% end %>
     </div>

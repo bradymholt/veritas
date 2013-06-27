@@ -1,11 +1,13 @@
 class PodcastsController < ApplicationController
-   skip_before_filter :require_login, :only => [:index]
-   skip_before_filter :require_admin, :only => [:index]
-
+ skip_before_filter :require_login, :only => [:index]
+ skip_before_filter :require_admin, :only => [:index]
+ skip_before_filter :require_login, :only => [:feed]
+ skip_before_filter :require_admin, :only => [:feed]
+ 
   # GET /podcasts
   # GET /podcasts.json
   def index
-    @podcasts = Podcast.order('date DESC').limit(30)
+    @podcasts = Podcast.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,14 +16,10 @@ class PodcastsController < ApplicationController
     end
   end
 
-  # GET /podcasts/1
-  # GET /podcasts/1.json
-  def show
-    @podcast = Podcast.find(params[:id])
-
+  def feed
+     @podcasts = Podcast.all
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @podcast }
+      format.any
     end
   end
 
@@ -68,9 +66,11 @@ class PodcastsController < ApplicationController
     respond_to do |format|
       if @podcast.update_attributes(params[:podcast])
         format.html { redirect_to podcasts_path, notice: 'Podcast was successfully updated.' }
+        format.mobile { redirect_to podcasts_path }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
+        format.mobile { render action: "edit" }
         format.json { render json: @podcast.errors, status: :unprocessable_entity }
       end
     end
@@ -83,7 +83,7 @@ class PodcastsController < ApplicationController
     @podcast.destroy
 
     respond_to do |format|
-      format.html { redirect_to podcasts_url, notice: 'Podcast was successfully delete.' }
+      format.html { redirect_to podcasts_url, notice: 'Podcast was successfully deleted.' }
       format.json { head :no_content }
     end
   end
