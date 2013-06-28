@@ -34,7 +34,7 @@ class BannerUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
-  process :resize_and_pad => [980, 280, '#ffffff', 'Center']
+  process :resize_to_limit => [980, 280, '#ffffff', 'Center']
   
   # Process files as they are uploaded:
   # process :scale => [200, 300]

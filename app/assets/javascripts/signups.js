@@ -2,6 +2,7 @@ var Signups = {
 	initEdit: function(){
 	 $('#signup-dates').multiDatesPicker({
 	    dateFormat: "yy-mm-dd",
+	    minDate: '-0d',
 	    onSelect: function(date) {
 	      $('#signup-dates').multiDatesPicker('addDates', date ); //prevent unselect
 	      Signups.addDateSlot(date);

@@ -1,15 +1,26 @@
 <div class="member">
-	<div class="pull-right"><%= image_tag(family.photo_url(:thumb)) %></div>
-	<div class="names"><%= family.full_name_first%><%= link_to "[Edit]", edit_family_path(family), :class => 'pull-right edit-member'%></div>
+	<div class="pull-right">
+		<%= image_tag(family.photo_url(:thumb)) %>
+		<div class="edit-member"><%= link_to "[Edit My Info]", edit_family_path(family)%></div>
+	</div>
+	<div class="names"><%= family.full_name_first%></div>
 	<div class="address">
 		<a target="_blank" href="http://maps.google.com/maps?q=<%=family.address.gsub(' ', '+')%>+<%=family.city_state_zip.gsub(' ', '+')%>">
 			<%=family.address%><br/>
 			<%=family.city_state_zip%></a>
 	</div>
 	<% if !family.husband_name.blank? %>
-	<div class="husband"><strong><%= family.husband_name%></strong> - <a href="mailto:<%=family.husband_email%>"><%=family.husband_email%></a> <%= family.husband_phone%> </div>
+	<div class="husband"><strong><%= family.husband_name%></strong> - <a href="mailto:<%=family.husband_email%>"><%=family.husband_email%></a> 
+		<% if !family.husband_phone.blank? %>  
+		<br/><%= family.husband_phone%> 
+		<% end %> 
+	</div>
 	<% end %>
 	<% if !family.wife_name.blank? %>
-	<div class="wife"><strong><%= family.wife_name%></strong> - <a href="mailto:<%=family.wife_email%>"><%=family.wife_email%></a> <%= family.wife_phone%></div>
+	<div class="wife"><strong><%= family.wife_name%></strong> - <a href="mailto:<%=family.wife_email%>"><%=family.wife_email%></a> 
+		<% if !family.husband_phone.blank? %>  
+		<br/><%= family.wife_phone%> 
+		<% end %> 
+	</div>
 	<% end %>	
 </div>

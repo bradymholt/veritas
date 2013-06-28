@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery
   layout :get_layout
   before_filter :prepare_for_mobile
   before_filter :require_login
   before_filter :require_admin
   before_filter :store_request_in_thread
-  protect_from_forgery
   helper_method :mobile_device?, :is_admin?
 
   def get_layout

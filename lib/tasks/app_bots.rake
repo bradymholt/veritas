@@ -1,9 +1,14 @@
 namespace :app do
-	desc "App bots"
+	desc "Weekly App bots"
 	task :weekly_bots => :environment do
 		Rake::Task["app:roster_bot"].execute
 		Rake::Task["app:contact_queue_bot"].execute
 		Rake::Task["app:calendar_bot"].execute
+	end
+
+	desc "Daily App bots"
+	task :daily_bots => :environment do
+		Rake::Task["app:signup_reminder_bot"].execute
 	end
 
 	desc "Signup reminder bot"

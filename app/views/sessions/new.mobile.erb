@@ -10,18 +10,18 @@
         <div class="alert alert-error"><i class="icon-remove-sign"></i><%= flash[:error] %></div>
         <% end %>
         <%= form_tag login_path, :class => 'form-horizontal', :data => {:ajax => 'false'} do |f| %>
-        <div data-role="fieldcontain">
-            <label for="password">
-                Password:
-            </label>
-            <%= password_field_tag :password %>
-        </div>
-        <div data-role="fieldcontain">
-            <label for="remember_me">
-               Stay logged in
-            </label>
-            <%= check_box_tag :remember_me, 1, params[:remember_me] %>
-        </div>
+          <div data-role="fieldcontain">
+              <label for="password">
+                  Password:
+              </label>
+              <%= password_field_tag :password %>
+          </div>
+          <div data-role="fieldcontain">
+              <label for="remember_me">
+                 Stay logged in
+              </label>
+              <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+          </div>
         <%= submit_tag "Login", :data => {:theme => 'b'} %>
         <% end %>
     </div>

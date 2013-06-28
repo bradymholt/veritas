@@ -1,12 +1,14 @@
 class FamiliesController < ApplicationController
-  skip_before_filter :require_admin
+  skip_before_filter :require_admin, :only => [:members,:edit,:update,:show]
   
   def index
-    @families = Family.all
+    @families = Family.unscoped.all
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @families }
+      format.csv { send_data Family.to_csv(@families), :filename => 'roster.csv'} 
+      format.xls { send_data Family.to_csv(@families, col_sep: "\t"), :filename => 'roster.xls' }
     end
   end
 

@@ -3,6 +3,7 @@ class SignupSlot < ActiveRecord::Base
   belongs_to :signup
   belongs_to :family
   validates :date, :presence => true
+  default_scope where('date >= ?', DateTime.now).order('date')
 
   def self.summary_by_signup
   	select('signup_id, max(date) as max_date, min(date) as min_date, count(id) as count_slots, sum(CASE WHEN family_id IS NULL THEN 1 ELSE 0 END) as count_unslotted')

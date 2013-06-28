@@ -12,7 +12,7 @@
   <div class="span3">
     <%= f.label :title %>
     <%= f.text_field :title %>
-    <%= f.label :details %>
+    <%= f.label :details %> <span class="help-inline">(sent with reminder email)</span>
     <%= f.text_area :details, :rows => 10, :cols =>"" %>
     <label class="checkbox">
       <%= f.check_box :send_reminder_email %>

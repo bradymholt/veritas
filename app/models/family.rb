@@ -79,6 +79,15 @@ end
     end
  end
 
+ def self.to_csv(families, options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      families.each do |family|
+        csv << family.attributes.values_at(*column_names)
+      end
+    end
+ end
+
 def self.husband_emails
  families = Family.all
  emails = []

@@ -15,15 +15,20 @@
       <th>Title</th>
       <th>Details</th>
       <th>Date Range</th>
-      <th>Slots</th>
+      <th>Signup Slots</th>
       <th></th>
   </tr>
 </thead>
 <tbody>
   <% @signups.each do |s| %>
   <tr>
-    <td class="title"><%= link_to s.title, edit_signup_path(s)%><%=%></td>
-    <td><%=s.details%></td>
+    <td class="title">
+      <%= link_to s.title, edit_signup_path(s)%>
+      <% if s.visible_admin_only %> 
+      <span class="label label-warning">Admin Only</span>
+      <% end %>
+    </td>
+    <td><div class="details"><%=s.details%></div></td>
     <td>
       <% if !s.date_min.nil? %>
        <%=s.date_min.try(:strftime, '%B %d')%> - <%=s.date_max.try(:strftime, '%B %d')%><br/>
@@ -33,7 +38,7 @@
     </td>
     <td>
       <% if s.slot_count > 0 %>
-        <%=s.slot_count%> signup slots
+        <%=s.slot_count%> slot<%= s.slot_count > 1 ? 's' : '' %> total
         <% if s.unslotted_count > 0 %>
           <br/><strong><%=s.unslotted_count%> unassigned</strong>
         <% end %>

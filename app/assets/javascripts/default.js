@@ -25,7 +25,7 @@ var Default = {
 		    });
 		});
 
-		$('a.edit-member').click(function(){
+		$('.edit-member a').click(function(){
 			var editUrl = $(this).attr('href');
 			var names = $(this).closest('.member').find('.names').text();
 			$('#edit-member-dialog').dialog({

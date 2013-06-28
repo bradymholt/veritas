@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627210936) do
+ActiveRecord::Schema.define(:version => 20130628201656) do
 
   create_table "attendances", :force => true do |t|
     t.integer  "family_id"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20130627210936) do
     t.string   "contact_queue_notify_email"
     t.integer  "contact_queue_visitors_present_weeks"
     t.string   "banner"
+    t.string   "google_analytics_tracking_id"
   end
 
   create_table "signup_slots", :force => true do |t|

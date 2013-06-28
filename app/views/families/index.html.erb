@@ -1,20 +1,25 @@
 <div class="row">
   <div class="span4">
-<ul id="roster_filter" class="nav nav-pills">
-  <li class="active">
-    <a id="active" href="#">Active</a>
-  </li>
-  <li><a id="member" href="#">Members</a></li>
-  <li><a id="visitor" href="#">Visitors</a></li>
-  <li><a id="inactive" href="#">Inactive</a></li>
-</ul>
-</div>
-<div class="span8">
-  <%= link_to 'Add New Family', new_family_path, :class => 'btn btn-small btn-success' %>
-</div>
+    <ul id="roster_filter" class="nav nav-pills">
+      <li class="active">
+        <a id="active" href="#">Active</a>
+      </li>
+      <li><a id="member" href="#">Members</a></li>
+      <li><a id="visitor" href="#">Visitors</a></li>
+      <li><a id="inactive" href="#">Inactive</a></li>
+    </ul>
   </div>
+  <div class="span2">
+    <%= link_to 'Add New Family', new_family_path, :class => 'btn btn-small btn-success' %>
+  </div>
+  <div class="span2 offset4">
+    <a class="btn btn-mini" href="<%=families_path(:format => :xls)%>"><%= image_tag "excel_icon.png", :class => 'ui-li-icon' %> Excel</a>
+  <a class="btn btn-mini" href="<%=families_path(:format => :csv)%>"><i class="icon-download-alt"></i> CSV</a>
+  </div>
+</div>
+</div>
 <% if flash[:notice] %>
-    <div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
+<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
 <% end %>
 <% if @families.count == 0 %>
 <div class="alert alert-info">
@@ -23,47 +28,47 @@
 <%else%>
 <table id="roster" class="table">
   <thead>
-  <tr class="header">
-    <th>Name</th>
-    <th>Email</th>
-    <th>Cell Phone</th>
-    <th>Birthday</th>
-    <th>Address</th>
-    <th>Home Phone</th>
-    <th>Anniversary</th>
-    <th></th>
-  </tr>
-</thead>
-<tbody>
-<% @families.each do |c| %>
-  <tr class="<%=c.is_active ? 'active ' + (c.is_member ? 'member' : 'visitor') : 'inactive'%>">
-    <td class="full_name"><%= link_to c.full_name, edit_family_path(c)%></td>
-    <td class="nowrap"><%=mail_to c.husband_email%><br/><%=mail_to c.wife_email%></td>
-    <td class="nowrap"><a href="tel:<%=c.husband_phone%>"><%=c.husband_phone%></a><br/><a href="tel:<%=c.wife_phone%>"><%=c.wife_phone%></a></td>
-    <td><%=c.husband_birthday.try(:strftime, '%m/%d')%><br/><%=c.wife_birthday.try(:strftime, '%m/%d')%></td>
-    <td><a href="http://maps.google.com/maps?q=<%=c.address.gsub(' ', '+')%>+<%=c.city_state_zip.gsub(' ', '+')%>"><%=c.address%><br/><%=c.city_state_zip%></a></td>
-    <td class="nowrap"><a href="tel:<%=c.home_phone%>"><%=c.home_phone%></a></td>
-    <td><%=c.anniversary.try(:strftime, '%m/%d')%></td>
-    <td><%= image_tag(c.photo_url(:thumb), :id => 'photo') %></td>
-  </tr>
-<% end %>
-</tbody>
+    <tr class="header">
+      <th>Name</th>
+      <th>Email</th>
+      <th>Cell Phone</th>
+      <th>Birthday</th>
+      <th>Address</th>
+      <th>Home Phone</th>
+      <th>Anniversary</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @families.each do |c| %>
+    <tr class="<%=c.is_active ? 'active ' + (c.is_member ? 'member' : 'visitor') : 'inactive'%>">
+      <td class="full_name"><%= link_to c.full_name, edit_family_path(c)%></td>
+      <td class="nowrap"><%=mail_to c.husband_email%><br/><%=mail_to c.wife_email%></td>
+      <td class="nowrap"><a href="tel:<%=c.husband_phone%>"><%=c.husband_phone%></a><br/><a href="tel:<%=c.wife_phone%>"><%=c.wife_phone%></a></td>
+      <td><%=c.husband_birthday.try(:strftime, '%m/%d')%><br/><%=c.wife_birthday.try(:strftime, '%m/%d')%></td>
+      <td><a href="http://maps.google.com/maps?q=<%=c.address.gsub(' ', '+')%>+<%=c.city_state_zip.gsub(' ', '+')%>"><%=c.address%><br/><%=c.city_state_zip%></a></td>
+      <td class="nowrap"><a href="tel:<%=c.home_phone%>"><%=c.home_phone%></a></td>
+      <td><%=c.anniversary.try(:strftime, '%m/%d')%></td>
+      <td><%= image_tag(c.photo_url(:thumb), :id => 'photo') %></td>
+    </tr>
+    <% end %>
+  </tbody>
 </table>
 <% end %>
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('#active,#member,#visitor,#inactive').click(function(){
-      filterRoster($(this).attr('id'));
-    }); 
+$(document).ready(function() {
+  $('#active,#member,#visitor,#inactive').click(function(){
+    filterRoster($(this).attr('id'));
+  }); 
 
-    filterRoster('active');
+  filterRoster('active');
 
-  });
+});
 
-  function filterRoster(showRowClass){
-      $('#roster_filter li').removeClass('active');
-      $('#' + showRowClass).closest('li').addClass('active');
-      $('#roster tbody tr').hide();
-      $('#roster tbody tr.' + showRowClass).css('display', 'table-row');
-   }
+function filterRoster(showRowClass){
+  $('#roster_filter li').removeClass('active');
+  $('#' + showRowClass).closest('li').addClass('active');
+  $('#roster tbody tr').hide();
+  $('#roster tbody tr.' + showRowClass).css('display', 'table-row');
+}
 </script>

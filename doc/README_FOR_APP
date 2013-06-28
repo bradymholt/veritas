@@ -7,7 +7,4 @@ TODO
 html audio player
 <span class="label label-important">Missing Email</span>
 force actual user password
-Signups admin index allowing details to go wide
-open slot count should only include future slots and make sure only future slots show on signup screen
-highlight admin only signups on admin index
-fix member list display on default
+Google calendar off

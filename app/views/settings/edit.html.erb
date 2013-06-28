@@ -31,11 +31,13 @@
  </fieldset>
 </div>
 <div class="span3">
- <fieldset><legend>Google Calendar</legend>
+ <fieldset><legend>Google Integration</legend>
    <%=f.label :google_calendar_username %>
    <%=f.text_field :google_calendar_username %>  
    <%=f.label :google_calendar_password %>
    <%=f.password_field :google_calendar_password, :value => @settings.google_calendar_password %>
+    <%=f.label :google_analytics_tracking_id %>
+   <%=f.text_field :google_analytics_tracking_id %>
  </fieldset>
  <fieldset><legend>Contact Queue</legend>
    <%=f.label :contact_queue_notify_email %> 
