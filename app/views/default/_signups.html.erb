@@ -1,18 +1,31 @@
-<% if @signups.length > 0 %>
 <h2>Signups<i class="icon-check"></i></h2>
-<% @signups.each do |s| %>
-<div class="signup" signup_id="<%=s.id%>">
-	<% if s.unslotted_count != 0 %>
-	<button class="btn btn-small btn-success pull-right">Signup</button>
-	<% else %>
-	<button class="btn btn-small pull-right">View Signups</button>
+<% if @signups.length > 0 %>
+	<% @signups.each do |s| %>
+	<div class="signup" signup_id="<%=s.id%>">
+		<div class="title"><%=s.title%></div>
+		<% if s.unslotted_count > 0 %>
+		<a href="<%=signupfoo_path(s)%>" role="button" class="btn btn-success btn-small pull-right" data-toggle="modal" data-target="#signup-modal">Signup</a>
+		<% else %>
+		<a href="<%=signupfoo_path(s)%>" role="button"class="btn btn-small pull-right" data-toggle="modal" data-target="#signup-modal">View</a>
+		<% end %>
+		<span class="badge badge-warning"><%=s.unslotted_count%></span> slots open		
+	</div>
 	<% end %>
-	<div class="title"><%=s.title%></div>
-	<span class="badge badge-warning"><%=s.unslotted_count%></span> slots left		
+	<div id="signup-modal" class="modal hide fade">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	    <h3>Signup</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p>Loading…</p>
+	  </div>
+	  <div class="modal-footer">
+	   <button class="btn btn-primary" id="save-signup" aria-hidden="true">Save</button>
+	   <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	  </div>
+	</div>
+<% else %>
+<div class="alert alert-info">
+  No signups are currently available.
 </div>
-<% end %>
-<div id="signups-dialog" class="modal-dialog" title="Signup">
-	<p>Loading...</p>
-</div>
-<hr/>
 <% end %>

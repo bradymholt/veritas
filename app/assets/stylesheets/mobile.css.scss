@@ -21,3 +21,10 @@
 	float:none;
 	position:inherit;
 }
+
+.member .photo { float:right;}
+.member .names { font-size:30px; font-weight:bold;}
+.member div { margin-top:15px; margin-bottom:15px;}
+.member .edit-member { display:none; }
+
+.pull-right { float: right; }

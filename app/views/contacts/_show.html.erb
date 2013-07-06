@@ -1,0 +1,24 @@
+<div class="member media">
+	<div class="pull-right media-object">
+		<%= image_tag(contact.photo_url(:thumb), :class=> 'contact-thumbnail') %>
+		<div class="edit-member"><a class="btn btn-mini edit" data-toggle="modal" data-target="#edit-contact-modal" role="button" href="<%=edit_contact_path(contact)%>" tabindex="-1">Edit</a> </div>
+	</div>
+	<div class="media-body">
+		<h4 class="media-heading"><%= contact.full_name_first%></h2>
+		<div class="address">
+			<a target="_blank" href="http://maps.google.com/maps?q=<%=contact.address.gsub(' ', '+')%>+<%=contact.city_state_zip.gsub(' ', '+')%>">
+				<%=contact.address%><br/>
+				<%=contact.city_state_zip%></a>
+		</div>
+		<% if !contact.first_name.blank? %>
+		<div class="male"><strong><%= contact.first_name%></strong> - <a href="tel:<%= contact.phone%> "><%= contact.phone%></a> 
+			<br/><div class="email"><a href="mailto:<%=contact.email%>"><%=contact.email%></a></div>
+		</div>
+		<% end %>
+		<% if !contact.spouse_name.blank? %>
+		<div class="female"><strong><%= contact.spouse_name%></strong> - <a href="tel:<%= contact.spouse_phone%> "><%= contact.spouse_phone%></a> 
+			<br/><div class="email"><a href="mailto:<%=contact.spouse_email%>"><%=contact.spouse_email%></a></div>
+		</div>
+		<% end %>	
+	</div>
+</div>

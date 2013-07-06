@@ -7,7 +7,8 @@
        <h1><%=Setting.cached.group_name%>  </h1>
        <p><%=Setting.cached.group_description%></p>
         <% if flash[:error] %>
-        <div class="alert alert-error"><i class="icon-remove-sign"></i><%= flash[:error] %></div>
+        <div class="alert alert-error"><i class="icon-remove-sign"></i><%= flash[:error] %>
+        <a class="close" data-dismiss="alert" href="#">&times;</a></div>
         <% end %>
         <%= form_tag login_path, :class => 'form-horizontal', :data => {:ajax => 'false'} do |f| %>
           <div data-role="fieldcontain">

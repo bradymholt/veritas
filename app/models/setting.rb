@@ -4,6 +4,10 @@ class Setting < ActiveRecord::Base
   mount_uploader :app_icon, AppIconUploader
   mount_uploader :banner, BannerUploader
 
+  def google_calendar_enabled?
+    !self.google_calendar_username.blank? && !self.google_calendar_username.blank?
+  end
+
   def Setting.cached
 	  Rails.cache.fetch("settings", :expires_in => 5.minutes) do
 	    Setting.first

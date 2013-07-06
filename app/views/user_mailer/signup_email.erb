@@ -1,0 +1,6 @@
+<p>Signup slots for <strong><%=@signup.title%></strong> are now available.  To signup, simply login to the <%= Setting.cached.group_name%> website.</p>
+<% if !@signup.details.blank? %>
+<p><strong>Details:</strong></p>
+<%= @signup.details %>
+<% end %>
+	

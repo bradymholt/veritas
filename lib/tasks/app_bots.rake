@@ -1,7 +1,7 @@
 namespace :app do
 	desc "Weekly App bots"
 	task :weekly_bots => :environment do
-		Rake::Task["app:roster_bot"].execute
+		Rake::Task["app:contact_bot"].execute
 		Rake::Task["app:contact_queue_bot"].execute
 		Rake::Task["app:calendar_bot"].execute
 	end
@@ -17,13 +17,24 @@ namespace :app do
 		SignupReminderSender.send_due
 	end
 
-	desc "Roster bot"
-	task :roster_bot => :environment do
+	desc "Contact bot"
+	task :contact_bot => :environment do
 		puts "[roster_bot]"
-		puts "Inactivating families without atendance in 6 months..."
-		family_id_last_attendance_six_months_ago = Attendance.select('family_id').includes(:family).where('families.is_active = ?', true).group('family_id').having('max(date) <= ?', DateTime.now.to_date - 6.months).map(&:family_id)
-		Family.update_all({:is_active => false}, ['id IN (?)', family_id_last_attendance_six_months_ago ])
-		puts "#{family_id_last_attendance_six_months_ago.length} families inactivated."
+		settings = Setting.first
+		if !settings.contacts_inactivate_after_no_attendance_weeks.nil?
+			puts "Inactivating contacts without atendance in #{settings.contacts_inactivate_after_no_attendance_weeks} weeks."
+			last_attendance_before = DateTime.now - (settings.contacts_inactivate_after_no_attendance_weeks).weeks
+			
+			contact_id_inactive = Attendance.select('contact_id')
+				.includes(:contact)
+				.where('contacts.is_active = ?', true)
+				.group('contact_id')
+				.having('max(date) < ?', last_attendance_before)
+				.map(&:contact_id)
+
+			Contact.update_all({:is_active => false}, ['id IN (?)', contact_id_inactive ])
+			puts "#{contact_id_inactive.length} contacts inactivated."
+		end
 
 	end
 
@@ -37,9 +48,9 @@ namespace :app do
 	task :calendar_bot => :environment do
 		puts "[calendar_bot]"
 		settings = Setting.first
-		if !settings.google_calendar_username.blank? && !settings.google_calendar_password.blank?
-			sync_families = Family.where(:is_member => true)
-			GoogleCalendarSynchronizer.sync_families(settings.google_calendar_username, settings.google_calendar_password, sync_families)
+		if settings.google_calendar_enabled?
+			sync_contacts = Contact.where(:is_member => true, :is_active => true)
+			GoogleCalendarSynchronizer.sync_contacts(settings.google_calendar_username, settings.google_calendar_password, sync_contacts)
 		else
 			"No calendar sync in configured."
 		end

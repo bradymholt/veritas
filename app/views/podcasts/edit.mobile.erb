@@ -5,7 +5,9 @@
   </div>
 	<div data-role="content">	
 		 <% if flash[:error] %>
-        <div class="alert alert-error"><i class="icon-remove-sign"></i><%= flash[:error] %></div>
+        <div class="alert alert-error"><i class="icon-remove-sign"></i><%= flash[:error] %>
+        	<a class="close" data-dismiss="alert" href="#">&times;</a>
+        </div>
         <% end %>
         <%= form_for @podcast, :data => {:ajax => 'false'} do |f| %>
        

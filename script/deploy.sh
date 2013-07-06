@@ -2,6 +2,8 @@
 
 cd ~/dev/veritas_web
 git pull
+echo "rake tmp:clear (local)"
+bundle exec rake tmp:clear
 mv ./config/database.yml ./config/database_orig.yml
 cp ./config/database_deploy.yml ./config/database.yml
 echo "rake assets:precompile"
@@ -17,6 +19,8 @@ echo "rake db:migrate"
 ssh bholt@geekytidbits.com 'cd ~/web/veritas && bundle exec rake db:migrate RAILS_ENV="production"'
 echo "rake tmp:clear"
 ssh bholt@geekytidbits.com 'cd ~/web/veritas && bundle exec rake tmp:clear'
+echo "rake log:clear"
+ssh bholt@geekytidbits.com 'cd ~/web/veritas && bundle exec rake log:clear'
 echo "touch tmp/restart.txt"
 ssh bholt@geekytidbits.com 'touch ~/web/veritas/tmp/restart.txt'
 echo "Deploy Successful!"

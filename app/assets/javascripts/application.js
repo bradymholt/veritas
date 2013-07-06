@@ -14,6 +14,39 @@
 //= require jquery_ujs
 //= require jquery.ui.datepicker
 //= require jquery-ui.multidatespicker
-//= require jquery.ui.dialog
+//= require jquery.flot
+//= require jquery.flot.resize
+//= require jquery.flot.time
+//= require bootstrap-tooltip
+//= require bootstrap-modal
+//= require bootstrap-alert
+//= require bootstrap-tab
 //= require ckeditor/init
 //= require_tree .
+//= requuire_self
+
+var App = {
+	setupCheckboxInputDependency: function(checkbox, container){
+		
+		var inputs = $('input,select', container);
+		var defaultValue = inputs.val();
+		
+		App.checkboxInputDependencyRefresh(checkbox, container, inputs);
+
+		checkbox.change(function(){
+			if ($(this).prop('checked')){
+				inputs.val(defaultValue);
+				container.show();
+			}
+			else{
+				inputs.val('');
+				container.hide();
+			}
+		});
+	},
+	checkboxInputDependencyRefresh: function(checkbox, container, inputs){
+		var hasValue = inputs.val() != '';	
+		checkbox.prop('checked', hasValue); 
+		container.css('display', hasValue ? 'block' : 'none' );
+	}
+};

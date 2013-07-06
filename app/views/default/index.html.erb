@@ -1,18 +1,21 @@
 <div id="wrapper">
-	<div id="member-logout" class="pull-right"><%=link_to 'Logout', '/logout' %></div>
 	<div class="text-center">
 		<%= image_tag(Setting.cached.banner_url, :id => 'banner') if Setting.cached.banner? %>
 	</div>
+	<% if flash[:notice] %>
+		<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %><a class="close" data-dismiss="alert" href="#">&times;</a></div>
+	<% end %>
 	<div id="inner-content" class="row">
 		<div class="span4">
-			<%= render 'signups' %>
-			<%= render 'calendar' %>
+			<%= render 'contacts'%>			
 		</div>
-		<div class="span3">
+		<div class="span4">
+			<%= render 'signups' %>
 			<%= render 'podcasts' %>
 		</div>
-		<div class="span5">
-			<%= render 'members'%>
+		<div class="span4">
+			<%= render 'announcements' %>
+			<%= render 'calendar' %>
 		</div>
 	</div>
 

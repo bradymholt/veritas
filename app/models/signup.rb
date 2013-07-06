@@ -1,15 +1,23 @@
 class Signup < ActiveRecord::Base
+  SEND_SIGNUP_EMAIL_TO = ['Everyone', 'Members', 'Men', 'Women', 'Visitors']
+
   has_many :signup_slots, :dependent => :destroy
-  attr_accessible :details, :send_reminder_email, :send_reminder_email_days, :title, :visible_admin_only, :signup_slots_attributes
-  attr_accessor :date_min, :date_max, :slot_count, :unslotted_count
+  attr_accessible :details, :send_signup_email_to, :send_reminder_email_days, :title, :visible_admin_only, :signup_slots_attributes
+  attr_accessor :send_signup_email_to, :date_min, :date_max, :slot_count, :unslotted_count
   accepts_nested_attributes_for :signup_slots, :allow_destroy => true
   validates :title, :presence => true
-  after_initialize :default_values
+  after_save :send_signup_email
 
+  def set_new_default_values
+    self.send_reminder_email_days = 2 if new_record?
+  end
 
-  def default_values
-    self.send_reminder_email = true if self.send_reminder_email.nil?
-    self.send_reminder_email_days = 2 if self.send_reminder_email_days.nil?
+   def send_signup_email
+   if !@send_signup_email_to.blank?
+     Thread.new do
+        UserMailer.signup_email(self, @send_signup_email_to.to_i).deliver
+      end
+    end
   end
 
   def self.upcoming_available_for_signup()

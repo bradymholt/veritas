@@ -1,0 +1,26 @@
+<table width="600">
+	<tbody>
+		<tr>
+			<td>
+				<img src="http://s3.amazonaws.com/veritasclass/images/logo.png">
+			</td>
+			<td style="text-align:right;">
+				<div style="font-family:Lucida Grande,Arial,Helvetica,Geneva,Verdana,sans-serif;color:#333333;font-weight:bold;font-size:20px;line-height:1.5em"><%= Setting.cached.group_name%></div>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-top:solid 1px #d2d1d1; padding:15px;" colspan="2">
+				<div style="margin:0px 0px 0px 5px;font-family:Lucida Grande,Arial,Helvetica,Geneva,Verdana,sans-serif;color:#333333;font-size:14px;line-height:1.5em">
+				<%= yield %>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-top:solid 1px #d2d1d1; padding-top:20px;" colspan="2">
+				<div style="background-color:#d2d2d2; border:solid 1px #898989; padding:5px; margin:0px 0px 0px 5px;font-family:Lucida Grande,Arial,Helvetica,Geneva,Verdana,sans-serif;color:#333333;font-size:14px;line-height:1.5em">
+				<p style="text-align:center;"><a href="http://<%= Setting.cached.host_name%>"><strong>http://<%= Setting.cached.host_name%></strong></a> (Password: <strong><%=Setting.cached.user_password%></strong>)</p>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>

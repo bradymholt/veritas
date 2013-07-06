@@ -1,9 +1,11 @@
 <% if flash[:notice] %>
-<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
+<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %>
+<a class="close" data-dismiss="alert" href="#">&times;</a>
+</div>
 <% end %>
   <% if @pending.count == 0 %>
   <div class="alert alert-info">
-    There are no contact queue items.
+    There are no Contact Queue items.  Contact Queue configuration can be managed on the <a href="<%= settings_path %>">Settings</a> page.
   </div>
   <%else%>
   <table class="table table-striped">
@@ -18,10 +20,10 @@
    </thead>
    <tbody>
     <% @pending.each do |pending| %>
-    <tr class="<%= !pending.family.is_member ? 'warning' : ''%>">
+    <tr class="<%= !pending.contact.is_member ? 'warning' : ''%>">
       <td><%=pending.created_at.try(:strftime, '%m/%d/%Y')%></td>
-      <td><%=pending.family.full_name%></td>
-      <td><%=pending.family.last_attendance_date.try(:strftime, '%m/%d/%Y')%></td>
+      <td><%=pending.contact.full_name%></td>
+      <td><%=pending.contact.last_attendance_date.try(:strftime, '%m/%d/%Y')%></td>
       <td><%=pending.reason%></td>
       <td><%= link_to 'Contact', edit_contact_queue_item_url(pending), :class => 'btn btn-primary' %></td>
     </tr>
@@ -46,7 +48,7 @@
         <% @completed.each do |completed| %>
         <tr>
           <td><%=completed.completed_date.strftime('%m/%d/%Y')%></td>
-          <td><a href="<%=edit_family_url(completed.family.id)%>"><%=completed.family.full_name%></a></td>
+          <td><a href="<%=edit_contact_url(completed.contact.id)%>"><%=completed.contact.full_name%></a></td>
           <td><%=completed.reason%></td>
           <td><%=completed.completed_by%></td>
           <td><%=completed.completed_notes%></td>

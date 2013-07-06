@@ -1,0 +1,19 @@
+<h2>Last Date Present</h2>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Family</th>
+			<th></th>
+			<th>Last Date Present</th>
+		</tr>
+	</thead>
+	<tbody>
+<% @attendance.each do |a| %>
+	<tr>
+	<td><a href="<%=edit_contact_url(a)%>"><%=a.full_name%></a></td>
+	<td><%=a.type_name%></td>
+	<td><%=a.last_date.try(:to_date).try(:strftime, '%m/%d/%Y')%></td>
+	</tr>
+<% end %>
+</tbody>
+</table>

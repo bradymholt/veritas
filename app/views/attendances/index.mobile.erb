@@ -1,5 +1,5 @@
 <div data-role="page" id="attendance_page">
-	<div data-role="header" data-id="head" data-theme="b">
+	<div data-role="header" data-position="fixed" data-id="head" data-theme="b">
 		<a data-rel="back" data-icon="arrow-l">Back</a>
 		<h1>Attendance</h1>
 	</div>
@@ -22,7 +22,7 @@
 			<% @members.each do |m|%>
 		<li>
 			<label data-corners="false">
-				<input type="checkbox" family_id="<%=m.id%>" id="present_<%=m.id%>" class="present" />
+				<input type="checkbox" contact_id="<%=m.id%>" id="present_<%=m.id%>" class="present" />
 				<label for="present_<%=m.id%>">
 					<label> 
 						<h3><%=m.full_name%></h3>
@@ -46,7 +46,7 @@
 			<% @visitors.each do |v|%>
 			<li>
 			<label data-corners="false">
-				<input type="checkbox" family_id="<%=v.id%>" id="present_<%=v.id%>" class="present" />
+				<input type="checkbox" contact_id="<%=v.id%>" id="present_<%=v.id%>" class="present" />
 				<label for="present_<%=v.id%>">
 					<label> 
 						<h3><%=v.full_name%></h3>
@@ -62,37 +62,7 @@
 
 <script type="text/javascript">
 $('#members_attendance, #visitors_attendance').on('pageinit', function( event ) {
-	load();
-
-	$('input.present').change(function(){
-		var list_item = $(this).closest('li');
-		var present_check = list_item.find('input.present');
-		save(present_check.attr('family_id'), present_check.prop('checked'));
-	});
+	Attendance.initMobile('<%=@last_sunday_date%>');
 });
 
-function load()
-{
-	$('input.present').prop('checked', false);
-	$.getJSON('/attendances/<%=@last_sunday_date%>', function(data) {
-		$.each(data, function(key, val) {
-			var present_check = $('input.present[family_id="' + val.family_id + '"]');
-			present_check.prop('checked', val.present ).checkboxradio().checkboxradio('refresh');
-		});
-	});
-}
-
-function save(family_id, present){
-	var request = { 'present' : present }
-	$.ajax({
-		url: 'attendances/<%=@last_sunday_date%>/' + family_id,
-		type: 'PUT',
-		data: JSON.stringify(request),
-		contentType: 'application/json'
-	}).done(function(data){
-		console.log('done');
-	}).fail(function(jqXHR, textStatus) {
-		console.log('fail');
-	});
-}
 </script>

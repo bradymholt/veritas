@@ -1,0 +1,17 @@
+<h2>Upcoming Events (Next 6 Months)</h2>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Description</th>
+			<th>Date</th>
+		</tr>
+	</thead>
+	<tbody>
+<% @dates.each do |d| %>
+	<tr>
+	<td><%=d[:description]%></td>
+	<td><%=d[:date].strftime('%m/%d/%Y')%></td>
+	</tr>
+<% end %>
+</tbody>
+</table>

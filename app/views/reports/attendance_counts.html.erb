@@ -1,0 +1,62 @@
+<h2>Attendance Counts</h2>
+<div class="row">
+	<div class="span3">
+	<label for="weeks_back">Date Scope:</label>
+	<select id="weeks_back">
+		<option value="6">Last 6 weeks</option>
+		<option value="12">Last 3 months</option>
+		<option value="26">Last 6 months</option>
+		<option value="52">Last year</option>
+	</select>
+	</div>
+	<div class="span6">
+		<label for="include">
+			Include:
+		</label>
+		<select id="include">
+			<option value="all">Members and Visitors</option>
+			<option value="members">Members Only</option>
+			<option value="visitors">Visitors Only</option>
+		</select>
+	</div>
+</div>
+<div id="chart-x-axis">
+	Families Present
+</div>
+<div id="chart">
+</div>
+
+  <script type="text/javascript">
+	  $(function() {
+	  	refresh();
+
+	  	$('#weeks_back, #include').change(function(){
+	  		refresh();
+	  	})
+	  });
+
+	  function refresh(){
+	  	var weeks_back_value = $('#weeks_back').val();
+	  	var include_value = $('#include').val();
+	  	$.ajax({
+			url: '/reports/attendance_counts_data/',
+			type: 'GET',
+			data: { weeks_back: weeks_back_value, include: include_value },
+			contentType: 'application/json'
+		}).done(function(data){
+			$('#chart').plot([
+	    	{ 
+	    	  data: $.map(data, function(i){ return [[i.date, i.count]] }), 
+	    	  lines: { show: true }
+	    	}], {
+				xaxis: {
+		      		mode: "time",
+		      		tickSize: [7, "day"],
+		      		timeformat: "%m/%d/%y"
+		  		}
+	  		});
+		}).fail(function(jqXHR, textStatus) {
+			$('#chart').html('<div class="alert alert-error">An error occured.</div>');
+		});
+	  }
+  </script>

@@ -1,0 +1,6 @@
+<%= form_for(@contact) do |f| %>
+     <%= f.label :is_member, "Members", :class => "checkbox inline" %>
+     <%= f.check_box :is_member %> </li>
+     <%= f.label :is_active, "Active", :class => "checkbox inline" %>
+       <%= f.check_box :is_active %>
+<% end %>

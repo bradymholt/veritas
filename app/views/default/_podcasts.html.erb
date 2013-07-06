@@ -1,16 +1,22 @@
 <% if @podcasts.length > 0 %>
-<h2>Podcast<i class="icon-headphones"></i></h2>
-<ul>
-	<% @podcasts.each_with_index do |p, index| %>
-	<li id="podcast-item">
-		<% if index == 0 && p.is_recent? %>
-		<span class="label label-success">New!</span>
+	<h2>Podcast<i class="icon-headphones"></i></h2>
+	<ul>
+		<% @podcasts.each_with_index do |p, index| %>
+		<li id="podcast-item">
+			<% if index == 0 && p.is_recent? %>
+			<span class="label label-success">New!</span>
+			<% end %>
+			<a target="_blank" href="<%=p.audio_url%>"><%=p.title%></a>
+			<div id="podcast-item-detail"><%=p.date.strftime('%B %d, %Y')%> / <%=p.speaker%></div>
+		</li>
 		<% end %>
-		<a target="_blank" href="<%=p.audio_url%>"><%=p.title%></a>
-		<div id="podcast-item-detail"><%=p.date.strftime('%B %d, %Y')%> / <%=p.speaker%></div>
-	</li>
+	</ul>
+	<hr/>
+	<% if !Setting.cached.podcast_itunes_url.blank? %>
+	<div class="pull-right itunes-link">
+	<%= image_tag "itunes.png" %>
+	<a target="_blank" href="<%=Setting.cached.podcast_itunes_url%>">iTunes</a>
+	</div>
 	<% end %>
-</ul>
-<hr/>
-<a href="<%=podcast_feed_path%>"><i class="icon-bookmark"></i>Podcast Feed</a> 
+	<a href="<%=podcast_feed_path%>"><i class="icon-bookmark"></i>Podcast RSS Feed</a> 
 <% end %>

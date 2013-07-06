@@ -1,18 +1,31 @@
-#content.default {  background-color: #808080; margin:0px; }
-#content.default h2 { font-size: 18px; }
-#content.default #wrapper {
+.default #content{  background-color: #808080; margin:0px; }
+.default #content h2 { font-size: 18px; }
+.default #content h3 { font-size: 14px; }
+.default #content #wrapper {
 	width:1000px;
 	margin: 0 auto;
 	padding: 0 5px 0 5px;
 	background-color: white;
 }
 
-#content.default .row { margin: 0 auto;}
-
+.default #content .row { margin: 0 auto;}
 #podcast-item-detail { font-style: italic;}
-
-.default .member { border-bottom: solid 1px #d4d4d4; padding-bottom: 10px;}
-
+.default .member .email { width: 145px; text-overflow: ellipsis; overflow: hidden;}
+.default .signup { border-bottom: solid 1px #d4d4d4; padding: 10px 0 10px 0;}
+.default .signup .title { font-size:16px; padding-bottom:5px;}
 .signup-detail { font-size:smaller;}
 .signup .title { font-weight: bold;}
-.admin #member-logout { display:none; }
+
+.default dt { font-size:17.5px; margin-bottom:5px; }
+.default dd { font-size:17.5px; margin-botton:5px; margin-bottom:10px;}
+
+#edit-contact-modal .modal-body { max-height: 450px;}
+#edit-contact-modal {
+	width: 850px; /* SET THE WIDTH OF THE MODAL */
+	margin-left: -425px;
+}
+
+#signup-modal {
+	width:700px;
+	margin-left: -350px;
+}

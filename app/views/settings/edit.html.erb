@@ -1,5 +1,7 @@
 <% if flash[:notice] %>
-<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
+<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %>
+  <a class="close" data-dismiss="alert" href="#">&times;</a>
+</div>
 <% end %>
 <% if @settings.errors.any? %>
 <div class="alert alert-error">
@@ -11,93 +13,163 @@
 </div>
 <% end %>
 <%= form_for @settings do |f| %>
-<div class="row">
-  <div class="span4">
-   <fieldset><legend>Group Information</legend>
-    <%=f.label :group_name %>
-    <%=f.text_field :group_name %>	
-    <%=f.label :group_description%>
-    <%=f.text_area :group_description, :rows => 3, :cols =>""  %>
-    <%=f.label :contact_email%>
-    <%=f.text_field :contact_email %>  
-    <%=f.label :host_name, "Website Host Name" %>
-    <%=f.text_field :host_name %>  
-  </fieldset>
-  <fieldset><legend>Passwords</legend>
-   <%=f.label :user_password %>
-   <%=f.password_field :user_password, :value => @settings.user_password %>  
-   <%=f.label :admin_password %>
-   <%=f.password_field :admin_password, :value => @settings.admin_password %> 
- </fieldset>
-</div>
-<div class="span3">
- <fieldset><legend>Google Integration</legend>
-   <%=f.label :google_calendar_username %>
-   <%=f.text_field :google_calendar_username %>  
-   <%=f.label :google_calendar_password %>
-   <%=f.password_field :google_calendar_password, :value => @settings.google_calendar_password %>
-    <%=f.label :google_analytics_tracking_id %>
-   <%=f.text_field :google_analytics_tracking_id %>
- </fieldset>
- <fieldset><legend>Contact Queue</legend>
-   <%=f.label :contact_queue_notify_email %> 
-   <%=f.text_field :contact_queue_notify_email %> 
-   <label class="checkbox">
-    <input type="checkbox" id="contact-queue-visitors" %>
-    Add Visitors to Contact Queue
-  </label>
-  <div id="contact-queue-visitor-weeks" class="checkbox_dependent">
-    <span class="help-inline">each attendance up to</span>
-    <%= f.select(:contact_queue_visitors_present_weeks, Array(1..6), { :include_blank => '--' } )%>
-    <span class="help-inline">weeks</span>
+<ul class="nav nav-tabs" id="setting-tabs">
+  <li class="active"><a href="#general">General</a></li>
+  <li><a href="#home">Home</a></li>
+  <li><a href="#contacts">Contacts</a></li>
+  <li><a href="#contact-queue">Contact Queue</a></li>
+  <li><a href="#podcast">Podcast</a></li>
+  <li><a href="#misc">Misc</a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="general">  
+    <div class="row">
+     <div class="span4">
+       <fieldset><legend>Group Information</legend>
+        <%=f.label :group_name %>
+        <%=f.text_field :group_name %>  
+        <%=f.label :group_description%>
+        <%=f.text_area :group_description, :rows => 3, :cols =>""  %>
+        <%=f.label :contact_email%>
+        <%=f.text_field :contact_email %>  
+        <%=f.label :host_name, "Website Host Name" %>
+        <%=f.text_field :host_name %>  
+        <label class="checkbox">
+          <%=f.check_box :contact_email_cc %>  
+          Copy Emails to this Address
+        </label>
+      </fieldset>
+   </div>
+   <div class="span4">
+     <fieldset><legend>Passwords</legend>
+       <%=f.label :user_password %>
+       <%=f.password_field :user_password, :value => @settings.user_password %>  
+       <%=f.label :admin_password %>
+       <%=f.password_field :admin_password, :value => @settings.admin_password %> 
+     </fieldset>
+   </div>
+   <div class="span4">
+     <% if !@settings.logo.blank? %>
+     <label for='logo'>Current Group Logo</label>
+     <%= image_tag(@settings.logo_url, :id => 'logo') if @settings.logo? %>
+     <% end %>
+     <%= label_tag :logo, "New Group Logo" %>
+     <%= f.file_field :logo %>
+     <% if !@settings.app_icon.blank? %>
+     <div>
+      <label for='app_icon_image'>Current App Icon </label>
+      <%= image_tag(@settings.app_icon_url, :id => 'app_icon_image') if @settings.app_icon? %>
+    </div>
+    <% end %>
+    <%= label_tag :app_icon, "New App Icon (300x300 size is best)" %>
+    <%= f.file_field :app_icon %>
   </div>
-  <label class="checkbox">
-    <input type="checkbox" id="contact-queue-members" %>
-    Add Members to Contact Queue
-  </label>
-  <div id="contact-queue-members-weeks" class="checkbox_dependent">
-   <span class="help-inline">when absent</span>
-   <%= f.select(:contact_queue_members_absent_weeks, Array(1..6), { :include_blank => '--' } )%>
-   <span class="help-inline">weeks</span>
- </div>
-</fieldset>
-</div>
-<div class="span5">
- <% if !@settings.logo.blank? %>
-
- <label for='logo'>Current Group Logo</label>
- <%= image_tag(@settings.logo_url, :id => 'logo') if @settings.logo? %>
-
- <% end %>
- <%= label_tag :logo, "New Group Logo" %>
- <%= f.file_field :logo %>
- <% if !@settings.app_icon.blank? %>
- <div>
-  <label for='app_icon_image'>Current App Icon </label>
-  <%= image_tag(@settings.app_icon_url, :id => 'app_icon_image') if @settings.app_icon? %>
-</div>
-<% end %>
-<%= label_tag :app_icon, "New App Icon (300x300 size is best)" %>
-<%= f.file_field :app_icon %>
 </div>
 </div>
-<div  class="row">
-  <div class="span12">
-    <% if !@settings.banner.blank? %>
+<div class="tab-pane" id="home">
+  <div class="row">
+ <div class="span12">
+  <% if !@settings.banner.blank? %>
   <div>
-     <label for='banner'>Current Banner</label>
-    <%= image_tag(@settings.banner_url, :id => 'banner') if @settings.banner? %>
-  </div>
+   <label for='banner'>Current Banner</label>
+   <%= image_tag(@settings.banner_url, :id => 'banner') if @settings.banner? %>
+ </div>
  <% end %>
  <%= label_tag :banner, "New Banner  (980x280 size is best)" %>
  <%= f.file_field :banner %>
-  </div>
 </div>
-<div class="row">
+</div>
+  <div class="row">
+    <div class="span4">
+     <%=f.label :announcements_html%>
+   <%= f.cktext_area :announcements_html, :ckeditor => {:width=>'300', :height=> '400', :toolbar => 'mini'} %>
+  </div>
+  </div>
+  </div>
+<div class="tab-pane" id="contacts">
+  <div class="row">
+    <div class="span4">
+      <label class="checkbox">
+        <input type="checkbox" id="roster-inactivate" %>
+        Inactivate Contacts Automatically
+      </label>
+      <div id="roster-inactivate-weeks" class="checkbox_dependent">
+       <span class="help-inline">after absent for </span>
+       <%= f.select(:contacts_inactivate_after_no_attendance_weeks, Array(4..52), { :include_blank => '--' } )%>
+       <span class="help-inline">weeks</span>
+     </div>
+   </div>
+ </div>
+ <div class="row">
   <div class="span12">
    <%=f.label :welcome_email_html%>
    <%= f.cktext_area :welcome_email_html, :ckeditor => {:width=>'980', :height=> '400', :toolbar => 'mini'} %>
  </div>
+</div>
+</div>
+<div class="tab-pane" id="contact-queue">
+  <div class="row">
+    <div class="span4">
+     <label class="checkbox">
+      <input type="checkbox" id="contact-queue-visitors" %>
+      Add Visitors to Contact Queue
+    </label>
+    <div id="contact-queue-visitor-weeks" class="checkbox_dependent">
+      <span class="help-inline">every visit up to</span>
+      <%= f.select(:contact_queue_visitors_present_weeks, Array(1..6), { :include_blank => '--' } )%>
+      <span class="help-inline">times</span>
+    </div>
+    <label class="checkbox">
+      <input type="checkbox" id="contact-queue-members" %>
+      Add Members to Contact Queue
+    </label>
+    <div id="contact-queue-members-weeks" class="checkbox_dependent">
+     <span class="help-inline">after absent for</span>
+     <%= f.select(:contact_queue_members_absent_weeks, Array(1..6), { :include_blank => '--' } )%>
+     <span class="help-inline">weeks</span>
+   </div>
+ </div>
+ <div class="span4">
+  <%=f.label :contact_queue_notify_email %> 
+  <%=f.text_field :contact_queue_notify_email %> 
+</div>
+</div>
+</div>
+<div class="tab-pane" id="podcast">
+ <div class="row">
+  <div class="span4">
+    <%=f.label :podcast_itunes_url%>
+    <%=f.text_field :podcast_itunes_url %>  
+  </div>
+</div>
+</div>
+<div class="tab-pane" id="misc">
+ <div class="row">
+  <div class="span4">
+    <label class="checkbox">
+      <input type="checkbox" id="use_google_calendar_check" %>
+      Use Google Calendar
+    </label>
+    <div id="google_calendar_fields">
+     <%=f.label :google_calendar_username, "Google Calendar Username"%>
+     <%=f.text_field :google_calendar_username %>  
+     <%=f.label :google_calendar_password, "Google Calendar Password" %>
+     <%=f.password_field :google_calendar_password, :value => @settings.google_calendar_password %>
+   </div>
+ </div>
+ <div class="span4">
+  <label class="checkbox">
+    <input type="checkbox" id="use_google_analytics" %>
+    Use Google Analytics
+  </label>
+  <div id="google_analytics_fields">
+   <%=f.label :google_analytics_tracking_id, "Google Analytics Tracking ID" %>
+   <%=f.text_field :google_analytics_tracking_id %>
+ </div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="form-actions">
   <%= f.submit "Save", :class => "btn btn-primary btn-large" %>
@@ -106,5 +178,9 @@
 <script type="text/javascript">
 $(function() {
   Settings.initEdit();
+  $('#setting-tabs a').click(function (e) {
+   e.preventDefault();
+   $(this).tab('show');
+ });
 });
 </script>

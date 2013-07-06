@@ -1,0 +1,106 @@
+<%= form_for(@contact) do |f| %>
+<% if @contact.errors.any? %>
+<div class="alert alert-error">
+  <a class="close" data-dismiss="alert" href="#">&times;</a>
+  <ul>
+    <% @contact.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<% if is_admin? %>
+<div class="admin_fields">
+  <ul class="inline">
+   <li>
+     <%= f.label :is_member, "Members", :class => "checkbox inline" %>
+     <%= f.check_box :is_member %> </li>
+     <li><%= f.label :is_active, "Active", :class => "checkbox inline" %>
+       <%= f.check_box :is_active %></li>
+       <li><%= f.label :send_welcome_email_on_save, "Send Welcome Email", :class => "checkbox inline" %>
+         <%= f.check_box :send_welcome_email_on_save%></li>
+         <% if @contact.new_record? %>
+         <li><%= f.label :mark_initial_attendance_on_create, "Mark Attendance", :class => "checkbox inline" %>
+           <%= f.check_box :mark_initial_attendance_on_create%></li>
+           <% end %>
+           <% if !@contact.new_record? && !@contact.last_attendance_date.nil? %>
+           <div class="pull-right">
+            First Attendance: <%= @contact.first_attendance_date.try(:strftime, '%m/%d/%y') %>
+            <br/>
+            Last Attendance: <%= @contact.last_attendance_date.try(:strftime, '%m/%d/%y') %></div>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+        <div class="row">
+          <div class="span3">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name %>
+            <%= f.label :city_state_zip %>
+            <%= f.text_field :city_state_zip %>
+            <div class="male_fields">
+              <%= f.label :first_name, "His Name" %>
+              <%= f.text_field :first_name, :class => 'male_field' %>
+              <%= f.label :email %>
+              <%= f.text_field :email %>
+              <%= f.label :phone %>
+              <%= f.text_field :phone %>
+              <%= f.label :birthday %>
+              <%= text_field_tag "birthday", f.object.birthday.try(:strftime, '%m/%d'), :class=>'date' %>
+              <%= f.hidden_field :birthday %>
+            </div>
+          </div>
+          <div class="span3">
+            <%= f.label :address %>
+            <%= f.text_field :address %>
+            <%= f.label :home_phone %>
+            <%= f.text_field :home_phone %>
+            <div class="female_fields">
+              <%= f.label :spouse_name, "Her Name" %>
+              <%= f.text_field :spouse_name, :class => 'female_field' %>
+              <%= f.label :spouse_email %>
+              <%= f.text_field :spouse_email %>
+              <%= f.label :spouse_phone %>
+              <%= f.text_field :spouse_phone %>
+              <%= f.label :spouse_birthday %>
+              <%= f.hidden_field :spouse_birthday %>
+              <%= text_field_tag "spouse_birthday", f.object.spouse_birthday.try(:strftime, '%m/%d'), :class=>'date' %>
+            </div>
+          </div>
+          <div class="span4">
+            <div>
+              <%= image_tag(@contact.photo_url, :id => 'photo') %>
+               <%= label_tag :photo, "New Photo" %>
+           <%= f.file_field :photo %>
+           <label for='remote_photo_url'>Or Photo URL</label><%= f.text_field :remote_photo_url %>
+           <%= f.label :anniversary %>
+           <%= text_field_tag "anniversary", f.object.anniversary.try(:strftime, '%m/%d'), :class=>'date' %>
+           <%= f.hidden_field :anniversary %>
+            </div>
+          </div>
+        </div>
+       <% if is_admin? %>
+       <fieldset>
+        <legend>Notes</legend>
+        <div class="row">
+          <div class="span12 admin_fields">
+            <%= f.text_area :notes, :rows => 3, :cols =>"", :class => 'span6' %>
+          </div>
+        </div>
+      </fieldset>
+      <% end %>
+      <div class="form-actions">
+        <%= f.submit "Save", :class => "btn btn-primary btn-large" %>
+        <%= link_to 'Cancel', contacts_path, :class => "btn" %>
+      </div>
+      <% end %>
+      <script type="text/javascript">
+      $(function() {
+        $('#birthday').datepicker({dateFormat: 'mm/dd', altField: '#contact_birthday', altFormat: 'yy-mm-dd'});
+        $('#spouse_birthday').datepicker({dateFormat: 'mm/dd', altField: '#contact_spouse_birthday', altFormat: 'yy-mm-dd'});
+        $('#anniversary').datepicker({dateFormat: 'mm/dd', altField: '#contact_anniversary', altFormat: 'yy-mm-dd'});
+        $('.date').change(function(){
+          if (!$(this).val()) $('#' + 'contact_' + $(this).attr('id')).val('');
+        });
+      });
+      </script>

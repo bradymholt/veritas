@@ -37,7 +37,7 @@ class PodcastsController < ApplicationController
   # GET /podcasts/1/edit
   def edit
     if params[:id] == 'last'
-      @podcast = Podcast.last
+      @podcast = Podcast.unscoped.last
       redirect_to edit_podcast_url(@podcast)
     else
       @podcast = Podcast.find(params[:id])

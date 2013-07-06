@@ -1,7 +1,7 @@
 class ContactQueueItemsController < ApplicationController
   def index
-    @pending = ContactQueueItem.where(:is_completed => false).joins(:family).order('created_at DESC')
-    @completed = ContactQueueItem.where(:is_completed => true).joins(:family).order('completed_date DESC').limit(20)
+    @pending = ContactQueueItem.where(:is_completed => false).joins(:contact).order('created_at DESC')
+    @completed = ContactQueueItem.where(:is_completed => true).joins(:contact).order('completed_date DESC').limit(20)
 
     respond_to do |format|
       format.html # index.html.erb

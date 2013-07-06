@@ -1,21 +1,24 @@
 <div id="signup_details">
 	<%= @signup.details%>
-	<% if @signup.send_reminder_email %>
+	<% if !@signup.send_reminder_email_days.blank? %>
 	<div id="reminder_note">Note: A reminder email will be sent <%=@signup.send_reminder_email_days%> days before to those who signup.</div>
 	<% end %>
 </div>
 <%= form_for(@signup) do |f| %>
-<div id="slots">
-	<table class="table table-striped">
-		<tr><th>Date</th><th></th><th>Comments</th></tr>
+	<table class="table table-striped" id="slots">
+		<tr><th>Date</th><th><span class="badge badge-warning"><%=@signup.unslotted_count%></span> slots open</th><th>Comments</th></tr>
 		<%= f.fields_for :signup_slots do |slot| %>
-		<tr class="<%= slot.object.family_id.nil? ? 'success' : ''%>">
-			<td><%=slot.object.date.strftime('%a, %m/%d')%></td>
-			<td><%= slot.select(:family_id,  options_from_collection_for_select(@families, 'id', 'full_name', slot.object.family_id), {:include_blank => '--Sign Up--'})%>
+		<tr class="<%= slot.object.contact_id.nil? ? 'success' : ''%>">
+			<td><%=slot.object.date.strftime('%a, %b %d')%></td>
+			<td><%= slot.select(:contact_id,  options_for_select(@contacts.map{ |f| [f.full_name, f.id, {'data-has-email'=> f.has_email}]}, selected_key = slot.object.contact_id), {:include_blank => '--OPEN--'}, { :class => 'contact' })%>
+				<div class="messages"></div>
 			</td>
 			<td><%= slot.text_field :notes, :class=>'notes' %></td></tr>
 			<% end %>
 		</table>
-
-	</div>
-	<% end %>
+<% end %>
+<script type="text/javascript">
+$(function() {
+  Signups.initSignup();
+});
+</script>

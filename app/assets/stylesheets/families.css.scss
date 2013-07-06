@@ -1,8 +1,0 @@
-#roster tbody tr {display:none;} /* default, will be changed by js at runtime */
-input.husband_field, .husband_fields input { background-color: $husband_color;}
-input.wife_field, .wife_fields input { background-color: $wife_color;}
-#roster td.full_name { font-size:larger; font-weight:bold;}
-.xhr.families h1 { display:none; }
-.edit-member {  margin-top:10px;}
-.member .names { font-weight:bold; font-size:larger;}
-.member .husband, .member .wife { width:215px; font-size: smaller;}

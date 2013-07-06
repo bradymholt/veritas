@@ -4,26 +4,25 @@ VeritasWeb::Application.routes.draw do
   match "logout" => "sessions#destroy"
   
   resources :sessions
-  resources :settings, :demos
+  resources :settings
   resources :contact_queue_items, :path => "contact-queue"
-
-  match "families/members" => "families#members", :as => "members"
-  resources :families
-
+  resources :contacts
   resources :podcasts
+  
   match "podcast" => "podcasts#feed", :defaults => { :format => 'rss' }, :as => "podcast_feed"
   
   match "attendances/:date" => 'attendances#show', :as => "attendances_by_date"
-  match "attendances/:date/:family_id" => 'attendances#update'
+  match "attendances/:date/:contact_id" => 'attendances#update'
   resources :attendances
   
   resources :signups
-  match "signups/:id/signup" => "signups#signup"
+  match "signups/:id/signup" => "signups#signup", :as => "signupfoo"
   
   match "reports" => "reports#index"
+  match "reports/:action/:type" => "reports#%{action}"
   match "reports/:action" => "reports#%{action}"
   
-  match "admin" => redirect("/families")
+  match "admin" => redirect("/contacts")
   match "mobile" => redirect("/?mobile=1")
 
   root :to => 'default#index'

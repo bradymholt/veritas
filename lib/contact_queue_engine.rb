@@ -12,7 +12,7 @@ module ContactQueueEngine
 		end
 
 		if total_count > 0 && !settings.contact_queue_notify_email.blank?
-			ContactQueueMailer.new_queued(settings.contact_queue_notify_email, total_count, settings.host_name).deliver
+			AdminMailer.contact_queue_updated_email(total_count).deliver
 		end
 	end
 
@@ -21,14 +21,14 @@ module ContactQueueEngine
 
 		count = 0
 		last_sunday = (DateTime.now - DateTime.now.wday).to_date
-		last_sunday_family_id_present = Attendance.where(:date => last_sunday).map(&:family_id)
-		last_sunday_visitors = Family.where(:is_member => false, :is_active => true, :id => last_sunday_family_id_present)
+		last_sunday_contact_id_present = Attendance.where(:date => last_sunday).map(&:contact_id)
+		last_sunday_visitors = Contact.where(:is_member => false, :is_active => true, :id => last_sunday_contact_id_present)
 		visitors_to_queue = last_sunday_visitors.reject { |q| q.count_attendance > max_queue_count}
 		visitors_to_queue.each do |visitor|
-			if !ContactQueueItem.exists?(:family_id => visitor.id, :is_completed => false)
+			if !ContactQueueItem.exists?(:contact_id => visitor.id, :is_completed => false)
 				puts "Adding Visitor: " + visitor.full_name
 				cq = ContactQueueItem.new
-				cq.family_id = visitor.id
+				cq.contact_id = visitor.id
 
 				if (visitor.count_attendance == 0)
 					cq.reason = "First Time Visitor"
@@ -50,21 +50,21 @@ module ContactQueueEngine
 	
 		count = 0
 		last_sunday = (DateTime.now - DateTime.now.wday).to_date
-		family_id_exclude = Attendance.where('date >= ?', last_sunday - (weeks_absent - 1).weeks).map(&:family_id)
-		members_to_queue = Family.where(:is_member => true, :is_active => true).where('id NOT IN (?)', family_id_exclude)
+		contact_id_exclude = Attendance.where('date >= ?', last_sunday - (weeks_absent - 1).weeks).map(&:contact_id)
+		members_to_queue = Contact.where(:is_member => true, :is_active => true).where('id NOT IN (?)', contact_id_exclude)
 		
 		members_to_queue.each do |absent_member|
-			if !ContactQueueItem.exists?(:family_id => absent_member.id, :is_completed => false)
+			if !ContactQueueItem.exists?(:contact_id => absent_member.id, :is_completed => false)
 				puts "Adding Family: " + absent_member.full_name
 				cq = ContactQueueItem.new
-				cq.family_id = absent_member.id
+				cq.contact_id = absent_member.id
 				cq.reason = "Member Absent #{weeks_absent} Weeks"
 				cq.save
 				count+=1
 			end
 		end
 
-		puts "Done queuing absent members.  #{count} families queued."
+		puts "Done queuing absent members.  #{count} contacts queued."
 		count
 	end
 end

@@ -17,9 +17,12 @@
 	background-color:#fcfac7;
 }
 
-#slots input.notes { width: 100px;}
+#slots input.notes { width: 150px;}
+#slots .label { margin-left:10px;}
 #signup_send_reminder_email_days { width:50px;}
+#signup_send_signup_email_to  { width: 100px; }
 .slotTemplate { display:none; }
 #signups td.title { font-weight: bold;}
 #signups .details { width:300px;}
 #signup_details #reminder_note { font-weight: bold; font-size:smaller;}
+a.email-needed-alert:hover { text-decoration:none; }

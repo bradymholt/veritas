@@ -1,0 +1,25 @@
+<h2>Contacts<i class="icon-user"></i></h2>
+<% if @contacts.length > 0 %>
+<div id="members">
+	<% @contacts.each do |f| %>
+	<%= render :partial => 'contacts/show', :locals => { :contact => f }  %>
+	<% end %>
+</div>
+<div id="edit-contact-modal" class="modal hide fade">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	    <h3>Edit Contact</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p>Loading…</p>
+	  </div>
+	  <div class="modal-footer">
+	   <button class="btn btn-primary" id="save-contact" aria-hidden="true">Save</button>
+	   <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	  </div>
+	</div>
+<% else %>
+<div class="alert alert-info">
+  There are currently no contacts.
+</div>
+<% end %>

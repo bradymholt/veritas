@@ -1,17 +1,19 @@
 <% if flash[:notice] %>
-<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
+<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %>
+<a class="close" data-dismiss="alert" href="#">&times;</a></div>
 <% end %>
 <div class="row">
   <div class="span2">
    <%= link_to 'New Podcast Item', new_podcast_path, :class => 'btn btn-small btn-success' %>
  </div>
  <div class="span10">
-  <a href="<%=podcast_feed_path%>"><i class="icon-bookmark"></i>Podcast Feed</a> 
+  <a href="<%=podcast_feed_path%>"><i class="icon-bookmark"></i>Podcast RSS Feed</a> 
   </div>
 </div>
 <% if @podcasts.count == 0 %>
 <div class="alert alert-info">
   There are no podcast items.
+  <a class="close" data-dismiss="alert" href="#">&times;</a>
 </div>
 <%else%>
 <table class="table table-striped">

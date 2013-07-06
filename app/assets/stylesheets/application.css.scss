@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require jquery.ui.datepicker
-  *= require jquery.ui.dialog
  *= require_self
  */
 
@@ -17,14 +16,16 @@
 @import "variables.css.scss";
 @import "attendances.css.scss";
 @import "contact_queue_items.css.scss";
-@import "families.css.scss";
+@import "contacts.css.scss";
 @import "signups.css.scss";
 @import "sessions.css.scss";
+@import "reports.css.scss";
 @import "podcasts.css.scss";
 @import "default.css.scss";
 @import "settings.css.scss";
 
 .modal-dialog { display:none; }
+#logout { float:right; padding: 5px; }
 .admin_fields { padding: 8px; background-color: #faf4d8; margin-bottom: 15px; width:650px;}
 input.date { width: 75px;}
 #content { margin: 5px;}
@@ -48,11 +49,10 @@ td.actions a.edit { font-weight: bold; }
 
 /* bootstrap overrides */
 i { margin: 4px;}
-#nav_title { text-transform: uppercase;}
-.alert { margin-top: 5px;}
+#nav_title { text-transform: uppercase; }
+.navbar { margin-bottom: 0px; }
+.alert { margin: 5px 5px 5px 5px;}
 .alert ul { margin-bottom: 0px;}
+.alert a { font-weight: bold; }
 input[type="file"] { padding:5px;}
-.navbar { margin-bottom: 0px;}
 .help-inline { font-style: italic; }
-
-

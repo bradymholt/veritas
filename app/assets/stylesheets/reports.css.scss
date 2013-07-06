@@ -1,3 +1,12 @@
-// Place all the styles related to the reports controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#chart { width: 700px; height: 500px; margin-left:20px; }
+#chart-x-axis { 
+	-webkit-transform: rotate(-90deg); 
+	-moz-transform: rotate(-90deg);	
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	position:relative;
+	width: 120px;
+	top: 220px;
+	left:-45px;
+	height:20px;
+	font-weight:bold;
+}

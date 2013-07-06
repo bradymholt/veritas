@@ -1,4 +1,6 @@
 class SignupsController < ApplicationController
+  skip_before_filter :require_admin, :only => [:signup, :update]
+
   def index
     @signups = Signup.all
     Signup.fetch_summaries(@signups)
@@ -11,7 +13,7 @@ class SignupsController < ApplicationController
 
   def show
     @signup = Signup.find(params[:id])
-    @families = Family.all
+    @contacts = Contact.where(:is_active => true)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,19 +23,21 @@ class SignupsController < ApplicationController
 
   def new
     @signup = Signup.new
+    @signup.set_new_default_values
     @signup.signup_slots.build #new template
-    @families = Family.all
+    @contacts = Contact.all
   end
 
   def edit
     @signup = Signup.find(params[:id])
     @signup.signup_slots.build #new template
-    @families = Family.all
+    @contacts = Contact.where(:is_active => true)
   end
 
   def signup
     @signup = Signup.find(params[:id])
-    @families = Family.all
+    Signup.fetch_summaries([@signup])
+    @contacts = Contact.where(:is_active => true)
     respond_to do |format|
       format.html  { render :layout => false }
     end
@@ -41,14 +45,13 @@ class SignupsController < ApplicationController
 
   def create
     @signup = Signup.new(params[:signup])
-    puts @signup.to_yaml
   
     respond_to do |format|
       if @signup.save
         format.html { redirect_to signups_path, notice: 'Signup was successfully created.' }
         format.json { render json: @signup, status: :created, location: @signup }
       else
-        @families = Family.all
+        @contacts = Contact.where(:is_active => true)
         @signup.signup_slots.build #new template
 
         format.html { render action: "new" }
@@ -62,10 +65,10 @@ class SignupsController < ApplicationController
 
     respond_to do |format|
       if @signup.update_attributes(params[:signup])
-        format.html { redirect_to signups_path, notice: 'Signup was successfully updated.' }
+        format.html { redirect_to params[:redirect_to] || signups_path, notice: 'Signup was successfully updated.' }
         format.json { head :no_content }
       else
-        @families = Family.all
+        @contacts = Contact.where(:is_active => true)
         @signup.signup_slots.build #new template
       
         format.html { render action: "edit" }

@@ -56,6 +56,8 @@ GEM
     excon (0.22.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    flot-rails (0.0.3)
+      jquery-rails
     fog (1.11.1)
       builder
       excon (~> 0.20)
@@ -151,6 +153,7 @@ DEPENDENCIES
   carrierwave
   ckeditor
   coffee-rails (~> 3.2.1)
+  flot-rails
   fog
   gcal4ruby!
   jquery-rails

@@ -1,0 +1,23 @@
+<table width="600">
+	<tbody>
+		<tr>
+			<td>
+				<img src="http://s3.amazonaws.com/veritasclass/images/logo.png">
+			</td>
+			<td style="text-align:right;">
+				<div style="font-family:Lucida Grande,Arial,Helvetica,Geneva,Verdana,sans-serif;color:#333333;font-weight:bold;font-size:20px;line-height:1.5em"><%= Setting.cached.group_name%></div>
+			</td>
+		</tr>
+		<tr>
+			<td style="border-top:solid 1px #d2d1d1; padding:15px;" colspan="2">
+				<div style="margin:0px 0px 0px 5px;font-family:Lucida Grande,Arial,Helvetica,Geneva,Verdana,sans-serif;color:#333333;font-size:14px;line-height:1.5em">
+				<p><%= @count %> contacts have been added to the Contact Queue.</p>
+				<p><a href="<%= contact_queue_items_url(host: Setting.cached.host_name) %>"><%= contact_queue_items_url(host: Setting.cached.host_name) %></a></p>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+

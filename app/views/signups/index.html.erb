@@ -1,5 +1,7 @@
 <% if flash[:notice] %>
-<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %></div>
+<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %>
+<a class="close" data-dismiss="alert" href="#">&times;</a>
+</div>
 <% end %>
 <div>
  <%= link_to 'New Signup', new_signup_path, :class => 'btn btn-small btn-success' %>
@@ -7,6 +9,7 @@
 <% if @signups.count == 0 %>
 <div class="alert alert-info">
   There are currently no signups.  Click the 'New Signup' button above to create one.
+  <a class="close" data-dismiss="alert" href="#">&times;</a>
 </div>
 <%else%>
 <table id="signups" class="table table-striped">
@@ -40,7 +43,7 @@
       <% if s.slot_count > 0 %>
         <%=s.slot_count%> slot<%= s.slot_count > 1 ? 's' : '' %> total
         <% if s.unslotted_count > 0 %>
-          <br/><strong><%=s.unslotted_count%> unassigned</strong>
+          <br/><strong><%=s.unslotted_count%> open</strong>
         <% end %>
       <% else %>
         <p class="text-error">No signup slots</p>

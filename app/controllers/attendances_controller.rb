@@ -21,8 +21,8 @@ class AttendancesController < ApplicationController
       @dates <<  { :date => date, :description => date.strftime('%m/%d/%Y') }
     end
 
-    @members = Family.where(:is_member => true)
-    @visitors = Family.where(:is_member => false)
+    @members = Contact.where(:is_member => true, :is_active => true)
+    @visitors = Contact.where(:is_member => false, :is_active => true)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -48,7 +48,7 @@ class AttendancesController < ApplicationController
   def update
     date = params[:date]
 
-    Attendance.mark_attendance(params[:family_id], date, (params[:present] == true))
+    Attendance.mark_attendance(params[:contact_id], date, (params[:present] == true))
     respond_to do |format|
       format.json { head :no_content }
       format.mobile { head :no_content }

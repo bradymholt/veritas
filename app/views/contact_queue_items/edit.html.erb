@@ -1,4 +1,4 @@
-<h1>Contact <%=@contact_queue_item.family.full_name_first%></h1>
+<h1>Contact <%=@contact_queue_item.contact.full_name_first%></h1>
 <%= form_for(@contact_queue_item) do |f| %>
 <% if @contact_queue_item.errors.any? %>
 <div class="alert alert-error">
@@ -7,6 +7,7 @@
 		<li><%= msg %></li>
 		<% end %>
 	</ul>
+	<a class="close" data-dismiss="alert" href="#">&times;</a>
 </div>
 <% end %>
 <div class="row">
@@ -17,12 +18,9 @@
 		<%= f.text_area :completed_notes, :rows => 3, :cols =>"30" %>
 	</div>
 	<div class="span6">
-		<fieldset>
-			<legend>Contact Info</legend>
 			<div class="well">
-				<%= render :partial => 'families/show', :locals => { :family => @contact_queue_item.family }  %>
+				<%= render :partial => 'contacts/show', :locals => { :contact => @contact_queue_item.contact }  %>
 			</div>	
-		</fieldset>
 	</div>
 </div>
 <div class="form-actions">

@@ -11,10 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628201656) do
+ActiveRecord::Schema.define(:version => 20130705210939) do
 
   create_table "attendances", :force => true do |t|
-    t.integer  "family_id"
+    t.integer  "contact_id"
     t.date     "date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20130628201656) do
   create_table "contact_queue_items", :force => true do |t|
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.integer  "family_id"
+    t.integer  "contact_id"
     t.string   "reason"
     t.boolean  "is_completed"
     t.date     "completed_date"
@@ -32,32 +32,32 @@ ActiveRecord::Schema.define(:version => 20130628201656) do
     t.string   "completed_notes"
   end
 
-  create_table "demos", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "families", :force => true do |t|
+  create_table "contacts", :force => true do |t|
     t.string   "last_name"
     t.string   "address"
     t.string   "city_state_zip"
     t.string   "home_phone"
     t.date     "anniversary"
-    t.string   "husband_name"
-    t.string   "husband_email"
-    t.string   "husband_phone"
-    t.date     "husband_birthday"
-    t.string   "wife_name"
-    t.string   "wife_email"
-    t.string   "wife_phone"
-    t.date     "wife_birthday"
+    t.string   "first_name"
+    t.string   "email"
+    t.string   "phone"
+    t.date     "birthday"
+    t.string   "spouse_name"
+    t.string   "spouse_email"
+    t.string   "spouse_phone"
+    t.date     "spouse_birthday"
     t.text     "notes"
     t.boolean  "is_member"
     t.date     "member_date"
     t.boolean  "is_active"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "photo"
+  end
+
+  create_table "demos", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "mobiles", :force => true do |t|
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(:version => 20130628201656) do
   end
 
   create_table "settings", :force => true do |t|
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
     t.string   "group_name"
     t.string   "user_password"
     t.string   "admin_password"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(:version => 20130628201656) do
     t.string   "smtp_password"
     t.integer  "smtp_port"
     t.boolean  "smtp_tls"
-    t.text     "welcome_email_html",                   :limit => 255
+    t.text     "welcome_email_html",                            :limit => 255
     t.string   "google_calendar_username"
     t.string   "google_calendar_password"
     t.string   "host_name"
@@ -106,21 +106,25 @@ ActiveRecord::Schema.define(:version => 20130628201656) do
     t.integer  "contact_queue_visitors_present_weeks"
     t.string   "banner"
     t.string   "google_analytics_tracking_id"
+    t.boolean  "contact_email_cc"
+    t.integer  "contacts_inactivate_after_no_attendance_weeks"
+    t.string   "podcast_itunes_url"
+    t.string   "announcements_html"
   end
 
   create_table "signup_slots", :force => true do |t|
     t.integer  "signup_id"
     t.date     "date"
-    t.integer  "family_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "contact_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "notes"
+    t.boolean  "reminder_sent"
   end
 
   create_table "signups", :force => true do |t|
     t.string   "title"
     t.string   "details"
-    t.boolean  "send_reminder_email"
     t.integer  "send_reminder_email_days"
     t.boolean  "visible_admin_only"
     t.datetime "created_at",               :null => false

@@ -23,14 +23,15 @@
   </script>
   <% end %>
 </head>
-<body>
+<body class="<%=params[:controller]%> <%= is_admin? ? 'admin' : ''%>">
+  <div id="logout"><%=link_to 'Logout', '/logout', :class=>'btn btn btn-mini' %></div>
   <% if is_admin? %>
   <div class="navbar">
     <div class="navbar-inner">
-      <a class="brand" id="nav_title" href="#">ADMIN PANEL</a>
+      <a class="brand" id="nav_title" href="<%=root_url%>">ADMIN</a>
       <ul class="nav">
-        <%=nav_link("Home", root_path) %>
-        <%=nav_link("Roster", families_path) %>
+        <%=nav_link("Home", root_url) %>
+        <%=nav_link("Contacts", contacts_path) %>
         <%=nav_link("Attendance", attendances_path) %>
         <%=nav_link("Signups", signups_path) %>
         <%=nav_link("Contact Queue", contact_queue_items_path) %>
@@ -38,12 +39,16 @@
         <%=nav_link("Reports", '/reports') %>
         <%=nav_link("Settings", '/settings') %>
       </ul>
-      <p class="text-right"><%=link_to 'Logout', '/logout' %></p>
     </div>
   </div>
   <% end %>
-  <div id="content" class="<%=params[:controller]%> <%= is_admin? ? 'admin' : ''%>">
-    <%= yield %>
+  <div id="content">
+    <%= content_for?(:content) ? yield(:content) : yield %>
   </div>
+  <script type="text/javascript">
+  $(function() {
+    $('.alert').alert();
+  });
+  </script>
 </body>
 </html>

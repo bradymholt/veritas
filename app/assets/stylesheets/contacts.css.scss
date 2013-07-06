@@ -1,0 +1,8 @@
+#roster tbody tr {display:none;} /* default, will be changed by js at runtime */
+input.male_field, .male_fields input { background-color: $male_color;}
+input.female_field, .female_fields input { background-color: $female_color;}
+#roster td.full_name { font-size:larger; font-weight:bold;}
+.edit-member {  margin-top:10px;}
+.member .male, .member .female { width:215px; font-size: smaller;}
+.contact-thumbnail { width: 150px; height: 100px;}
+.xhr.contacts h1 {display:none;}

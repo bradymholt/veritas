@@ -6,6 +6,7 @@
     <li><%= msg %></li>
     <% end %>
   </ul>
+  <a class="close" data-dismiss="alert" href="#">&times;</a>
 </div>
 <% end %>
 <div class="row">
@@ -14,17 +15,25 @@
     <%= f.text_field :title %>
     <%= f.label :details %> <span class="help-inline">(sent with reminder email)</span>
     <%= f.text_area :details, :rows => 10, :cols =>"" %>
-    <label class="checkbox">
-      <%= f.check_box :send_reminder_email %>
-      Send Reminder Email
-    </label>
-    <div id="reminder_days_container" class="checkbox_dependent">
-        <%= f.select(:send_reminder_email_days, Array(0..7),  :class=>'reminder_days') %><span class="help-inline">days before event</span>
-    </div>
-    <label class="checkbox">
+     <label class="checkbox">
       <%= f.check_box :visible_admin_only %>
       Visible to Admins Only
     </label>
+    <label class="checkbox">
+       <input type="checkbox" id="send_reminder_email" %>
+      Send Reminder Email
+    </label>
+    <div id="reminder_days_container" class="checkbox_dependent">
+      <%= f.select(:send_reminder_email_days, Array(0..7), {:include_blank => '--select--'}, :class=>'reminder_days') %><span class="help-inline">days before</span>
+    </div>
+    <label class="checkbox">
+      <input type="checkbox" id="send_signup_email" %>
+      Send Signup Email Now
+    </label>
+     <div id="signup_email_to_container" class="checkbox_dependent">
+      <span class="help-inline">to</span>
+      <%= f.select(:send_signup_email_to, Signup::SEND_SIGNUP_EMAIL_TO.collect {|t| [t, Signup::SEND_SIGNUP_EMAIL_TO.index(t)]}, {:include_blank => '--select--'}) %>
+    </div>
   </div>
   <div class="span4">
     <label for="signup-dates">Signup Dates</label>
@@ -43,7 +52,7 @@
         <%= f.fields_for(:signup_slots) do |slot| %>
         <tr class="<%=slot.object.new_record? ? 'slotTemplate' : 'slot'%>">
           <td><span class='dateDisplay'><%=slot.object.date.try(:strftime, '%m/%d/%Y')%></span><%= slot.hidden_field(:date, :class=>'date', :value => slot.object.date.try(:strftime, '%Y-%m-%d')) %></td>
-          <td><%= slot.select(:family_id,  options_from_collection_for_select(@families, 'id', 'full_name', slot.object.family_id), {:include_blank => 'None'})%></td>
+          <td><%= slot.select(:contact_id,  options_for_select(@contacts.map{ |f| [f.full_name, f.id, {'data-has-email'=> f.has_email}]}, selected_key =slot.object.contact_id), {:include_blank => '--Open--'}, { :class => 'family' })%></td>
           <td><%= slot.text_field :notes, :class=>'notes' %></td>
           <td><a href="#" class="removeSlot">remove</a> <%= slot.hidden_field :id %><%= slot.hidden_field(:_destroy, :class=>'destroy', :value=> slot.object.new_record? ? '1' : '') %></td>
         </tr>
@@ -59,7 +68,7 @@
 <% end %>
 
 <script type="text/javascript">
-$(function() {
-  Signups.initEdit();
-});
+  $(function() {
+    Signups.initEdit();
+  });
 </script>
