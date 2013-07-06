@@ -24,7 +24,6 @@
 @import "default.css.scss";
 @import "settings.css.scss";
 
-.modal-dialog { display:none; }
 #logout { float:right; padding: 5px; }
 .admin_fields { padding: 8px; background-color: #faf4d8; margin-bottom: 15px; width:650px;}
 input.date { width: 75px;}
@@ -42,6 +41,14 @@ td.actions a.edit { font-weight: bold; }
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+#switch-mobile-footer {
+	padding: 5px 0 5px 0;
+	background-color: #808080;
+	width:100%;
+	text-align: center;
+	position:fixed;
+	bottom: 0px;
 }
 
 /* xhr */

@@ -2,12 +2,18 @@
 <% if Setting.cached.google_calendar_enabled? %>
 <iframe src="https://www.google.com/calendar/embed?showTitle=0&showNav=0&showDate=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&mode=AGENDA&height=490&wkst=1&bgcolor=%23FFFFFF&src=<%=u Setting.cached.google_calendar_username%>&color=%23A32929&ctz=America%2FChicago" style=" border-width:0 " width="300" height="490" frameborder="0" scrolling="no"></iframe>
 <% else %>
-	<dl>
-	<% @upcoming_dates.group_by { |d| d[:date] }.each do |d, event| %>
-		<dt><%=d.strftime('%A, %B %d') %></dt>
-			<% event.each do |e| %>
-			<dd><%=e[:description]%></dd>
-			<% end %>
+    <% if @upcoming_dates.length > 0 %>
+		<dl>
+		<% @upcoming_dates.group_by { |d| d[:date] }.each do |d, event| %>
+			<dt><%=d.strftime('%A, %B %d') %></dt>
+				<% event.each do |e| %>
+				<dd><%=e[:description]%></dd>
+				<% end %>
+		<% end %>
+		</dl>
+	<% else %>
+		<div class="alert alert-info">
+  			There are no upcoming events.
+		</div>
 	<% end %>
-	</dl>
 <% end %>

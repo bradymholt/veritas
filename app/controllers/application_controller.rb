@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_login
   before_filter :require_admin
   before_filter :store_request_in_thread
-  helper_method :mobile_device?, :is_admin?
+  helper_method :mobile_device?, :mobile_agent?, :is_admin?
 
   def get_layout
       request.xhr? ? 'xhr' : 'application'
@@ -38,8 +38,12 @@ class ApplicationController < ActionController::Base
     if session[:mobile_param]
       session[:mobile_param] == "1"
     else
-      (request.user_agent =~ /Mobile|webOS/) && (request.user_agent !~ /iPad/)
+      mobile_agent?
     end
+  end
+
+  def mobile_agent? 
+     (request.user_agent =~ /Mobile|webOS/) && (request.user_agent !~ /iPad/)
   end
 
   def logged_in?

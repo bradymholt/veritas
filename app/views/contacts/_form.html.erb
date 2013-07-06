@@ -41,11 +41,11 @@
             <div class="male_fields">
               <%= f.label :first_name, "His Name" %>
               <%= f.text_field :first_name, :class => 'male_field' %>
-              <%= f.label :email %>
+              <%= f.label :email, "His Email" %>
               <%= f.text_field :email %>
-              <%= f.label :phone %>
+              <%= f.label :phone, "His Phone" %>
               <%= f.text_field :phone %>
-              <%= f.label :birthday %>
+              <%= f.label :birthday, "His Birthday" %>
               <%= text_field_tag "birthday", f.object.birthday.try(:strftime, '%m/%d'), :class=>'date' %>
               <%= f.hidden_field :birthday %>
             </div>
@@ -58,11 +58,11 @@
             <div class="female_fields">
               <%= f.label :spouse_name, "Her Name" %>
               <%= f.text_field :spouse_name, :class => 'female_field' %>
-              <%= f.label :spouse_email %>
+              <%= f.label :spouse_email, "Her Email" %>
               <%= f.text_field :spouse_email %>
-              <%= f.label :spouse_phone %>
+              <%= f.label :spouse_phone, "Her Phone" %>
               <%= f.text_field :spouse_phone %>
-              <%= f.label :spouse_birthday %>
+              <%= f.label :spouse_birthday, "Her Birthday" %>
               <%= f.hidden_field :spouse_birthday %>
               <%= text_field_tag "spouse_birthday", f.object.spouse_birthday.try(:strftime, '%m/%d'), :class=>'date' %>
             </div>

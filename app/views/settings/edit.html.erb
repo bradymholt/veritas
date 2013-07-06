@@ -116,7 +116,7 @@
     </label>
     <div id="contact-queue-visitor-weeks" class="checkbox_dependent">
       <span class="help-inline">every visit up to</span>
-      <%= f.select(:contact_queue_visitors_present_weeks, Array(1..6), { :include_blank => '--' } )%>
+      <%= f.select(:contact_queue_visitors_present_weeks, Array(1..6), { :include_blank => '--select--' } )%>
       <span class="help-inline">times</span>
     </div>
     <label class="checkbox">
@@ -125,8 +125,11 @@
     </label>
     <div id="contact-queue-members-weeks" class="checkbox_dependent">
      <span class="help-inline">after absent for</span>
-     <%= f.select(:contact_queue_members_absent_weeks, Array(1..6), { :include_blank => '--' } )%>
+     <%= f.select(:contact_queue_members_absent_weeks, Array(1..6), { :include_blank => '--select--' } )%>
      <span class="help-inline">weeks</span>
+     <div>
+      <em>The Contact Queue process will run and add items weekly, on Mondays.</em>
+     </div>
    </div>
  </div>
  <div class="span4">
@@ -155,6 +158,9 @@
      <%=f.text_field :google_calendar_username %>  
      <%=f.label :google_calendar_password, "Google Calendar Password" %>
      <%=f.password_field :google_calendar_password, :value => @settings.google_calendar_password %>
+     <div>
+      <em>Contact events will be synced to Google Calendar weekly, on Mondays.</em>
+     </div>
    </div>
  </div>
  <div class="span4">
