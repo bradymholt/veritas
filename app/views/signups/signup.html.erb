@@ -1,7 +1,7 @@
 <div id="signup_details">
 	<%= @signup.details%>
 	<% if !@signup.send_reminder_email_days.blank? %>
-	<div id="reminder_note">Note: A reminder email will be sent <%=@signup.send_reminder_email_days%> days before to those who signup.</div>
+	<div id="reminder_note">Note: A reminder email will be sent <%=@signup.send_reminder_email_days%> days before the signup date.</div>
 	<% end %>
 </div>
 <%= form_for(@signup) do |f| %>

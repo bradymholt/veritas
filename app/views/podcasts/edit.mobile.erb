@@ -9,7 +9,7 @@
         	<a class="close" data-dismiss="alert" href="#">&times;</a>
         </div>
         <% end %>
-        <%= form_for @podcast, :data => {:ajax => 'false'} do |f| %>
+        <%= form_for @podcast, :html => {"data-ajax" => "false"}  do |f| %>
        
        <label for="date">Date</label>
 	   <div id="date"><%=f.object.date.strftime('%m/%d/%Y')%></div>

@@ -66,7 +66,7 @@ class PodcastsController < ApplicationController
     respond_to do |format|
       if @podcast.update_attributes(params[:podcast])
         format.html { redirect_to podcasts_path, notice: 'Podcast was successfully updated.' }
-        format.mobile { redirect_to podcasts_path }
+        format.mobile { redirect_to root_url }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
