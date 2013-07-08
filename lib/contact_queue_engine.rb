@@ -30,7 +30,7 @@ module ContactQueueEngine
 				cq = ContactQueueItem.new
 				cq.contact_id = visitor.id
 
-				if (visitor.count_attendance == 0)
+				if (visitor.count_attendance == 1)
 					cq.reason = "First Time Visitor"
 				else
 					cq.reason = "Returning Visitor (#{visitor.count_attendance})"

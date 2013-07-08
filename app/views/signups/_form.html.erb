@@ -32,7 +32,7 @@
     </label>
      <div id="signup_email_to_container" class="checkbox_dependent">
       <span class="help-inline">to</span>
-      <%= f.select(:send_signup_email_to, Signup::SEND_SIGNUP_EMAIL_TO.collect {|t| [t, Signup::SEND_SIGNUP_EMAIL_TO.index(t)]}, {:include_blank => '--select--'}) %>
+      <%= f.select(:send_signup_email_to_type, Contact::EMAIL_LIST_TYPE.collect {|t| [t[:description], t[:id] ]}, {:include_blank => '--select--'}) %>
     </div>
   </div>
   <div class="span4">

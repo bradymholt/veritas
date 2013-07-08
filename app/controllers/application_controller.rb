@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  #protect_from_forgery
   layout :get_layout
   before_filter :prepare_for_mobile
   before_filter :require_login

@@ -2,19 +2,8 @@ class ReportsController < ApplicationController
 	layout "reports"
 
 	def email_list
-		if params[:type] == 'men'
-			@emails = Contact.emails_men
-			@description = 'Men Email Addresses'
-		elsif params[:type] == 'women'
-			@emails = Contact.emails_women
-			@description = 'Women Email Addresses'
-		elsif params[:type] == 'active'
-			@emails = Contact.emails_all
-			@description = 'Men and Women Email Addresses'
-		elsif params[:type] == 'visitors'
-			@emails = Contact.emails_visitors
-			@description = 'Visitor Email Addresses'
-		end
+		@description = "#{params[:type].capitalize} Email Addresses"
+		@emails = Contact.email_list(params[:type].to_sym)
 	end	
 
 	def attendance_date

@@ -1,9 +1,11 @@
 VeritasWeb::Application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+
   match "login" => "sessions#new", :via => [:get]
   match "login" => "sessions#create", :via => [:post]
   match "logout" => "sessions#destroy"
   
-  resources :sessions
+  resources :sessions  
   resources :settings
   resources :contact_queue_items, :path => "contact-queue"
   resources :contacts
@@ -16,7 +18,7 @@ VeritasWeb::Application.routes.draw do
   resources :attendances
   
   resources :signups
-  match "signups/:id/signup" => "signups#signup", :as => "signupfoo"
+  match "signups/:id/signup" => "signups#signup", :as => "user_signup"
   
   match "reports" => "reports#index"
   match "reports/:action/:type" => "reports#%{action}"

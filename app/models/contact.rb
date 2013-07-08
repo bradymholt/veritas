@@ -10,6 +10,11 @@ class Contact < ActiveRecord::Base
   validates_presence_of :last_name
   default_scope order('last_name')
 
+  EMAIL_LIST_TYPE = [{:description => 'Everyone', :id => :all},
+                     {:description => 'Men', :id => :men},
+                     {:description => 'Women', :id => :women},
+                     {:description => 'Visitors', :id => :visitors}]
+
   def default_values
     self.is_active = true if self.is_active.nil?
     self.is_member = false if self.is_member.nil?
@@ -117,59 +122,25 @@ def self.next_date(date)
   next_date
 end
 
-def self.add_upcoming_date(date, up_to_date, description, type, contact_id, collection)
-  if !date.nil?
-    next_date = next_date(date)
-    if  next_date <= up_to_date
-      collection << { description: description, date: next_date, type: type, contact_id: contact_id}
-    end
-  end
-end
-
-def self.emails_men
+def self.email_list(type)
   contacts = Contact.where(:is_active => true)
+  if type == :visitors
+    contacts.reject!{ |c| c.is_member == true }
+  end 
+
   emails = []
-  contacts.reject { |c| c.email.blank? }.each { |h|
-    if !h.first_name.blank?
-      emails.push('"' + h.first_name + ' ' + h.last_name + '" <' + h.email + '>')
-    else
-      emails.push(h.email)
+  contacts.each { |h|
+    if !h.email.blank? && (type != :women)
+      emails.push(!h.first_name.blank? ? "#{h.first_name} #{h.last_name} <#{h.email}>" : h.email)
+    end
+
+    if !h.spouse_email.blank? && (type != :men)
+      emails.push(!h.spouse_name.blank? ? "#{h.spouse_name} #{h.last_name} <#{h.spouse_email}>" : h.spouse_email)
     end
   }
 
   emails.join(', ')
-end
 
-def self.emails_women
-  contacts = Contact.where(:is_active => true)
-  emails = []
-  contacts.reject { |c| c.spouse_email.blank? }.each { |w|
-    if !w.spouse_name.blank?
-      emails.push('"' + w.spouse_name + ' ' + w.last_name + '" <' + w.spouse_email + '>')
-    else
-      emails.push(w.spouse_email)
-    end
-  }
-
-  emails.join(', ')
-end
-
-def self.emails_all
-  [Contact.emails_men, Contact.emails_women].join(', ')
-end
-
-def self.emails_visitors
-  contacts = Contact.where(:is_member => false, :is_active => true)
-  emails = []
-  contacts.reject { |c| c.email.blank? }.each { |h|
-    if !h.first_name.blank?
-      emails.push('"' + h.first_name + ' ' + h.last_name + '" <' + h.email + '>')
-    else
-      emails.push(h.email)
-    end
-  }
-
-  emails.join(', ')
 end
 
 private 
@@ -188,6 +159,16 @@ def fetch_attendance_summary
       self.attendance_count = attendance_summary.count
     end
 
+  end
+end
+
+
+def self.add_upcoming_date(date, up_to_date, description, type, contact_id, collection)
+  if !date.nil?
+    next_date = next_date(date)
+    if  next_date <= up_to_date
+      collection << { description: description, date: next_date, type: type, contact_id: contact_id}
+    end
   end
 end
 

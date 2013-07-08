@@ -68,7 +68,7 @@
 </div>
 <div class="tab-pane" id="home">
   <div class="row">
- <div class="span12">
+ <div class="span8">
   <% if !@settings.banner.blank? %>
   <div>
    <label for='banner'>Current Banner</label>
@@ -78,8 +78,6 @@
  <%= label_tag :banner, "New Banner  (980x280 size is best)" %>
  <%= f.file_field :banner %>
 </div>
-</div>
-  <div class="row">
     <div class="span4">
      <%=f.label :announcements_html%>
    <%= f.cktext_area :announcements_html, :ckeditor => {:width=>'300', :height=> '400', :toolbar => 'mini'} %>
@@ -99,11 +97,9 @@
        <span class="help-inline">weeks</span>
      </div>
    </div>
- </div>
- <div class="row">
-  <div class="span12">
+  <div class="span8">
    <%=f.label :welcome_email_html%>
-   <%= f.cktext_area :welcome_email_html, :ckeditor => {:width=>'980', :height=> '400', :toolbar => 'mini'} %>
+   <%= f.cktext_area :welcome_email_html, :ckeditor => {:width=>'620', :height=> '400', :toolbar => 'mini'} %>
  </div>
 </div>
 </div>

@@ -4,9 +4,9 @@
 	<div class="signup" signup_id="<%=s.id%>">
 		<div class="title"><%=s.title%></div>
 		<% if s.unslotted_count > 0 %>
-		<a href="<%=signupfoo_path(s)%>" role="button" class="btn btn-success btn-small pull-right" data-toggle="modal" data-target="#signup-modal">Signup</a>
+		<a href="<%=user_signup_path(s)%>" role="button" class="btn btn-success btn-small pull-right" data-toggle="modal" data-target="#signup-modal">Signup</a>
 		<% else %>
-		<a href="<%=signupfoo_path(s)%>" role="button"class="btn btn-small pull-right" data-toggle="modal" data-target="#signup-modal">View</a>
+		<a href="<%=user_signup_path(s)%>" role="button"class="btn btn-small pull-right" data-toggle="modal" data-target="#signup-modal">View</a>
 		<% end %>
 		<span class="badge badge-warning"><%=s.unslotted_count%></span> slots open		
 	</div>

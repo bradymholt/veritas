@@ -1,9 +1,7 @@
 class Signup < ActiveRecord::Base
-  SEND_SIGNUP_EMAIL_TO = ['Everyone', 'Members', 'Men', 'Women', 'Visitors']
-
   has_many :signup_slots, :dependent => :destroy
-  attr_accessible :details, :send_signup_email_to, :send_reminder_email_days, :title, :visible_admin_only, :signup_slots_attributes
-  attr_accessor :send_signup_email_to, :date_min, :date_max, :slot_count, :unslotted_count
+  attr_accessible :details, :send_signup_email_to_type, :send_reminder_email_days, :title, :visible_admin_only, :signup_slots_attributes
+  attr_accessor :send_signup_email_to_type, :date_min, :date_max, :slot_count, :unslotted_count
   accepts_nested_attributes_for :signup_slots, :allow_destroy => true
   validates :title, :presence => true
   after_save :send_signup_email
@@ -13,9 +11,9 @@ class Signup < ActiveRecord::Base
   end
 
    def send_signup_email
-   if !@send_signup_email_to.blank?
+   if !@send_signup_email_to_type.blank?
      Thread.new do
-        UserMailer.signup_email(self, @send_signup_email_to.to_i).deliver
+        UserMailer.signup_email(self, @send_signup_email_to_type.to_sym).deliver
       end
     end
   end

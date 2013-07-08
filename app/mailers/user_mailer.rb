@@ -11,21 +11,10 @@ class UserMailer < ActionMailer::Base
 	  end
   end
 
-  def signup_email(signup, send_to_index)
+  def signup_email(signup, type)
     @signup = signup
-    send_to = Signup::SEND_SIGNUP_EMAIL_TO[send_to_index]
-    email_to = ''
-
-    if send_to == 'Everyone'
-      email_to = Contact.emails_all
-    elsif send_to == 'Men'
-       email_to = Contact.emails_men
-    elsif send_to == 'Women' 
-       email_to = Contact.emails_women
-    elsif send_to == 'Visitors'
-       email_to = Contact.emails_visitors
-    end
-
+    email_to = Contact.email_list(type)
+   
     if !email_to.blank?
        mail(:to => Setting.cached.contact_email,
        :bcc => email_to,

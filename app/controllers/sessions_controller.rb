@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  layout nil
   skip_before_filter :require_login
   skip_before_filter :require_admin
 
