@@ -1,7 +1,11 @@
 #!/bin/bash
 
+set -e
+
 cd ~/dev/veritas_web
 git pull
+#echo "rake test"
+#rake test
 echo "rake tmp:clear (local)"
 bundle exec rake tmp:clear
 mv ./config/database.yml ./config/database_orig.yml

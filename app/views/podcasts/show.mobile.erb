@@ -1,0 +1,15 @@
+<div data-role="page"  id="podcast_show_page">
+	<div data-role="header" data-position="fixed" data-id="head" data-theme="b">
+		<a data-rel="back" data-icon="arrow-l">Back</a>
+		<h1>Podcast</h1>
+	</div>
+	<div data-role="content">	
+		<h2><%=@podcast.title%></h2>
+		<p><%=@podcast.speaker%><p>
+			<p><%=@podcast.date.strftime('%m/%d/%Y')%></p>
+		<audio src="<%=@podcast.audio_url%>" autoplay controls>
+  			Your browser does not support the <code>audio</code> element.
+		</audio>
+		<p><i class="icon-download-alt"/> <a target="_blank" href="<%=@podcast.audio_url%>">Direct Download Link</a></p>
+	</div><!-- /content -->
+</div><!-- /page -->

@@ -11,4 +11,4 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery_ujs
-//=require attendances
+//= require attendances

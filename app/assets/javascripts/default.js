@@ -13,7 +13,7 @@ var Default = {
 
 		$('.member a.edit').click(function () {
 		 	var title = $(this).closest('.member').find('h4').text();
-			$('#edit-contact-modal .modal-header h3').text('Edit Contact: ' + title);
+			$('#edit-contact-modal .modal-header h3').text(title);
 		});
 		
 		$('#save-contact').click(function(){

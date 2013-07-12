@@ -1,5 +1,6 @@
 .default #content{  background-color: #808080; margin:0px; }
 .default #content h2 { font-size: 18px; }
+.default #content .modal-header h3 { font-size: 24.5px; }
 .default #content h3 { font-size: 14px; }
 .default #content #wrapper {
 	width:1000px;
@@ -21,7 +22,7 @@
 
 #edit-contact-modal .modal-body { max-height: 450px;}
 #edit-contact-modal {
-	width: 850px; /* SET THE WIDTH OF THE MODAL */
+	width: 870px;
 	margin-left: -425px;
 }
 

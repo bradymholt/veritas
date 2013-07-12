@@ -6,7 +6,7 @@
 	<div class="media-body">
 		<h4 class="media-heading"><%= contact.full_name_first%></h2>
 		<div class="address">
-			<a target="_blank" href="http://maps.google.com/maps?q=<%=contact.address.gsub(' ', '+')%>+<%=contact.city_state_zip.gsub(' ', '+')%>">
+			<a target="_blank" href="<%= maps_link(contact.address, contact.city_state_zip)%>">
 				<%=contact.address%><br/>
 				<%=contact.city_state_zip%></a>
 		</div>

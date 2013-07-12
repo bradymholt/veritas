@@ -46,7 +46,7 @@
         <ul data-role="listview">
             <% @podcasts.each do |p|%>
             <li>
-                <a data-ajax="false" href="<%=p.audio_url%>">
+                <a href="<%=podcast_url(p)%>">
                     <h3><%=p.title%></h3>
                     <p><%=p.date.strftime('%m/%d/%Y')%> - <%=p.speaker%></p>
                 </a>

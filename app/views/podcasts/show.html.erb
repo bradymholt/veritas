@@ -1,0 +1,7 @@
+<h2><%=@podcast.title%></h2>
+<p><%=@podcast.date.strftime('%m/%d/%Y')%></p>
+<p><%=@podcast.speaker%><p>
+<audio src="<%=@podcast.audio_url%>" autoplay controls>
+		Your browser does not support the <code>audio</code> element.
+</audio>
+<p><i class="icon-download-alt"/> <a target="_blank" href="<%=@podcast.audio_url%>">Direct Download Link</a></p>

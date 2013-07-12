@@ -1,5 +1,5 @@
 <p><strong><%= @contact.full_name_first %><strong>,</p>
-<p>This is a reminder that you signed up for <strong><%=@signup.title%></strong>, which is coming up on <strong><%= @slot.date.strftime('%A, %B %d') %></strong>.</p>
+<p>This is a reminder that you signed up for <strong><%=@signup.title%></strong>, which is coming up in <strong><%= @signup.send_reminder_email_days %> <%=@signup.send_reminder_email_days == 1 ? 'day' : 'days' %></strong> on <strong><%= @slot.date.strftime('%A, %B %d') %></strong>.</p>
 <% if !@slot.notes.blank? %>
 <p><strong>Signup Notes:</strong></p>
 <%=@slot.notes%>

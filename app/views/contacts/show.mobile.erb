@@ -9,7 +9,7 @@
 		</div>
 		<h1><%=@contact.full_name%></h1>
 		<div>
-			<a href="http://maps.google.com/maps?q=<%=@contact.address.gsub(' ', '+')%>+<%=@contact.city_state_zip.gsub(' ', '+')%>"><%=@contact.address%><br/><%=@contact.city_state_zip%></a>
+			<a href="<%= maps_link(@contact.address, @contact.city_state_zip)%>"><%=@contact.address%><br/><%=@contact.city_state_zip%></a>
 		</div>
 		<h2><%=@contact.first_name%></h2>
 		<div>

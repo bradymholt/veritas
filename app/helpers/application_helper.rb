@@ -11,4 +11,14 @@ module ApplicationHelper
 	        end
 	    end
 	end
+
+	def maps_link(address, city_state_zip)
+		if android_agent?
+			"geo:0,0?q=#{address.gsub(' ', '+')}+#{city_state_zip.gsub(' ', '+')}"
+		elsif ios_agent?
+			"http://maps.apple.com/?q=#{address.gsub(' ', '+')}+#{city_state_zip.gsub(' ', '+')}"
+		else
+			"http://maps.google.com/maps?q=#{address.gsub(' ', '+')}+#{city_state_zip.gsub(' ', '+')}"
+		end
+	end
 end

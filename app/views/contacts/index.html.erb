@@ -48,7 +48,7 @@
       <td class="nowrap"><%=mail_to c.email%><br/><%=mail_to c.spouse_email%></td>
       <td class="nowrap"><a href="tel:<%=c.phone%>"><%=c.phone%></a><br/><a href="tel:<%=c.spouse_phone%>"><%=c.spouse_phone%></a></td>
       <td><%=c.birthday.try(:strftime, '%m/%d')%><br/><%=c.spouse_birthday.try(:strftime, '%m/%d')%></td>
-      <td><a href="http://maps.google.com/maps?q=<%=c.address.gsub(' ', '+')%>+<%=c.city_state_zip.gsub(' ', '+')%>"><%=c.address%><br/><%=c.city_state_zip%></a></td>
+      <td><a target="_blank" href="<%= maps_link(c.address, c.city_state_zip)%>"><%=c.address%><br/><%=c.city_state_zip%></a></td>
       <td class="nowrap"><a href="tel:<%=c.home_phone%>"><%=c.home_phone%></a></td>
       <td><%=c.anniversary.try(:strftime, '%m/%d')%></td>
       <td><%= image_tag(c.photo_url(:thumb), :id => 'photo') %></td>

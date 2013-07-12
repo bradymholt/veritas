@@ -3,6 +3,9 @@ class PodcastsController < ApplicationController
  skip_before_filter :require_admin, :only => [:index]
  skip_before_filter :require_login, :only => [:feed]
  skip_before_filter :require_admin, :only => [:feed]
+  skip_before_filter :require_login, :only => [:show]
+ skip_before_filter :require_admin, :only => [:show]
+
  
   # GET /podcasts
   # GET /podcasts.json
@@ -73,6 +76,14 @@ class PodcastsController < ApplicationController
         format.mobile { render action: "edit" }
         format.json { render json: @podcast.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+   def show
+     @podcast = Podcast.find(params[:id])
+
+      respond_to do |format|
+        format.mobile { render formats => [:mobile] }
     end
   end
 

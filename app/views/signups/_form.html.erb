@@ -52,7 +52,7 @@
         <%= f.fields_for(:signup_slots) do |slot| %>
         <tr class="<%=slot.object.new_record? ? 'slotTemplate' : 'slot'%>">
           <td><span class='dateDisplay'><%=slot.object.date.try(:strftime, '%m/%d/%Y')%></span><%= slot.hidden_field(:date, :class=>'date', :value => slot.object.date.try(:strftime, '%Y-%m-%d')) %></td>
-          <td><%= slot.select(:contact_id,  options_for_select(@contacts.map{ |f| [f.full_name, f.id, {'data-has-email'=> f.has_email}]}, selected_key =slot.object.contact_id), {:include_blank => '--Open--'}, { :class => 'family' })%></td>
+          <td><%= slot.select(:contact_id,  options_for_select(@contacts.map{ |f| [f.full_name, f.id, {'data-has-email'=> f.has_email}]}, selected_key =slot.object.contact_id), {:include_blank => '--OPEN--'}, { :class => 'family' })%></td>
           <td><%= slot.text_field :notes, :class=>'notes' %></td>
           <td><a href="#" class="removeSlot">remove</a> <%= slot.hidden_field :id %><%= slot.hidden_field(:_destroy, :class=>'destroy', :value=> slot.object.new_record? ? '1' : '') %></td>
         </tr>
