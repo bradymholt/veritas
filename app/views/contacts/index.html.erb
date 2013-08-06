@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span4">
+  <div class="span5">
     <ul id="roster_filter" class="nav nav-pills">
       <li class="active">
         <a id="active" href="#">Active</a>
@@ -9,12 +9,10 @@
       <li><a id="inactive" href="#">Inactive</a></li>
     </ul>
   </div>
-  <div class="span2">
-    <%= link_to 'Add New Family', new_contact_path, :class => 'btn btn-small btn-success' %>
-  </div>
-  <div class="span2 offset4">
+  <div class="span7">
+    <%= link_to 'Add New', new_contact_path, :class => 'btn btn-small btn-success' %>
     <a class="btn btn-mini" href="<%=contacts_path(:format => :xls)%>"><%= image_tag "excel_icon.png", :class => 'ui-li-icon' %> Excel</a>
-  <a class="btn btn-mini" href="<%=contacts_path(:format => :csv)%>"><i class="icon-download-alt"></i> CSV</a>
+    <a class="btn btn-mini" href="<%=contacts_path(:format => :csv)%>"><i class="icon-download-alt"></i> CSV</a>
   </div>
 </div>
 </div>

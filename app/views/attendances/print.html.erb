@@ -1,0 +1,43 @@
+ <h1><%=Setting.cached.group_name%> Attendance</h1>
+ <h2>Members</h2>
+ <hr/>
+    <table id="member_attendance" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Family</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @members.each do |c| %>
+        <tr>
+          <td><%=c.full_name%></td>
+          <td><div class="printed-present-box"></div></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+   <h2>Visitors</h2>
+   <hr/>
+    <table id="member_attendance" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Family</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @visitors.each do |c| %>
+        <tr>
+          <td><%=c.full_name%></td>
+          <td><div class="printed-present-box"></div></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  window.print(); return false;
+});
+</script>

@@ -29,6 +29,12 @@ class AttendancesController < ApplicationController
     end
   end
 
+  def print
+     @members = Contact.where(:is_member => true, :is_active => true)
+     @visitors = Contact.where(:is_member => false, :is_active => true)
+     render layout: "print"
+  end
+
   # GET /attendances/1
   # GET /attendances/1.json
   def show

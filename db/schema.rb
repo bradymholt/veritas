@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708095335) do
+ActiveRecord::Schema.define(:version => 20130716153152) do
 
   create_table "attendances", :force => true do |t|
     t.integer  "contact_id"
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(:version => 20130708095335) do
     t.boolean  "contact_email_cc"
     t.integer  "contacts_inactivate_after_no_attendance_weeks"
     t.string   "podcast_itunes_url"
-    t.string   "announcements_html"
+    t.text     "announcements_html",                            :limit => 255
   end
 
   create_table "signup_slots", :force => true do |t|

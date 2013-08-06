@@ -13,6 +13,7 @@ VeritasWeb::Application.routes.draw do
   
   match "podcast" => "podcasts#feed", :defaults => { :format => 'rss' }, :as => "podcast_feed"
   
+  match "attendances/print" => 'attendances#print', :as => "print_attenance"
   match "attendances/:date" => 'attendances#show', :as => "attendances_by_date"
   match "attendances/:date/:contact_id" => 'attendances#update'
   resources :attendances

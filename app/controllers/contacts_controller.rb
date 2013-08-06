@@ -41,6 +41,11 @@ class ContactsController < ApplicationController
 
     def new
       @contact = Contact.new
+      if !params[:member].blank?
+        @contact.is_member = true
+      end
+
+      session[:contact_edit_referrer] = request.referrer || contacts_url
 
       respond_to do |format|
         format.html # new.html.erb
@@ -50,6 +55,7 @@ class ContactsController < ApplicationController
 
     def edit
       @contact = Contact.find(params[:id])
+      session[:contact_edit_referrer] = request.referrer || contacts_url
 
       respond_to do |format|
         format.html
@@ -61,7 +67,7 @@ class ContactsController < ApplicationController
       @contact = Contact.new(params[:contact])
 
       if @contact.save
-       redirect_to contacts_url, notice: 'Contact was successfully created.'
+       redirect_to session[:contact_edit_referrer], notice: 'Contact was successfully created.'
      else
       render action: "new"
     end
@@ -77,7 +83,7 @@ class ContactsController < ApplicationController
           if request.xhr? 
             head :no_content
           else
-            redirect_to contacts_url
+            redirect_to session[:contact_edit_referrer]
           end
         }
         format.mobile { redirect_to members_url }

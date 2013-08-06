@@ -1,25 +1,26 @@
-.default #content{  background-color: #808080; margin:0px; }
-.default #content h2 { font-size: 18px; }
-.default #content .modal-header h3 { font-size: 24.5px; }
-.default #content h3 { font-size: 14px; }
-.default #content #wrapper {
+body.default #content{  background-color: #808080; margin:0px; }
+body.default #content h2 { font-size: 18px; }
+body.default #content .modal-header h3 { font-size: 1.6em; }
+body.default #content h3 { font-size: 14px; }
+body.default #content #wrapper {
 	width:1000px;
 	margin: 0 auto;
 	padding: 0 5px 0 5px;
 	background-color: white;
 }
 
-.default #content .row { margin: 0 auto;}
+body.default #content .row { margin: 0 auto;}
 #podcast-item-detail { font-style: italic;}
-.default .member .email { width: 145px; text-overflow: ellipsis; overflow: hidden;}
-.default .signup { border-bottom: solid 1px #d4d4d4; padding: 10px 0 10px 0;}
-.default .signup .title { font-size:16px; padding-bottom:5px;}
+body.default .member .email { width: 145px; text-overflow: ellipsis; overflow: hidden;}
+body.default .signup { border-bottom: solid 1px #d4d4d4; padding: 10px 0 10px 0;}
+body.default .signup .title { font-size:16px; padding-bottom:5px;}
 .signup-detail { font-size:smaller;}
 .signup .title { font-weight: bold;}
 
-.default dt { font-size:17.5px; margin-bottom:5px; }
-.default dd { font-size:17.5px; margin-botton:5px; margin-bottom:10px;}
+body.default dt { font-size:17.5px; margin-bottom:5px; }
+body.default dd { font-size:17.5px; margin-botton:5px; margin-bottom:10px;}
 
+body.default .edit-contact { display:block;}
 #edit-contact-modal .modal-body { max-height: 450px;}
 #edit-contact-modal {
 	width: 870px;
