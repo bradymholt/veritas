@@ -2,6 +2,10 @@
 
 set -e
 
+git add .
+git commit -m "deploying"
+git push
+
 cd ~/dev/veritas_web
 git pull
 #echo "rake test"

@@ -4,20 +4,21 @@
 </div>
 <% end %>
 <div class="row">
-  <div class="span8">
+  <div class="span7">
     <ul id="attendance_date" class="nav nav-pills">
       <% @dates.each do |d| %>
       <li><a href="#" class="date_link" date="<%=d[:date]%>"><%=d[:description]%></a></li>
       <% end %> 
     </ul>
   </div>
-  <div class="span4">
-    <%= link_to 'Print Attendance Sheet', print_attenance_path, :class => 'btn btn-small' %>
+  <div class="span5">
+    <%= link_to 'Add New Visitor', new_contact_path, :class => 'btn btn-small btn-success' %>
+    <%= link_to 'Print Attendance Sheet', print_attenance_path, :class => 'btn btn-small', :target => '_blank' %>
   </div>
 </div>
 <div class="row">
   <div class="span5">
-    <h2>Members<%= link_to 'Add New', new_contact_path(:member => true), :class => 'btn btn-small btn-success pull-right' %></h2>
+    <h2>Members</h2>
     <table id="member_attendance" class="table table-striped">
       <thead>
         <tr>
@@ -37,7 +38,7 @@
   </div>
   <div class="span5">
     <% if @visitors.count > 0 %>
-    <h2>Visitors<%= link_to 'Add New', new_contact_path, :class => 'btn btn-small btn-success pull-right' %></h2>
+    <h2>Visitors</h2>
     <table id="visitor_attendance" class="table table-striped">
       <thead>
         <tr>

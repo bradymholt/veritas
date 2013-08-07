@@ -41,10 +41,6 @@ class ContactsController < ApplicationController
 
     def new
       @contact = Contact.new
-      if !params[:member].blank?
-        @contact.is_member = true
-      end
-
       session[:contact_edit_referrer] = request.referrer || contacts_url
 
       respond_to do |format|

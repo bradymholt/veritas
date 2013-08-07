@@ -20,7 +20,7 @@
        <li><%= f.label :send_welcome_email_on_save, "Send Welcome Email", :class => "checkbox inline" %>
          <%= f.check_box :send_welcome_email_on_save%></li>
          <% if @contact.new_record? %>
-         <li><%= f.label :mark_initial_attendance_on_create, "Mark Attendance", :class => "checkbox inline" %>
+         <li><%= f.label :mark_initial_attendance_on_create, "Mark Present for Attendance", :class => "checkbox inline" %>
            <%= f.check_box :mark_initial_attendance_on_create%></li>
            <% end %>
            <% if !@contact.new_record? && !@contact.last_attendance_date.nil? %>

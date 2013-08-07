@@ -1,4 +1,7 @@
 class AttendancesController < ApplicationController
+  skip_before_filter :require_login, :only => [:print]
+  skip_before_filter :require_admin, :only => [:print]
+
   # GET /attendances
   # GET /attendances.json
   def index
