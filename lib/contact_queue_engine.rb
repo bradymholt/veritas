@@ -1,4 +1,4 @@
-module ContactQueueEngine
+module .
 	def self.queue_all
 		settings = Setting.first
 		total_count = 0
@@ -54,7 +54,8 @@ module ContactQueueEngine
 		members_to_queue = Contact.where(:is_member => true, :is_active => true).where('id NOT IN (?)', contact_id_exclude)
 		
 		members_to_queue.each do |absent_member|
-			if !ContactQueueItem.exists?(:contact_id => absent_member.id, :is_completed => false)
+
+			if !ContactQueueItem.where('contact_id = ? AND (is_completed = ? OR created_at >= ?)', absent_member.id, false, (last_sunday - (weeks_absent - 1).weeks)).exists?
 				puts "Adding Family: " + absent_member.full_name
 				cq = ContactQueueItem.new
 				cq.contact_id = absent_member.id
