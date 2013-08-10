@@ -15,6 +15,11 @@ var Default = {
 		 	var title = $(this).closest('.member').find('h4').text();
 			$('#edit-contact-modal .modal-header h3').text(title);
 		});
+
+		$('.member a.view-photo').click(function () {
+			var title = $(this).closest('.member').find('h4').text();
+			$('#contact-photo-modal .modal-header h3').text(title);
+		});
 		
 		$('#save-contact').click(function(){
 			$('form.edit_contact').submit();

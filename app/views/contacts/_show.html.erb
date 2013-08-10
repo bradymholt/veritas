@@ -1,6 +1,8 @@
 <div class="member media">
 	<div class="pull-right media-object">
-		<%= image_tag(contact.photo_url(:thumb), :class=> 'contact-thumbnail') %>
+		<a class="edit" data-toggle="modal" data-target="#edit-contact-modal" role="button" href="<%=edit_contact_path(contact)%>" tabindex="-1">
+			<%= image_tag(contact.photo_url(:thumb), :class=> 'contact-thumbnail') %>
+		</a>
 		<div class="edit-contact"><a class="btn btn-mini edit" data-toggle="modal" data-target="#edit-contact-modal" role="button" href="<%=edit_contact_path(contact)%>" tabindex="-1">Edit</a> </div>
 	</div>
 	<div class="media-body">
