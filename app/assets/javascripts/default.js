@@ -17,17 +17,8 @@ var Default = {
 		});
 		
 		$('#save-contact').click(function(){
-			var form = $('form.edit_contact');
-			$.ajax({
-				type: form.attr('method'),
-				url: form.attr('action'),
-				data: form.serialize()
-			}).done(function() {
-				$('#edit-contact-modal').modal('hide');
-				window.location.replace('/');
-			}).fail(function(jqXHR, textStatus){
-				$('#edit-contact-modal .modal-body').html(jqXHR.responseText).scrollTop(0,0);
-			});
+			$('form.edit_contact').submit();
+			$('#edit-contact-modal').modal('hide');
 		});
 
 		$('body').on('hidden', '.modal', function () {
