@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+#set -e
 
 git add .
 git commit -m "deploying"
