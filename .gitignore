@@ -3,4 +3,4 @@ log/*
 tmp/*
 *.DS_Store*
 *.pid
-
+config/*.yml
