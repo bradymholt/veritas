@@ -6,21 +6,14 @@ git add .
 git commit -m "deploying"
 git push
 
-cd ~/dev/veritas_web
+cd ~/dev/veritas
 git pull
-#echo "rake test"
-#rake test
-echo "rake tmp:clear (local)"
-bundle exec rake tmp:clear
-mv ./config/database.yml ./config/database_orig.yml
-cp ./config/database_deploy.yml ./config/database.yml
 echo "rake assets:precompile"
-bundle exec rake assets:precompile
-mv ./config/database_orig.yml ./config/database.yml
+bundle exec rake assets:precompile RAILS_ENV=production
 echo "copying files..."
-rsync -rvuz ~/dev/veritas_web/ bholt@geekytidbits.com:web/veritas --exclude='.git/' --exclude='log/' --exclude='tmp/cache' --delete
+rsync -rvuz --delete ~/dev/veritas/ bholt@geekytidbits.com:web/veritas --exclude='.git/' --exclude='log/' --exclude='tmp/cache'
 echo "removing local precompiled assets"
-rm -r ~/dev/veritas_web/public/assets/*
+rm -r ~/dev/veritas/public/assets/*
 echo "bundle install"
 ssh bholt@geekytidbits.com 'cd ~/web/veritas && bundle install'
 echo "rake db:migrate"
