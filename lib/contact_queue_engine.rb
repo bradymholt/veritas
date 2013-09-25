@@ -1,4 +1,4 @@
-module .
+module ContactQueueEngine
 	def self.queue_all
 		settings = Setting.first
 		total_count = 0
