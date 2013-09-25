@@ -2,7 +2,7 @@
 
 #set -e
 
-git add .
+git add -A
 git commit -m "deploying"
 git push
 
