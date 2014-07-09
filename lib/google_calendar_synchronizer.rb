@@ -3,7 +3,8 @@ module GoogleCalendarSynchronizer
 		service = GCal4Ruby::Service.new
 		if service.authenticate(username, password)
 			contacts_count = contacts.length
-			existing_events = GCal4Ruby::Event.find(service, "[auto:", { 'max-results' => (contacts_count * 3), 'start-min' => (DateTime.now - 1.day).rfc3339 })
+			start_min = (DateTime.now - 1).utc.xmlschema.gsub("+", "-")
+            existing_events = GCal4Ruby::Event.find(service, "[auto:", { 'max-results' => (contacts_count * 3), 'start-min' => start_min })
 			upcoming_events = Contact.upcoming_dates(contacts, DateTime.now + 3.months)
 			upcoming_events.each do |e|
 				sync_event(service, e, existing_events)
