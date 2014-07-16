@@ -35,7 +35,7 @@ class AppIconUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :resize_to_limit => [300, 300]
+  process :resize_to_limit => [600, 600]
   process :convert => 'png'
   #
   # def scale(width, height)
