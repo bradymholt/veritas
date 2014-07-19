@@ -157,7 +157,7 @@ DEPENDENCIES
   ckeditor
   coffee-rails (~> 3.2.1)
   flot-rails
-  fog
+  fog (~> 1.11.1)
   gcal4ruby!
   jquery-rails
   jquery-ui-rails
