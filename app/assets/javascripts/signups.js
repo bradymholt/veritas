@@ -24,11 +24,13 @@ var Signups = {
 		App.setupCheckboxInputDependency($('#send_signup_email'), $('#signup_email_to_container'));
 
 		$("#signup_visible_admin_only").change(function(){
-			if ($(this).prop("checked") == false) {
-			 	$("#signup_post_to_facebook").prop("checked", false)
+			if ($(this).prop("checked") == true) {
+			 	$("#signup_post_to_facebook").prop("checked", false);
+			 	$("#send_signup_email").prop("checked", false);
+			 	$("#signup_email_to_container").hide();
 			}
 
-			$("#post_to_facebook").toggle(!$(this).prop("checked"));
+			$("#post_to_facebook, #send_signup_email_label").toggle(!$(this).prop("checked"));
 		});
 
 		Signups.updateCalendar();
