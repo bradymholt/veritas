@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140729024009) do
+ActiveRecord::Schema.define(:version => 20140729031453) do
 
   create_table "attendances", :force => true do |t|
     t.integer  "contact_id"
@@ -135,11 +135,10 @@ ActiveRecord::Schema.define(:version => 20140729024009) do
     t.integer  "signup_id"
     t.date     "date"
     t.integer  "contact_id"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "notes"
     t.boolean  "reminder_sent"
-    t.boolean  "is_facebook_posted", :default => false, :null => false
   end
 
   create_table "signups", :force => true do |t|
@@ -147,8 +146,9 @@ ActiveRecord::Schema.define(:version => 20140729024009) do
     t.string   "details"
     t.integer  "send_reminder_email_days"
     t.boolean  "visible_admin_only"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.boolean  "is_facebook_posted",       :default => true, :null => false
   end
 
 end
