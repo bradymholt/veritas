@@ -23,6 +23,14 @@ var Signups = {
 		App.setupCheckboxInputDependency($('#send_reminder_email'), $('#reminder_days_container'));
 		App.setupCheckboxInputDependency($('#send_signup_email'), $('#signup_email_to_container'));
 
+		$("#signup_visible_admin_only").change(function(){
+			if ($(this).prop("checked") == false) {
+			 	$("#signup_post_to_facebook").prop("checked", false)
+			}
+
+			$("#post_to_facebook").toggle(!$(this).prop("checked"));
+		});
+
 		Signups.updateCalendar();
 		Signups.initSignup();
 		Signups.setupSlots();

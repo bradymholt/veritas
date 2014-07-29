@@ -34,6 +34,12 @@
       <span class="help-inline">to</span>
       <%= f.select(:send_signup_email_to_type, Contact::EMAIL_LIST_TYPE.collect {|t| [t[:description], t[:id] ]}, {:include_blank => '--select--'}) %>
     </div>
+    <% if @facebook_post_enabled == true %>
+    <label id="post_to_facebook" class="checkbox">
+      <%= f.check_box :post_to_facebook %>
+      Post to Facebook Group Now
+    </label>
+    <% end %>
   </div>
   <div class="span4">
     <label for="signup-dates">Signup Dates</label>

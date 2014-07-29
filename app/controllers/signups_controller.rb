@@ -26,12 +26,14 @@ class SignupsController < ApplicationController
     @signup.set_new_default_values
     @signup.signup_slots.build #new template
     @contacts = Contact.all
+    @facebook_post_enabled = !Setting.cached.facebook_access_token.blank? && !Setting.cached.facebook_group_id.blank?
   end
 
   def edit
     @signup = Signup.find(params[:id])
     @signup.signup_slots.build #new template
     @contacts = Contact.where(:is_active => true)
+    @facebook_post_enabled = !Setting.cached.facebook_access_token.blank? && !Setting.cached.facebook_group_id.blank?
   end
 
   def signup
