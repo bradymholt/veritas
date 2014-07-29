@@ -14,7 +14,7 @@ class Signup < ActiveRecord::Base
    if !@send_signup_email_to_type.blank?
      Thread.new do
         begin
-        UserMailer.signup_email(self, @send_signup_email_to_type.to_sym).deliver
+          UserMailer.signup_email(self, @send_signup_email_to_type.to_sym).deliver
         rescue => ex
           logger.error ex.message
         end
@@ -24,10 +24,12 @@ class Signup < ActiveRecord::Base
 
   def post_to_facebook
     if !@post_to_facebook.blank?
-      begin
-        FacebookGroupPoster.post_signup(self.id)
-      rescue => ex
-        logger.error ex.message
+      Thread.new do
+        begin
+          FacebookGroupPoster.post_signup(self.id)
+        rescue => ex
+          logger.error ex.message
+        end
       end
     end
   end
