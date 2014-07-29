@@ -13,6 +13,15 @@ namespace :app do
 		SignupReminderSender.send_due
 	end
 
+	desc "Facebook group post bot"
+	task :facebook_group_post_bot => :environment do
+		puts "[facebook_group_post_bot]"
+		settings = Setting.first
+		if !settings.facebook_access_token.nil? && !settings.facebook_group_id.nil?
+			FacebookGroupPoster.send_pending(settings)
+		end
+	end
+
 	desc "Contact bot"
 	task :contact_bot => :environment do
 		puts "[roster_bot]"

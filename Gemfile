@@ -33,6 +33,7 @@ gem 'ckeditor'
 gem 'gcal4ruby', :git => 'git://github.com/SeabourneConsulting/GCal4Ruby.git'
 gem 'flot-rails'
 gem 'mediaelement_rails'
+gem 'koala'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
