@@ -12,7 +12,7 @@ class Podcast < ActiveRecord::Base
 	end
 
 	def post_to_facebook
-    if !Setting.cached.facebook_access_token.blank? && !Setting.cached.facebook_group_id.blank? && !is_facebook_posted?
+    if !is_facebook_posted?
       Thread.new do
         begin
           FacebookGroupPoster.post_podcast(self.id)
