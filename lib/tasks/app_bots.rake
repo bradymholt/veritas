@@ -4,22 +4,13 @@ namespace :app do
 	end
 
 	desc "Daily App bots"
-	task :daily_bots => [:environment, :signup_reminder_bot, :facebook_group_post_bot] do
+	task :daily_bots => [:environment, :signup_reminder_bot] do
 	end
 
 	desc "Signup reminder bot"
 	task :signup_reminder_bot => :environment do
 		puts "[signup_reminder_bot]"
 		SignupReminderSender.send_due
-	end
-
-	desc "Facebook group post bot"
-	task :facebook_group_post_bot => :environment do
-		puts "[facebook_group_post_bot]"
-		settings = Setting.first
-		if !settings.facebook_access_token.blank? && !settings.facebook_group_id.blank?
-			FacebookGroupPoster.post_podcasts(settings.facebook_access_token, settings.facebook_group_id)
-		end
 	end
 
 	desc "Contact bot"
