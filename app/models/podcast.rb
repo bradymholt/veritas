@@ -12,7 +12,7 @@ class Podcast < ActiveRecord::Base
 	end
 
 	def post_to_facebook
-    if !podcast.is_facebook_posted?
+    if !is_facebook_posted?
       Thread.new do
         begin
           FacebookGroupPoster.post_podcast(self.id)
