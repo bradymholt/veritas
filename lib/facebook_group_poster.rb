@@ -5,7 +5,7 @@ module FacebookGroupPoster
 		if !podcast.is_facebook_posted? && !settings.facebook_access_token.blank? && !settings.facebook_group_id.blank?
 	    	graph = Koala::Facebook::API.new(settings.facebook_access_token)
 	    	podcast_date = podcast.date.strftime('%m/%d')
-	    	graph.put_object(settings.facebook_group_id, "feed", { :name => "#{podcast.title} - #{podcast.speaker}, #{podcast_date}", :link => podcast.audio_url, :message => "New Podcast is Available!" })
+	    	graph.put_object(settings.facebook_group_id, "feed", { :name => "#{podcast.title} - #{podcast.speaker}, #{podcast_date}", :link => podcast.audio_url, :message => "New Podcast for #{podcast_date} is Available!" })
 	    	podcast.is_facebook_posted = true
 	    	podcast.save
 	    end
