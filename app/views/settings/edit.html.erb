@@ -172,7 +172,7 @@
    <%=f.label :smtp_username %>
    <%=f.text_field :smtp_username %> 
    <%=f.label :smtp_password %>
-   <%=f.password_field :smtp_password %>  
+   <%=f.password_field :smtp_password, :value => @settings.smtp_password %>  
    <%=f.label :smtp_port %>
    <%=f.text_field :smtp_port %>  
    <%=f.label :aws_access_key %>

@@ -13,6 +13,7 @@
             <li><a href="#podcast_page">Podcast</a></li>
             <% end %>
             <li><a href="#calendar_page">Calendar</a></li>
+            <li><a data-ajax="false" href="/?mobile=0">Signups</a></li>
             <% if is_admin? %>
             <li><a data-ajax="false" href="<%=attendances_url%>">Attendance<%= image_tag "lock_icon.png", :class => 'ui-li-icon' %></a></li>
             <% end %>
