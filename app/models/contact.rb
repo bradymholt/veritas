@@ -152,25 +152,25 @@ def self.text_number_list(type)
   
   numbers = []
   contacts.each { |c|
-      to_add = nil
-      if type == :test && c.last_name == "Holt"
-        to_add = c.phone
+     
+      if !c.phone.blank? && (type != :women)
+        numbers.push(c.phone)
       end
-      # if !c.phone.blank? && (type != :women)
-      #   to_add = c.phone
-      # elsif  !c.spouse_phone.blank? && (type != :men)
-      #   to_add = c.spouse_phone
-      # end
-      
-      if !to_add.nil?
-        formatted = to_add.gsub(/[^0-9]/,'') #555-555-5555
-        if formatted.length == 10  #5555555555
-          numbers.push(formatted)
-        end
+
+      if  !c.spouse_phone.blank? && (type != :men)
+        numbers.push(c.spouse_phone)
       end
   }
 
-  return numbers
+  formatted_numbers = []
+  numbers.each { |n| 
+    formatted = n.gsub(/[^0-9]/,'') #555-555-5555
+    if formatted.length == 10  #5555555555
+      formatted_numbers.push(formatted)
+    end
+  }
+ 
+  return formatted_numbers
 end
 
 private 
