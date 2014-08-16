@@ -1,0 +1,35 @@
+<% content_for :content do %>
+<div class="row">
+	<div class="span3">
+		<div class="well well-small">
+			<strong>Email Lists</strong>
+			<ul class="nav nav-list">
+				<li><%=report_nav_link("Everyone", '/tools/email_list/active')%></li>
+				<li><%=report_nav_link("Men Only", '/tools/email_list/men')%></li>
+				<li><%=report_nav_link("Women Only", '/tools/email_list/women')%></li>
+				<li><%=report_nav_link("Vistors Only", '/tools/email_list/visitors')%></li>
+			</ul>
+			<strong>Reports</strong>
+			<ul class="nav nav-list">
+				<li><%=report_nav_link("Upcoming Event Dates", '/tools/upcoming_dates/')%></li>
+				<li><%=report_nav_link("Attendance Counts", '/tools/attendance_counts/')%></li>
+				<li><%=report_nav_link("Last Date Present", '/tools/attendance_date/last')%></li>
+			</ul>
+			<% if !Setting.cached.carrier_lookup_api_key.blank? %>
+				<strong>Send Text</strong>
+				<ul class="nav nav-list">
+					<li><%=report_nav_link("All Members", '/tools/text/members')%></li>
+					<li><%=report_nav_link("Men (Members Only)", '/tools/text/men')%></li>
+					<li><%=report_nav_link("Women (Members Only)", '/tools/text/women')%></li>
+					<li><%=report_nav_link("Test", '/tools/text/test')%></li>
+				</ul>
+			<% end %>
+		</div>
+	</div>
+	<div class="span9">
+		<%= content_for?(:reports_content) ? yield(:reports_content) : yield %>
+	</div>
+</div>
+<% end %>
+
+<%= render :template => 'layouts/application' %>

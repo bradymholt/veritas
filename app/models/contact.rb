@@ -90,9 +90,13 @@ end
 def send_welcome_email
  if @send_welcome_email_on_save == "1"
   Thread.new do
-    UserMailer.welcome_email(self).deliver
+    begin
+      UserMailer.welcome_email(self).deliver
+     ensure
+      ActiveRecord::Base.connection_pool.release_connection
+    end
   end
-end
+ end
 end
 
 def self.to_csv(contacts, options = {})
@@ -141,6 +145,32 @@ def self.email_list(type)
 
   emails.join(', ')
 
+end
+
+def self.text_number_list(type)
+  contacts = Contact.where(:is_active => true, :is_member => true)
+  
+  numbers = []
+  contacts.each { |c|
+      to_add = nil
+      if type == :test && c.last_name == "Holt"
+        to_add = c.phone
+      end
+      # if !c.phone.blank? && (type != :women)
+      #   to_add = c.phone
+      # elsif  !c.spouse_phone.blank? && (type != :men)
+      #   to_add = c.spouse_phone
+      # end
+      
+      if !to_add.nil?
+        formatted = to_add.gsub(/[^0-9]/,'') #555-555-5555
+        if formatted.length == 10  #5555555555
+          numbers.push(formatted)
+        end
+      end
+  }
+
+  return numbers
 end
 
 private 

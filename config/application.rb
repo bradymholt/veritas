@@ -60,5 +60,7 @@ module VeritasWeb
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.carrier_lookup_api_url = 'http://www.carrierlookup.com/index.php/api/lookup?'
   end
 end

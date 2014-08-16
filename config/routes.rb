@@ -1,4 +1,7 @@
 VeritasWeb::Application.routes.draw do
+  resources :tests
+
+
   mount Ckeditor::Engine => '/ckeditor'
 
   match "login" => "sessions#new", :via => [:get]
@@ -21,9 +24,10 @@ VeritasWeb::Application.routes.draw do
   resources :signups
   match "signups/:id/signup" => "signups#signup", :as => "user_signup"
   
-  match "reports" => "reports#index"
-  match "reports/:action/:type" => "reports#%{action}"
-  match "reports/:action" => "reports#%{action}"
+  match "tools" => "tools#index"
+  match "tools/:action/:type" => "tools#%{action}"
+  match "tools/:action" => "tools#%{action}"
+  match "tools/text/:type/send" => "tools#text_send"
   
   match "admin" => redirect("/contacts")
   match "mobile" => redirect("/?mobile=1")

@@ -12,16 +12,16 @@ class Podcast < ActiveRecord::Base
 	end
 
 	def post_to_facebook
-    if !is_facebook_posted?
-      Thread.new do
-        begin
-          FacebookGroupPoster.post_podcast(self.id)
-        rescue => ex
-          logger.error ex.message
-        end
-      end
+	    if !is_facebook_posted?
+	      Thread.new do
+	        begin
+	          FacebookGroupPoster.post_podcast(self.id)
+	        rescue => ex
+	          logger.error ex.message
+	        end
+	      end
+	    end
     end
-  end
 
 	def description
 		title + ' - ' + speaker

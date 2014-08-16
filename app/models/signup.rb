@@ -10,16 +10,18 @@ class Signup < ActiveRecord::Base
     self.send_reminder_email_days = 2 if new_record?
   end
 
-   def send_signup_email
-   if !@send_signup_email_to_type.blank?
-     Thread.new do
-        begin
-          UserMailer.signup_email(self, @send_signup_email_to_type.to_sym).deliver
-        rescue => ex
-          logger.error ex.message
+  def send_signup_email
+     if !@send_signup_email_to_type.blank?
+       Thread.new do
+          begin
+            UserMailer.signup_email(self, @send_signup_email_to_type.to_sym).deliver
+          rescue => ex
+            logger.error ex.message
+          ensure
+            ActiveRecord::Base.connection_pool.release_connection
+          end
         end
       end
-    end
   end
 
   def post_to_facebook
@@ -29,6 +31,8 @@ class Signup < ActiveRecord::Base
           FacebookGroupPoster.post_signup(self.id)
         rescue => ex
           logger.error ex.message
+        ensure
+          ActiveRecord::Base.connection_pool.release_connection
         end
       end
     end

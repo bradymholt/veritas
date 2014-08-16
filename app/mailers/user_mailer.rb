@@ -33,4 +33,10 @@ class UserMailer < ActionMailer::Base
   		 :subject => "#{Setting.cached.group_name} Reminder: #{@signup.title} is coming up on #{@slot.date.strftime('%A')}")
 	   end
   end
+
+  def text_message(sms_gateway_email, message)
+    @message = message
+    mail(:to => sms_gateway_email, :subject => "#{Setting.cached.group_name}")
+    format.text
+  end
 end

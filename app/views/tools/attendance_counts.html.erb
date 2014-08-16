@@ -39,7 +39,7 @@
 	  	var weeks_back_value = $('#weeks_back').val();
 	  	var include_value = $('#include').val();
 	  	$.ajax({
-			url: '/reports/attendance_counts_data/',
+			url: '/tools/attendance_counts_data/',
 			type: 'GET',
 			data: { weeks_back: weeks_back_value, include: include_value },
 			contentType: 'application/json'

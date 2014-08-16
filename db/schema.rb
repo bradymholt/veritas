@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140729035515) do
+ActiveRecord::Schema.define(:version => 20140814041004) do
 
   create_table "attendances", :force => true do |t|
     t.integer  "contact_id"
@@ -81,6 +81,14 @@ ActiveRecord::Schema.define(:version => 20140729035515) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "phone_carrier_lookups", :force => true do |t|
+    t.string   "phone_number"
+    t.string   "carrier"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "type"
+  end
+
   create_table "podcasts", :force => true do |t|
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
@@ -129,6 +137,7 @@ ActiveRecord::Schema.define(:version => 20140729035515) do
     t.text     "announcements_html",                            :limit => 255
     t.string   "facebook_access_token"
     t.string   "facebook_group_id"
+    t.string   "carrier_lookup_api_key"
   end
 
   create_table "signup_slots", :force => true do |t|
@@ -148,6 +157,11 @@ ActiveRecord::Schema.define(:version => 20140729035515) do
     t.boolean  "visible_admin_only"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
+  end
+
+  create_table "tests", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

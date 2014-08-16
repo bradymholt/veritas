@@ -1,5 +1,5 @@
-class ReportsController < ApplicationController
-	layout "reports"
+class ToolsController < ApplicationController
+	layout "tools"
 
 	def email_list
 		@description = "#{params[:type].capitalize} Email Addresses"
@@ -37,5 +37,24 @@ class ReportsController < ApplicationController
 		contacts = Contact.where(:is_active => true)
 		up_to_date = DateTime.now + (params[:months_up] || 6).months
 		@dates = Contact.upcoming_dates(contacts, up_to_date)
+	end
+
+	def text
+		@description = "Send Text to #{params[:type].capitalize}"
+		@type = params[:type]
+	end
+
+	def text_send
+		if (params[:content].blank?)
+			flash.now[:error] = "Content is required"
+		else
+			numbers = Contact.text_number_list(params[:type].to_sym)
+			Texter.send(numbers, params[:content])
+			flash.now[:notice] = "#{numbers.length.to_s} texts successfully queued and will be sent out."
+		end
+
+		@description = "Send Text to #{params[:type].capitalize}"
+		@type = params[:type]	
+		render action: "text"
 	end
 end
