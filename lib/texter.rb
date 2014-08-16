@@ -1,10 +1,10 @@
-bundle update debuggermodule Texter
+module Texter
 	def self.send(numbers, message)
 	      begin
           phone_carriers = PhoneCarrierLookup.where(phone_number: numbers)
           carriers_by_number = Hash[phone_carriers.collect { |c| [c.phone_number, c]}]
           lookup_api_url = VeritasWeb::Application.config.carrier_lookup_api_url + "key=" + Setting.cached.carrier_lookup_api_key + "&number="
-          number.each { |n|
+          numbers.each { |n|
           	if carriers_by_number[n].nil?
               begin
             		new_phone_carrier = PhoneCarrierLookup.new
@@ -12,7 +12,7 @@ bundle update debuggermodule Texter
 
             		response_body = open(lookup_api_url + n).read.downcase
             		response_parsed = JSON.parse(response_body, :symbolize_names => true)
-            		response = parsed_body[:response]
+            		response = response_parsed[:response]
 
             		new_phone_carrier.carrier = response[:carrier]
             		new_phone_carrier.type = response[:carrier_type]
@@ -40,12 +40,14 @@ bundle update debuggermodule Texter
                     sms_gateway_email = "#{n}@messaging.nextel.com"
                   when /cricket/
                     sms_gateway_email = "#{n}@sms.mycricket.com"
+                  when /aio/
+                    sms_gateway_email = "#{n}@mms.aiowireless.net"
                   else 
                     sms_gateway_email = nil
               end
 
               if !sms_gateway_email.nil?
-            	 UserMailer.text_message(sms_gateway_email, message).deliver
+            	 #UserMailer.text_message(sms_gateway_email, message).deliver
               end
             end
         }
