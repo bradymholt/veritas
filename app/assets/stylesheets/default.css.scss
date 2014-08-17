@@ -31,3 +31,9 @@ body.default .edit-contact { display:block;}
 	width:700px;
 	margin-left: -350px;
 }
+
+
+body.default #inner-content { padding-bottom: 5px;}
+body.default #login { padding: 10px; padding-top: 20px; background-color: #f4f4f4; border: solid 1px #b4b4b4; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; }
+body.default #remember { display: inline-block; margin-left:35px; }
+body.default #remember input, #remember label  { margin:5px; display:inline-block; }

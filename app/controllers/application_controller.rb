@@ -23,14 +23,14 @@ class ApplicationController < ActionController::Base
   def require_login
     unless logged_in?
       session[:login_return_to] = request.path
-      redirect_to login_url
+      redirect_to default_url
     end
   end
 
   def require_admin
     unless is_admin?
       session[:login_return_to] = request.path
-      redirect_to login_url
+      redirect_to default_url
     end
   end
 

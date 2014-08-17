@@ -24,7 +24,9 @@
   <% end %>
 </head>
 <body class="<%=params[:controller]%> <%= is_admin? ? 'admin' : ''%>">
+  <% if logged_in? %>
   <div id="logout"><%=link_to 'Logout', '/logout', :class=>'btn btn btn-mini' %></div>
+  <% end %>
   <% if is_admin? %>
   <div class="navbar">
     <div class="navbar-inner">

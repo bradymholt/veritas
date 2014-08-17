@@ -64,10 +64,14 @@ class ContactsController < ApplicationController
 
       if @contact.save
        handle_emails(@contact, params[:commit])
-       email_notice = params[:commit].downcase != "save" ? ' and email sent' : ''
-       notice_message = "Contact was successfully created#{email_notice}."
+       email_notice = ''
+      if !params[:commit].nil? && params[:commit].downcase != "save"
+        email_notice = " and email sent."
+      end
+      
+      notice_message = "Contact was successfully created#{email_notice}."
   
-       redirect_to session[:contact_edit_referrer], notice: notice_message
+      redirect_to session[:contact_edit_referrer], notice: notice_message
      else
       render action: "new"
     end
@@ -78,7 +82,11 @@ class ContactsController < ApplicationController
 
     if @contact.update_attributes(params[:contact])
       handle_emails(@contact, params[:commit])
-      email_notice = params[:commit].downcase != "save" ? ' and email sent' : ''
+      email_notice = ''
+      if !params[:commit].nil? && params[:commit].downcase != "save"
+        email_notice = " and email sent."
+      end
+
       notice_message = "Contact was successfully updated#{email_notice}."
     
       respond_to do |format|

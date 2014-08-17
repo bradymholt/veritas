@@ -12,8 +12,8 @@
 }
 
 #sessions { background-color: #808080;}
-#sessions h1 { font-size:1.95em; line-height:20px; }
+#sessions h1 { font-size:1.95em; line-height:30px; }
 #sessions img { float:right;}
 #sessions #password_fields { font-size:larger; font-weight:bold;}
-#remember { float:right; }
+#remember { display: inline-block; margin-left:35px; }
 #remember input, #remember label  { margin:5px; display:inline-block; }

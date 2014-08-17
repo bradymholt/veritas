@@ -13,7 +13,10 @@ VeritasWeb::Application.routes.draw do
   resources :contact_queue_items, :path => "contact-queue"
   resources :contacts
   resources :podcasts
+  resources :default
   
+  match "/" => "default#index", :as => "default"
+
   match "podcast" => "podcasts#feed", :defaults => { :format => 'rss' }, :as => "podcast_feed"
   
   match "attendances/print" => 'attendances#print', :as => "print_attenance"

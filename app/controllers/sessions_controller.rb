@@ -3,19 +3,8 @@ class SessionsController < ApplicationController
   skip_before_filter :require_login
   skip_before_filter :require_admin
 
-  def new
-    if !cookies.signed[:role].blank?
-      session[:role] = cookies.signed[:role]
-      redirect_to session[:login_return_to] || root_path
-    else
-      respond_to do |format|
-        format.html # new.html.erb
-      end
-    end
-  end
-
   def create
-    if params[:password] == Setting.cached.admin_password
+   if params[:password] == Setting.cached.admin_password
      session[:role] = 'admin'
      set_role_cookie
      redirect_to session[:login_return_to] || root_path
@@ -24,8 +13,8 @@ class SessionsController < ApplicationController
      set_role_cookie
      redirect_to session[:login_return_to] || root_path
    else
-    flash.now[:error] = "Invalid Password"
-    render :new
+    flash[:error] = "Invalid Password"
+    redirect_to root_path
     end
     
    
@@ -35,7 +24,7 @@ class SessionsController < ApplicationController
     session[:role] = nil
     session[:login_return_to] = nil
     cookies.delete :role
-    redirect_to :login
+    redirect_to default_url
   end
 
   private

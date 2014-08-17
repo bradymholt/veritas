@@ -6,17 +6,48 @@
 		<div class="alert alert-success"><i class="icon-check"></i><%= flash[:notice] %><a class="close" data-dismiss="alert" href="#">&times;</a></div>
 	<% end %>
 	<div id="inner-content" class="row">
-		<div class="span4">
-			<%= render 'contacts'%>			
-		</div>
-		<div class="span4">
-			<%= render 'signups' %>
-			<%= render 'podcasts' %>
-		</div>
-		<div class="span4">
-			<%= render 'announcements' %>
-			<%= render 'calendar' %>
-		</div>
+		<% if !logged_in? %>
+			<div class="span8">
+				<h1><%=Setting.cached.group_name%></h1>
+				<%=Setting.cached.group_description%>
+				<%= form_tag login_path, :class => 'form-horizontal' do |f| %>
+				<div id="login">
+				<% if flash[:error] %>
+				<div class="alert alert-error"><i class="icon-remove-sign"></i><%= flash[:error] %></div>
+				<% end %>
+				<div class="control-group" id="password_fields">
+					<%= label_tag :password, nil, :class => 'control-label',:id=> "password-label"  %>
+					<div class="controls">
+						<%= password_field_tag :password, "" %>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<%= submit_tag "Login", :class => 'btn' %>
+						<div id="remember"><label for="remember_me">Stay logged in</label><%= check_box_tag :remember_me, 1, params[:remember_me] %></div>
+					</div>
+				</div>
+				</div>
+			<% end %>
+			<hr/>
+			<p>Having trouble logging in?  Send an email to <a href='mailto:<%=Setting.cached.contact_email%>'><%=Setting.cached.contact_email%></a> for help.</p>
+			</div>
+			<div class="span4">
+				<%= render 'podcasts' %>
+			</div>
+		<% else %>
+			<div class="span4">
+				<%= render 'contacts'%>			
+			</div>
+			<div class="span4">
+				<%= render 'signups' %>
+				<%= render 'podcasts' %>
+			</div>
+			<div class="span4">
+				<%= render 'announcements' %>
+				<%= render 'calendar' %>
+			</div>
+		<% end %>
 	</div>
 
 	<script type="text/javascript">

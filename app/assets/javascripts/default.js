@@ -30,6 +30,8 @@ var Default = {
   			$(this).removeData('modal');
   			$(this).find('.modal-body').text("Loading...");
 		});
+
+		$("#password").focus();
 	}
 };
 

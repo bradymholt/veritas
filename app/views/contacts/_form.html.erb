@@ -13,13 +13,15 @@
   <div class="admin_fields">
   <h2>Admin Only</h2>
     <div class="row">
-    <div class="span3">
+    <div class="span4">
     <ul class="inline">
      <li>
        <%= f.label :is_member, "Members", :class => "checkbox inline" %>
        <%= f.check_box :is_member %> </li>
        <li><%= f.label :is_active, "Active", :class => "checkbox inline" %>
          <%= f.check_box :is_active %></li>
+        <li><%= f.label :is_active, "Private", :class => "checkbox inline" %>
+         <%= f.check_box :is_private %></li>
         <% if @contact.new_record? %>
         <li><%= f.label :mark_initial_attendance_on_create, "Mark Present for Attendance", :class => "checkbox inline" %>
           <%= f.check_box :mark_initial_attendance_on_create%></li>
@@ -32,7 +34,7 @@
         <% end %>
     </ul>
     </div>
-    <div class="span4">
+    <div class="span5">
      <%= f.label :notes %>
     <%= f.text_area :notes, :rows => 2, :cols =>"", :class => 'span6' %>
     </div>
@@ -89,16 +91,20 @@
         <div class="form-actions">
          <%= f.submit "Save", :class => "btn btn-primary", :id => "save", :tabindex => 16 %>
          <% if is_admin? %>
-         <button type="submit" id="save-send-visitor-email" name="commit" value="save-send-visitor-email" class="btn">
-          Save <span class="contact-save-type">(and send Visitor Email)</span>
-          </button>
-           <button type="submit" id="save-send-new-member-email" name="commit" value="save-send-new-member-email" class="btn">
-          Save <span class="contact-save-type">(and send New Member Email)</span>
-          </button>
-          <% end %>
+           <% if !Setting.cached.visitor_email_html.blank? %>
+            <button type="submit" id="save-send-visitor-email" name="commit" value="save-send-visitor-email" class="btn">
+            Save <span class="contact-save-type">(and send Visitor Email)</span>
+            </button>
+            <% end %>
+            <% if !Setting.cached.new_member_email_html.blank? %>
+            <button type="submit" id="save-send-new-member-email" name="commit" value="save-send-new-member-email" class="btn">
+            Save <span class="contact-save-type">(and send New Member Email)</span>
+            </button>
+            <% end %>
+         <% end %>
           <%= link_to 'Cancel', request.referrer, :class => "btn" %>
         </div>
-        <% end %>
+    <% end %>
         <script type="text/javascript">
           function setupSaveButtons() {
              if ($("#contact_is_member").prop("checked")) {
