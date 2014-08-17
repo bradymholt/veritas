@@ -2,18 +2,25 @@
 <div class="row">
 	<div class="span3">
 		<div class="well well-small">
-			<strong>Email Lists</strong>
-			<ul class="nav nav-list">
-				<li><%=report_nav_link("Everyone", '/tools/email_list/active')%></li>
-				<li><%=report_nav_link("All Men", '/tools/email_list/men')%></li>
-				<li><%=report_nav_link("All Women", '/tools/email_list/women')%></li>
-				<li><%=report_nav_link("Vistors", '/tools/email_list/visitors')%></li>
-			</ul>
 			<strong>Reports</strong>
 			<ul class="nav nav-list">
 				<li><%=report_nav_link("Upcoming Event Dates", '/tools/upcoming_dates/')%></li>
 				<li><%=report_nav_link("Attendance Counts", '/tools/attendance_counts/')%></li>
 				<li><%=report_nav_link("Last Date Present", '/tools/attendance_date/last')%></li>
+			</ul>
+			<strong>Email Lists</strong>
+			<ul class="nav nav-list">
+				<li><%=report_nav_link("All Active", '/tools/email_list/active')%></li>
+				<li><%=report_nav_link("All Men", '/tools/email_list/men')%></li>
+				<li><%=report_nav_link("All Women", '/tools/email_list/women')%></li>
+				<li><%=report_nav_link("Vistors Only", '/tools/email_list/visitors')%></li>
+			</ul>
+			<strong>Send Emails</strong>
+			<ul class="nav nav-list">
+				<li><%=report_nav_link("All Active", '/tools/email/active')%></li>
+				<li><%=report_nav_link("All Men", '/tools/email/men')%></li>
+				<li><%=report_nav_link("All Women", '/tools/email/women')%></li>
+				<li><%=report_nav_link("Vistors Only", '/tools/email/visitors')%></li>
 			</ul>
 			<% if !Setting.cached.carrier_lookup_api_key.blank? %>
 				<strong>Send Texts</strong>

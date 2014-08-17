@@ -28,6 +28,7 @@ VeritasWeb::Application.routes.draw do
   match "tools/:action/:type" => "tools#%{action}"
   match "tools/:action" => "tools#%{action}"
   match "tools/text/:type/send" => "tools#text_send"
+  match "tools/email/:type/send" => "tools#email_send"
   
   match "admin" => redirect("/contacts")
   match "mobile" => redirect("/?mobile=1")

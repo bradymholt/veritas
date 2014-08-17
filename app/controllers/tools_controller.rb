@@ -51,14 +51,14 @@ class ToolsController < ApplicationController
 		elsif !params[:contact_id].nil?
 			contact = Contact.find(params[:contact_id])
 			if Texter.send_to_contact(contact, params[:content]) == true
-				flash.now[:notice] = "Text(s) successfully queued and will be sent out."
+				flash.now[:notice] = "Text(s) were successfully sent."
 			else
 				flash.now[:error] = "Text(s) could not be sent to this couple."
 			end
 		else
 			numbers = Contact.text_number_list(params[:type].to_sym)
 			if Texter.send_to_numbers(numbers, params[:content]) == true
-				flash.now[:notice] = "#{numbers.length.to_s} texts successfully queued and will be sent out."
+				flash.now[:notice] = "#{numbers.length.to_s} texts were successfully sent."
 			else
 				flash.now[:error] = "Texts could not be sent because of an error."
 			end
@@ -76,5 +76,29 @@ class ToolsController < ApplicationController
 		if params[:type] == "contact"
 			@contacts = Contact.where(:is_member => true)
 		end
+	end
+
+	def email
+		setup_email
+	end
+
+	def email_send
+		if params[:subject].blank?
+			flash.now[:error] = "Subject is required."
+		elsif params[:content].blank?
+			flash.now[:error] = "Message is required."
+		else
+			emails = Contact.email_list(params[:type].to_sym)
+			UserMailer.custom_email(emails, params[:subject], params[:content]).deliver
+			flash.now[:notice] = "Emails were successfully sent."
+		end
+
+		setup_email
+		render action: "email"
+	end
+
+	def setup_email
+		@description = "Send Email to #{params[:type].capitalize}"
+		@type = params[:type]
 	end
 end
