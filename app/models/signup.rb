@@ -1,17 +1,18 @@
 class Signup < ActiveRecord::Base
   has_many :signup_slots, :dependent => :destroy
-  attr_accessible :details, :send_signup_email_to_type, :post_to_facebook, :send_reminder_email_days, :title, :visible_admin_only, :signup_slots_attributes
+  attr_accessible :details, :send_signup_email_to_type, :post_to_facebook, :send_reminder_days, :title, :visible_admin_only, :signup_slots_attributes
   attr_accessor :send_signup_email_to_type, :post_to_facebook, :date_min, :date_max, :slot_count, :unslotted_count
   accepts_nested_attributes_for :signup_slots, :allow_destroy => true
   validates :title, :presence => true
-  after_save :send_signup_email, :post_to_facebook
+  after_save :send_signup_email, :post_on_facebook
 
   def set_new_default_values
-    self.send_reminder_email_days = 2 if new_record?
+    self.send_reminder_days = 2 if new_record?
+    self.post_to_facebook = true if new_record?
   end
 
   def send_signup_email
-     if !@send_signup_email_to_type.blank?
+     if @send_signup_email_to_type == "1" && self.visible_admin_only == false
        Thread.new do
           begin
             UserMailer.signup_email(self, @send_signup_email_to_type.to_sym).deliver
@@ -24,8 +25,8 @@ class Signup < ActiveRecord::Base
       end
   end
 
-  def post_to_facebook
-    if !@post_to_facebook.blank?
+  def post_on_facebook
+    if @post_to_facebook == "1" && self.visible_admin_only == false
       Thread.new do
         begin
           FacebookGroupPoster.post_signup(self.id)

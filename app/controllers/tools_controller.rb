@@ -40,21 +40,41 @@ class ToolsController < ApplicationController
 	end
 
 	def text
-		@description = "Send Text to #{params[:type].capitalize}"
-		@type = params[:type]
+		setup_text
 	end
 
 	def text_send
 		if (params[:content].blank?)
-			flash.now[:error] = "Content is required"
+			flash.now[:error] = "Message is required."
+		elsif params[:type] == "contact" && params[:contact_id].blank?
+			flash.now[:error] = "Send To is required."
+		elsif !params[:contact_id].nil?
+			contact = Contact.find(params[:contact_id])
+			if Texter.send_to_contact(contact, params[:content]) == true
+				flash.now[:notice] = "Text(s) successfully queued and will be sent out."
+			else
+				flash.now[:error] = "Text(s) could not be sent to this couple."
+			end
 		else
 			numbers = Contact.text_number_list(params[:type].to_sym)
-			Texter.send(numbers, params[:content])
-			flash.now[:notice] = "#{numbers.length.to_s} texts successfully queued and will be sent out."
+			if Texter.send_to_numbers(numbers, params[:content]) == true
+				flash.now[:notice] = "#{numbers.length.to_s} texts successfully queued and will be sent out."
+			else
+				flash.now[:error] = "Texts could not be sent because of an error."
+			end
 		end
 
-		@description = "Send Text to #{params[:type].capitalize}"
-		@type = params[:type]	
+		setup_text
 		render action: "text"
+	end
+
+	def setup_text
+		@description = "Send Text to #{params[:type].capitalize} Members"
+		@type = params[:type]
+		@contacts = nil
+
+		if params[:type] == "contact"
+			@contacts = Contact.where(:is_member => true)
+		end
 	end
 end

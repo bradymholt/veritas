@@ -26,7 +26,12 @@
 @import "settings.css.scss";
 
 #logout { float:right; padding: 5px; }
-.admin_fields { padding: 8px; background-color: #faf4d8; margin-bottom: 15px; width:650px;}
+.admin_fields { padding: 8px; background-color: #faf4d8; margin-bottom: 15px; width:760px;}
+.admin_fields h2 { padding: 0px; margin: 0px; font-size: 15px !important; line-height: 15px; font-style: italic;}
+.admin_fields textarea { width: 485px; }
+.admin_fields label { padding-left: 0px; }
+.admin_fields input { padding-right:5px; }
+.admin_fields li { padding-left: 0px; }
 input.date { width: 75px;}
 #content { margin: 5px;}
 form { padding:10px;}
@@ -66,3 +71,4 @@ i { margin: 4px;}
 .alert a { font-weight: bold; }
 input[type="file"] { padding:5px;}
 .help-inline { font-style: italic; }
+.hidden_field {display:none;}

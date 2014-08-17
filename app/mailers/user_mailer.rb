@@ -1,14 +1,24 @@
 class UserMailer < ActionMailer::Base
   default :from =>  "#{Setting.cached.group_name} <#{Setting.cached.contact_email}>"
 
-  def welcome_email(contact)
+  def visitor_email(contact)
     @contact = contact
  
     if @contact.email_addresses.length > 0
 		 mail(:to => contact.email_addresses,
 		 :cc => !Setting.cached.contact_email_cc.blank? ? Setting.cached.contact_email : '',
-		 :subject => "Welcome to #{Setting.cached.group_name}!")
+		 :subject => "Thanks for visiting #{Setting.cached.group_name}!")
 	  end
+  end
+
+  def new_member_email(contact)
+     @contact = contact
+ 
+    if @contact.email_addresses.length > 0
+     mail(:to => contact.email_addresses,
+     :cc => !Setting.cached.contact_email_cc.blank? ? Setting.cached.contact_email : '',
+     :subject => "Welcome to #{Setting.cached.group_name}!")
+    end
   end
 
   def signup_email(signup, type)
@@ -22,13 +32,13 @@ class UserMailer < ActionMailer::Base
      end
   end
   
-  def signup_reminder_email(signup_slot)
+  def signup_reminder_email(contact, signup_slot, signup)
+    @contact = contact
   	@slot = signup_slot
-  	@signup = signup_slot.signup
-  	@contact = signup_slot.contact
-
-  	if @contact.email_addresses.length > 0
-  		 mail(:to => @contact.email_addresses,
+  	@signup = signup
+  
+  	if contact.email_addresses.length > 0
+  		 mail(:to => contact.email_addresses,
   		 :cc => !Setting.cached.contact_email_cc.blank? ? Setting.cached.contact_email : '',
   		 :subject => "#{Setting.cached.group_name} Reminder: #{@signup.title} is coming up on #{@slot.date.strftime('%A')}")
 	   end
@@ -37,6 +47,5 @@ class UserMailer < ActionMailer::Base
   def text_message(sms_gateway_email, message)
     @message = message
     mail(:to => sms_gateway_email, :subject => "#{Setting.cached.group_name}")
-    format.text
   end
 end

@@ -63,7 +63,11 @@ class ContactsController < ApplicationController
       @contact = Contact.new(params[:contact])
 
       if @contact.save
-       redirect_to session[:contact_edit_referrer], notice: 'Contact was successfully created.'
+       handle_emails(@contact, params[:commit])
+       email_notice = params[:commit].downcase != "save" ? ' and email sent' : ''
+       notice_message = "Contact was successfully created#{email_notice}."
+  
+       redirect_to session[:contact_edit_referrer], notice: notice_message
      else
       render action: "new"
     end
@@ -73,9 +77,13 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
 
     if @contact.update_attributes(params[:contact])
+      handle_emails(@contact, params[:commit])
+      email_notice = params[:commit].downcase != "save" ? ' and email sent' : ''
+      notice_message = "Contact was successfully updated#{email_notice}."
+    
       respond_to do |format|
         format.html { 
-          flash[:notice] = 'Contact was successfully updated.' 
+          flash[:notice] = notice_message
           if request.xhr? 
             head :no_content
           else
@@ -89,11 +97,25 @@ class ContactsController < ApplicationController
       render action: "edit", status: :unprocessable_entity
     end
   end
-
+ 
   def destroy
     @contact = Contact.unscoped.find(params[:id])
     puts 
     @contact.is_active = false
     redirect_to contacts_url, notice: 'Contact was successfully marked inactive.'
+  end
+
+  def handle_emails(contact, commit_value)
+    Thread.new do
+      begin
+       if commit_value == "save-send-visitor-email"
+         UserMailer.visitor_email(contact).deliver
+       elsif commit_value == "save-send-new-member-email"
+         UserMailer.new_member_email(contact).deliver
+       end 
+      ensure
+        ActiveRecord::Base.connection_pool.release_connection
+      end
+    end
   end
 end

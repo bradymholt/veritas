@@ -94,13 +94,21 @@
        <span class="help-inline">after absent for </span>
        <%= f.select(:contacts_inactivate_after_no_attendance_weeks, Array(4..52), { :include_blank => '--' } )%>
        <span class="help-inline">weeks</span>
-     </div>
+      </div>
    </div>
-  <div class="span8">
-   <%=f.label :welcome_email_html%>
-   <%= f.cktext_area :welcome_email_html, :ckeditor => {:width=>'620', :height=> '400', :toolbar => 'mini'} %>
+  </div>
+  <hr/>
+  <h2>Email Templates</h2>
+ <div class="row">
+  <div class="span6">
+   <%=f.label :visitor_email_html, "Visitor Email"%>
+   <%= f.cktext_area :visitor_email_html, :ckeditor => {:width=>'450', :height=> '400', :toolbar => 'mini'} %>
+  </div>
+  <div class="span6">
+   <%=f.label :new_member_email_html, "New Member Email"%>
+   <%= f.cktext_area :new_member_email_html, :ckeditor => {:width=>'450', :height=> '400', :toolbar => 'mini'} %>
+  </div>
  </div>
-</div>
 </div>
 <div class="tab-pane" id="contact-queue">
   <div class="row">
@@ -165,6 +173,8 @@
   <%=f.text_field :facebook_access_token %>  
   <%=f.label :facebook_group_id %>
   <%=f.text_field :facebook_group_id %> 
+  <%=f.label :carrier_lookup_api_key %>
+  <%=f.text_field :carrier_lookup_api_key %>  
  </div>
  <div class="span4">
    <%=f.label :smtp_server %>
@@ -181,8 +191,6 @@
    <%=f.text_field :aws_secret_access_key %>  
    <%=f.label :aws_bucket_name %>
    <%=f.text_field :aws_bucket_name %>  
-   <%=f.label :carrier_lookup_api_key %>
-   <%=f.text_field :carrier_lookup_api_key %>  
  </div>
 </div>
 </div>

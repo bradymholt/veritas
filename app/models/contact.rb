@@ -1,11 +1,10 @@
 class Contact < ActiveRecord::Base
   attr_protected
-  attr_accessor :send_welcome_email_on_save, :mark_initial_attendance_on_create, :attendance_first, :attendance_last, :attendance_count
+  attr_accessor :mark_initial_attendance_on_create, :attendance_first, :attendance_last, :attendance_count
   has_many :attendances
   has_many :signup_slots
   after_initialize :default_values
   after_create :mark_initial_attendance
-  after_save :send_welcome_email
   mount_uploader :photo, ContactPhotoUploader
   validates_presence_of :last_name
   default_scope order('last_name')
@@ -19,7 +18,6 @@ class Contact < ActiveRecord::Base
     self.is_active = true if self.is_active.nil?
     self.is_member = false if self.is_member.nil?
     self.mark_initial_attendance_on_create = true if self.mark_initial_attendance_on_create.nil? && new_record?
-    self.send_welcome_email_on_save = true if self.send_welcome_email_on_save.nil? && new_record?
   end
 
   def full_name
@@ -87,18 +85,6 @@ def mark_initial_attendance
  end
 end
 
-def send_welcome_email
- if @send_welcome_email_on_save == "1"
-  Thread.new do
-    begin
-      UserMailer.welcome_email(self).deliver
-     ensure
-      ActiveRecord::Base.connection_pool.release_connection
-    end
-  end
- end
-end
-
 def self.to_csv(contacts, options = {})
   CSV.generate(options) do |csv|
     csv << column_names
@@ -161,16 +147,8 @@ def self.text_number_list(type)
         numbers.push(c.spouse_phone)
       end
   }
-
-  formatted_numbers = []
-  numbers.each { |n| 
-    formatted = n.gsub(/[^0-9]/,'') #555-555-5555
-    if formatted.length == 10  #5555555555
-      formatted_numbers.push(formatted)
-    end
-  }
  
-  return formatted_numbers
+  return numbers
 end
 
 private 

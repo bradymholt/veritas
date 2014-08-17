@@ -24,7 +24,7 @@
       Send Reminder Email
     </label>
     <div id="reminder_days_container" class="checkbox_dependent">
-      <%= f.select(:send_reminder_email_days, Array(0..7), {:include_blank => '--select--'}, :class=>'reminder_days') %><span class="help-inline">days before</span>
+      <%= f.select(:send_reminder_days, Array(0..7), {:include_blank => '--'}, :class=>'reminder_days') %><span class="help-inline">days before</span>
     </div>
     <label id="send_signup_email_label" class="checkbox">
       <input type="checkbox" id="send_signup_email" %>

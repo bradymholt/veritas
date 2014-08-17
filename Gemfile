@@ -34,6 +34,8 @@ gem 'gcal4ruby', :git => 'git://github.com/SeabourneConsulting/GCal4Ruby.git'
 gem 'flot-rails'
 gem 'mediaelement_rails'
 gem 'koala'
+gem 'debugger', :require => 'ruby-debug', :platforms => :mri_19
+gem 'ruby-debug', :platforms => :mri_18
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

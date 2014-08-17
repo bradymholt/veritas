@@ -9,7 +9,14 @@
  <strong>Sending texts!</strong>  Please wait...
 </div>
 <%= form_tag('/tools/text/' + @type + '/send') do %>
-  <%= text_area_tag(:content, nil, placeholder: 'Text content...', cols: 40, rows: 5) %>
+  <% if !@contacts.nil? %>
+  <%= label_tag :contact_id, "Send To" %>
+  <%= select_tag(:contact_id,  options_from_collection_for_select(@contacts, 'id', 'full_name', ""),  { :prompt => '--Select--' }) %>
+  <% end %>
+  <div>
+  <%= label_tag :content, "Message" %>
+  <%= text_area_tag(:content, nil, placeholder: 'Text message...', cols: 40, rows: 5) %>
+  </div>
   <div class="form-actions">
   <%= submit_tag("Send", :class => "btn btn-primary", :id=>"send") %>
   </div>

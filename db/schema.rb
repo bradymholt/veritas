@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140814041004) do
+ActiveRecord::Schema.define(:version => 20140816220244) do
 
   create_table "attendances", :force => true do |t|
     t.integer  "contact_id"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20140814041004) do
     t.string   "carrier"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.string   "type"
+    t.string   "phone_type"
   end
 
   create_table "podcasts", :force => true do |t|
@@ -105,8 +105,8 @@ ActiveRecord::Schema.define(:version => 20140814041004) do
   end
 
   create_table "settings", :force => true do |t|
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.string   "group_name"
     t.string   "user_password"
     t.string   "admin_password"
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(:version => 20140814041004) do
     t.string   "smtp_password"
     t.integer  "smtp_port"
     t.boolean  "smtp_tls"
-    t.text     "welcome_email_html",                            :limit => 255
+    t.text     "visitor_email_html"
     t.string   "google_calendar_username"
     t.string   "google_calendar_password"
     t.string   "host_name"
@@ -134,10 +134,11 @@ ActiveRecord::Schema.define(:version => 20140814041004) do
     t.boolean  "contact_email_cc"
     t.integer  "contacts_inactivate_after_no_attendance_weeks"
     t.string   "podcast_itunes_url"
-    t.text     "announcements_html",                            :limit => 255
+    t.text     "announcements_html"
     t.string   "facebook_access_token"
     t.string   "facebook_group_id"
     t.string   "carrier_lookup_api_key"
+    t.text     "new_member_email_html"
   end
 
   create_table "signup_slots", :force => true do |t|
@@ -153,10 +154,10 @@ ActiveRecord::Schema.define(:version => 20140814041004) do
   create_table "signups", :force => true do |t|
     t.string   "title"
     t.string   "details"
-    t.integer  "send_reminder_email_days"
+    t.integer  "send_reminder_days"
     t.boolean  "visible_admin_only"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "tests", :force => true do |t|
