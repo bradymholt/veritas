@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_login
   before_filter :require_admin
   before_filter :store_request_in_thread
-  helper_method :mobile_device?, :mobile_agent?, :ios_agent?, :android_agent?, :is_admin?
+  helper_method :mobile_device?, :mobile_agent?, :ios_agent?, :android_agent?, :is_admin?, :logged_in?
 
   def get_layout
       request.xhr? ? 'xhr' : 'application'
