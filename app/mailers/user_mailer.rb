@@ -6,7 +6,7 @@ class UserMailer < ActionMailer::Base
 
      mail(:to => Setting.cached.contact_email,
      :cc => !Setting.cached.contact_email_cc.blank? ? Setting.cached.contact_email : '',
-     :bcc => emails
+     :bcc => emails,
      :subject => subject)
   end
 
