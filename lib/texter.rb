@@ -71,7 +71,7 @@ module Texter
                   when /sprint/
                     sms_gateway_email = "#{n}@messaging.sprintpcs.com"
                   when /t-mobile/
-                    sms_gateway_email = "#{n}@vtext.com"
+                    sms_gateway_email = "#{n}@tmomail.net"
                   when /at&t/
                     sms_gateway_email = "#{n}@txt.att.net"
                   when /nextel/
