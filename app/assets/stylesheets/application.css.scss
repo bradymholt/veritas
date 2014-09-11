@@ -25,6 +25,7 @@
 @import "tools.css.scss";
 @import "settings.css.scss";
 
+html,body { height:100%; }
 #logout { float:right; padding: 5px; }
 .admin_fields { padding: 8px; background-color: #faf4d8; margin-bottom: 15px; width:760px;}
 .admin_fields h2 { padding: 0px; margin: 0px; font-size: 15px !important; line-height: 15px; font-style: italic;}
