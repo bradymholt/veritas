@@ -15,13 +15,6 @@
 				<li><%=report_nav_link("All Women", '/tools/email_list/women')%></li>
 				<li><%=report_nav_link("Vistors Only", '/tools/email_list/visitors')%></li>
 			</ul>
-			<strong>Send Emails</strong>
-			<ul class="nav nav-list">
-				<li><%=report_nav_link("All Active", '/tools/email/active')%></li>
-				<li><%=report_nav_link("All Men", '/tools/email/men')%></li>
-				<li><%=report_nav_link("All Women", '/tools/email/women')%></li>
-				<li><%=report_nav_link("Vistors Only", '/tools/email/visitors')%></li>
-			</ul>
 			<% if !Setting.cached.carrier_lookup_api_key.blank? %>
 				<strong>Send Texts</strong>
 				<ul class="nav nav-list">

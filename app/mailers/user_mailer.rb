@@ -1,14 +1,5 @@
 class UserMailer < ActionMailer::Base
   default :from =>  "#{Setting.cached.group_name} <#{Setting.cached.contact_email}>"
- 
-  def custom_email(emails, subject, content)
-    @content = content
-
-     mail(:to => Setting.cached.contact_email,
-     :cc => !Setting.cached.contact_email_cc.blank? ? Setting.cached.contact_email : '',
-     :bcc => emails,
-     :subject => subject)
-  end
 
   def visitor_email(contact)
     @contact = contact
@@ -30,15 +21,11 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  def signup_email(signup, type)
+  def signup_email(signup, emails)
     @signup = signup
-    email_to = Contact.email_list(type)
-   
-    if !email_to.blank?
-       mail(:to => Setting.cached.contact_email,
-       :bcc => email_to,
-       :subject => "#{Setting.cached.group_name}: Signup slots for #{@signup.title} are available")
-     end
+    mail(:to => !Setting.cached.contact_email_cc.blank? ? Setting.cached.contact_email : "noreply@#{Setting.cached.host_name}",
+         :bcc => emails.join(', '),
+         :subject => "#{Setting.cached.group_name}: Signup slots for #{@signup.title} are available")
   end
   
   def signup_reminder_email(contact, signup_slot, signup)

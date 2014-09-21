@@ -77,28 +77,4 @@ class ToolsController < ApplicationController
 			@contacts = Contact.where(:is_member => true)
 		end
 	end
-
-	def email
-		setup_email
-	end
-
-	def email_send
-		if params[:subject].blank?
-			flash.now[:error] = "Subject is required."
-		elsif params[:content].blank?
-			flash.now[:error] = "Message is required."
-		else
-			emails = Contact.email_list(params[:type].to_sym)
-			UserMailer.custom_email(emails, params[:subject], params[:content]).deliver
-			flash.now[:notice] = "Emails were successfully sent."
-		end
-
-		setup_email
-		render action: "email"
-	end
-
-	def setup_email
-		@description = "Send Email to #{params[:type].capitalize}"
-		@type = params[:type]
-	end
 end

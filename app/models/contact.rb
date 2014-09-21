@@ -9,10 +9,11 @@ class Contact < ActiveRecord::Base
   validates_presence_of :last_name
   default_scope order('last_name')
 
-  EMAIL_LIST_TYPE = [{:description => 'Everyone', :id => :all},
+  EMAIL_LIST_TYPE = [{:description => 'Members', :id => :members},
                      {:description => 'Men', :id => :men},
                      {:description => 'Women', :id => :women},
-                     {:description => 'Visitors', :id => :visitors}]
+                     {:description => 'Visitors', :id => :visitors},
+                     {:description => 'Everyone', :id => :all}]
 
   def default_values
     self.is_active = true if self.is_active.nil?
@@ -112,10 +113,12 @@ def self.next_date(date)
   next_date
 end
 
-def self.email_list(type)
+def self.emails_by_type(type)
   contacts = Contact.where(:is_active => true)
   if type == :visitors
     contacts.reject!{ |c| c.is_member == true }
+  elsif type == :members
+    contacts.reject!{ |c| c.is_member == false }
   end 
 
   emails = []
@@ -129,8 +132,13 @@ def self.email_list(type)
     end
   }
 
-  emails.join(', ')
+  return emails
 
+end
+
+def self.email_list(type)
+  emails = Contact.emails_by_type(type)
+  emails.join(', ')
 end
 
 def self.text_number_list(type)

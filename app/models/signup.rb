@@ -12,10 +12,13 @@ class Signup < ActiveRecord::Base
   end
 
   def send_signup_email
-     if @send_signup_email_to_type == "1" && self.visible_admin_only == false
+     if !@send_signup_email_to_type.blank? && self.visible_admin_only == false
        Thread.new do
           begin
-            UserMailer.signup_email(self, @send_signup_email_to_type.to_sym).deliver
+            email_addresses = Contact.emails_by_type(@send_signup_email_to_type.to_sym)
+            email_addresses.each_slice(50) {|email_batch|   #batches of 50
+              UserMailer.signup_email(self, email_batch).deliver  
+            }
           rescue => ex
             logger.error ex.message
           ensure
