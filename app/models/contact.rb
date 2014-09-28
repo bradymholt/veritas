@@ -12,8 +12,7 @@ class Contact < ActiveRecord::Base
   EMAIL_LIST_TYPE = [{:description => 'Members', :id => :members},
                      {:description => 'Men', :id => :men},
                      {:description => 'Women', :id => :women},
-                     {:description => 'Visitors', :id => :visitors},
-                     {:description => 'Everyone', :id => :all}]
+                     {:description => 'Visitors', :id => :visitors}]
 
   def default_values
     self.is_active = true if self.is_active.nil?
