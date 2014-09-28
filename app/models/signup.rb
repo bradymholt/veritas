@@ -9,6 +9,7 @@ class Signup < ActiveRecord::Base
   def set_new_default_values
     self.send_reminder_days = 2 if new_record?
     self.post_to_facebook = true if new_record?
+    self.send_signup_email_to_type = "members"
   end
 
   def send_signup_email
