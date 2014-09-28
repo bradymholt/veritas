@@ -77,4 +77,39 @@ class ToolsController < ApplicationController
 			@contacts = Contact.where(:is_member => true)
 		end
 	end
+
+	def email
+		setup_email
+	end
+
+	def email_send
+		if params[:subject].blank?
+			flash.now[:error] = "Subject is required."
+		elsif params[:content].blank?
+			flash.now[:error] = "Message is required."
+		else
+		  Thread.new do
+	        begin
+	          email_addresses = Contact.emails_by_type(params[:type].to_sym)
+	          email_addresses.each_slice(20) {|email_batch|   #batches of 20
+	          	UserMailer.custom_email(email_batch, params[:subject], params[:content]).deliver
+	          }
+	        rescue => ex
+	          logger.error ex.message
+	        ensure
+	          ActiveRecord::Base.connection_pool.release_connection
+	        end
+	      end
+  		
+  		  flash.now[:notice] = "Emails were successfully sent."
+		end
+
+		setup_email
+		render action: "email"
+	end
+
+	def setup_email
+		@description = "Send Email to #{params[:type].capitalize}"
+		@type = params[:type]
+	end
 end

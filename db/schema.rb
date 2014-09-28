@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(:version => 20140817195131) do
   end
 
   create_table "settings", :force => true do |t|
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
     t.string   "group_name"
     t.string   "user_password"
     t.string   "admin_password"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(:version => 20140817195131) do
     t.string   "smtp_password"
     t.integer  "smtp_port"
     t.boolean  "smtp_tls"
-    t.text     "visitor_email_html"
+    t.text     "visitor_email_html",                            :limit => 255
     t.string   "google_calendar_username"
     t.string   "google_calendar_password"
     t.string   "host_name"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(:version => 20140817195131) do
     t.boolean  "contact_email_cc"
     t.integer  "contacts_inactivate_after_no_attendance_weeks"
     t.string   "podcast_itunes_url"
-    t.text     "announcements_html"
+    t.text     "announcements_html",                            :limit => 255
     t.string   "facebook_access_token"
     t.string   "facebook_group_id"
     t.string   "carrier_lookup_api_key"

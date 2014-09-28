@@ -13,9 +13,10 @@ class Signup < ActiveRecord::Base
 
   def send_signup_email
      if !@send_signup_email_to_type.blank? && self.visible_admin_only == false
+      Thread.new do
         begin
           email_addresses = Contact.emails_by_type(@send_signup_email_to_type.to_sym)
-          email_addresses.each_slice(20) {|email_batch|   #batches of 50
+          email_addresses.each_slice(20) {|email_batch|   #batches of 20
             UserMailer.signup_email(self, email_batch).deliver  
           }
         rescue => ex
@@ -23,6 +24,7 @@ class Signup < ActiveRecord::Base
         ensure
           ActiveRecord::Base.connection_pool.release_connection
         end
+      end
     end
   end
 

@@ -4,7 +4,7 @@ input.female_field, .female_fields input { background-color: $female_color;}
 #roster td.full_name { font-size:larger; font-weight:bold;}
 .edit-contact { margin-top:10px; display:none;}
 .member .male, .member .female { width:215px; font-size: smaller;}
-.contact-thumbnail { width: 150px; height: 100px;}
+.contact-thumbnail { width: 150px; max-height:200px;}
 .xhr.contacts h1 {display:none;}
 #admin-attendance-date { font-style: italic; margin-top: 5px; }
 .contact-save-type {font-size:small;}

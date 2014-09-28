@@ -30,9 +30,10 @@
 				</div>
 			<% end %>
 			<hr/>
-			<p>Having trouble logging in?  Send an email to <a href='mailto:<%=Setting.cached.contact_email%>'><%=Setting.cached.contact_email%></a> for help.</p>
+			<p>Having trouble logging in or want to learn more about our class?  Send an email to <a href='mailto:<%=Setting.cached.contact_email%>'><%=Setting.cached.contact_email%></a> for help.</p>
 			</div>
 			<div class="span4">
+				<%= render 'calendar' %>
 				<%= render 'podcasts' %>
 			</div>
 		<% else %>

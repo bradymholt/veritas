@@ -1,6 +1,15 @@
 class UserMailer < ActionMailer::Base
   default :from =>  "#{Setting.cached.group_name} <#{Setting.cached.contact_email}>"
 
+  def custom_email(emails, subject, content)
+    @content = content
+
+     mail(:to => Setting.cached.contact_email,
+     :cc => !Setting.cached.contact_email_cc.blank? ? Setting.cached.contact_email : '',
+     :bcc => emails.join(', '),
+     :subject => subject)
+  end
+  
   def visitor_email(contact)
     @contact = contact
  
