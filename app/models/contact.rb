@@ -15,8 +15,8 @@ class Contact < ActiveRecord::Base
                      {:description => 'Visitors', :id => :visitors}]
 
   def default_values
-    self.is_active = true if self.is_active.nil?
-    self.is_member = true if self.is_member.nil?
+    self.is_active = true if new_record?
+    self.is_member = true if new_record?
     self.mark_initial_attendance_on_create = true if self.mark_initial_attendance_on_create.nil? && new_record?
   end
 

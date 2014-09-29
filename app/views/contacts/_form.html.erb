@@ -109,7 +109,7 @@
           function setupSaveButtons() {
              if ($("#contact_is_member").prop("checked")) {
               $("#save-send-visitor-email").hide();
-              if ($("#contact_is_member").data("clicked")) {
+              if ($("#contact_is_member").data("clicked") || $("form#new_contact").length > 0) {
                 $("#save-send-new-member-email").prependTo($(".form-actions")).show();
               }
             } else {
