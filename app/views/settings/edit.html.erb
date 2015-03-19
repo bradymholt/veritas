@@ -149,10 +149,8 @@
       Use Google Calendar
     </label>
     <div id="google_calendar_fields">
-     <%=f.label :google_calendar_username, "Google Calendar Username"%>
-     <%=f.text_field :google_calendar_username %>  
-     <%=f.label :google_calendar_password, "Google Calendar Password" %>
-     <%=f.password_field :google_calendar_password, :value => @settings.google_calendar_password %>
+     <%=f.label :google_calendar_refresh_token, "Google Calendar Refresh Token"%>
+     <%=f.text_field :google_calendar_refresh_token %>  
      <div>
       <em>Contact events will be synced to Google Calendar weekly, on Mondays.</em>
      </div>

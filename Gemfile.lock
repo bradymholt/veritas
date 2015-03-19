@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/SeabourneConsulting/GCal4Ruby.git
-  revision: 100409dcf3b816329f19bb7bc36fc106bbf101dc
-  specs:
-    gcal4ruby (0.5.6)
-      gdata4ruby (>= 0.1.5)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -37,6 +30,10 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.6)
     arel (3.0.2)
+    autoparse (0.3.3)
+      addressable (>= 2.3.1)
+      extlib (>= 0.9.15)
+      multi_json (>= 1.0.0)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
     builder (3.0.4)
@@ -64,6 +61,7 @@ GEM
     excon (0.22.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    extlib (0.9.16)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     flot-rails (0.0.3)
@@ -79,7 +77,17 @@ GEM
       nokogiri (~> 1.5.0)
       ruby-hmac
     formatador (0.2.4)
-    gdata4ruby (0.1.5)
+    google-api-client (0.7.1)
+      addressable (>= 2.3.2)
+      autoparse (>= 0.3.3)
+      extlib (>= 0.9.15)
+      faraday (>= 0.9.0)
+      jwt (>= 0.1.5)
+      launchy (>= 2.1.1)
+      multi_json (>= 1.0.0)
+      retriable (>= 1.4)
+      signet (>= 0.5.0)
+      uuidtools (>= 2.1.0)
     hike (1.2.2)
     i18n (0.6.1)
     journey (1.0.4)
@@ -90,10 +98,13 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.8.0)
+    jwt (1.3.0)
     koala (1.10.0)
       addressable
       faraday
       multi_json
+    launchy (2.4.3)
+      addressable (~> 2.3)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
     mail (2.5.4)
@@ -141,6 +152,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.2)
+    retriable (2.0.2)
     ruby-debug (0.10.4)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.4.0)
@@ -152,6 +164,11 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    signet (0.5.1)
+      addressable (>= 2.2.3)
+      faraday (>= 0.9.0.rc5)
+      jwt (>= 0.1.5)
+      multi_json (>= 1.0.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -170,6 +187,7 @@ GEM
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uuidtools (2.1.5)
 
 PLATFORMS
   ruby
@@ -182,7 +200,7 @@ DEPENDENCIES
   debugger
   flot-rails
   fog (~> 1.11.1)
-  gcal4ruby!
+  google-api-client
   jquery-rails
   jquery-ui-rails
   koala

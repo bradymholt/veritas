@@ -46,7 +46,7 @@ namespace :app do
 		settings = Setting.first
 		if settings.google_calendar_enabled?
 			sync_contacts = Contact.where(:is_member => true, :is_active => true)
-			GoogleCalendarSynchronizer.sync_contacts(settings.google_calendar_username, settings.google_calendar_password, sync_contacts)
+			GoogleCalendarSynchronizer.sync_contacts(settings.google_calendar_refresh_token, sync_contacts)
 		else
 			"No calendar sync in configured."
 		end
