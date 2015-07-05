@@ -16,3 +16,4 @@
     - libxslt-dev
     - libxml2-dev	
     - libmysqlclient-dev
+    - imagemagick
