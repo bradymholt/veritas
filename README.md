@@ -5,6 +5,7 @@ A web application for social groups to share contact info, calendar events, trac
 
 ### Configuration Management Scripts 
 
+From `/ansible` directory:
  - **Provision**: ansible-playbook -i production provision.yml
  - **Deploy**: ansible-playbook -i production deploy.yml
 
