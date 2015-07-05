@@ -23,7 +23,8 @@ end
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass', '~> 2.3.2.0'
-gem 'therubyracer'
+gem 'libv8'
+gem 'therubyracer', :platform=>:ruby
 gem 'carrierwave'
 gem 'fog', '~> 1.11.1'
 gem 'mysql2'
@@ -33,8 +34,6 @@ gem 'ckeditor'
 gem 'flot-rails'
 gem 'mediaelement_rails'
 gem 'koala'
-gem 'debugger', :require => 'ruby-debug', :platforms => :mri_19
-gem 'ruby-debug', :platforms => :mri_18
 gem 'google-api-client'
 
 # To use ActiveModel has_secure_password
