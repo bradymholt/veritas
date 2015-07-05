@@ -1,0 +1,5 @@
+deploy_user: bob
+gh_pubkey_user: bobsmith
+webserver_name: domainhere.com
+mysql_root_password: "12345"
+mysql_db_password: "67890"
