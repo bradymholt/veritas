@@ -25,6 +25,13 @@ class ContactPhotoUploader < CarrierWave::Uploader::Base
      Thread.current[:request].protocol + Thread.current[:request].host_with_port + asset_path([version_name, "contact_photo.png"].compact.join('_'))
   end
 
+  def filename 
+    if original_filename 
+      @name ||= Digest::MD5.hexdigest(File.dirname(current_path))
+      "#{@name}.#{file.extension}"
+    end
+  end
+
   # Process files as they are uploaded:
    process :resize_to_limit => [300, 200]
   #
