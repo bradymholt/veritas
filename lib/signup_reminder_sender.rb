@@ -16,8 +16,8 @@ module SignupReminderSender
 
 			UserMailer.signup_reminder_email(contact, signup_slot, signup).deliver
 
-			r.reminder_sent = true
-			r.save
+			signup_slot.reminder_sent = true
+			signup_slot.save
 		}
 	end
 end
