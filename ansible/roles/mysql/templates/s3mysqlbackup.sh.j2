@@ -13,7 +13,7 @@ echo -e " "
 
 # Basic variables
 mysqlpass="{{ mysql_root_password }}"
-bucket="s3://{{ app_name }}/db_backups"
+bucket="{{ s3_db_backup_location }}"
 
 # Timestamp (sortable AND readable)
 stamp=`date +"%s - %A %d %B %Y @ %H%M"`
