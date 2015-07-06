@@ -11,7 +11,7 @@
 - name: Creates deploy_directory directory
   file: path={{ deploy_directory }} state=directory owner=bholt group=www-data mode=0775
 - name: Install libraries
-  apt: name={{ item }} state=present update_cache=yes
+  apt: name={{ item }} state=present
   with_items:
     - libxslt-dev
     - libxml2-dev	

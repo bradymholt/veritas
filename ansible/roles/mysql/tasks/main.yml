@@ -32,3 +32,10 @@
 
 - name: Create the database users
   mysql_user: name={{ mysql_db_user }} password={{ mysql_db_password }} host=localhost priv="*.*:ALL" state=present login_user=root login_password={{ mysql_root_password }}
+
+- name: copy backup script
+  template: src="s3mysqlbackup.sh.j2" dest="~/s3mysqlbackup.sh" mode="u+x"
+
+- name: setup backup cron
+  cron: name="Daily MySQL Backup" minute="0" hour="1"
+    job="bash /root/s3mysqlbackup.sh >/dev/null 2>&1"

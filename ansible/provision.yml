@@ -5,6 +5,7 @@
   remote_user: root
 
   roles:
+    - s3cmd
     - rvm_io.rvm1-ruby
     - nginx-passenger
     - mysql
