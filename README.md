@@ -11,7 +11,7 @@ The following files need to be created.  There are [file_name].example files in 
 - `ansible/production`  (production server inventory file)
 - `ansible/group_vars/production` (production settings)
 
-Per the provisioning script, MySQL db backups will be stored at the S3 location definded by the variable: `s3_db_backup_location`.  It is recommended to setup a lifecycle policy on the S3 bucket so that backups will be automatically deleted after a certain number of days.
+Per the provisioning script, MySQL db backups will be stored at the S3 location defined by the variable: `s3_db_backup_location`.  It is recommended to setup a lifecycle policy on the S3 bucket so that backups will be automatically deleted after a certain number of days.
 
 ## Configuration Management Scripts 
 
