@@ -16,8 +16,8 @@ Per the provisioning script, MySQL db backups will be stored at the S3 location 
 ## Configuration Management Scripts 
 
 From `/ansible` directory:
- - **Provision**: ansible-playbook -i production provision.yml
- - **Deploy**: ansible-playbook -i production deploy.yml
+ - **Provision**: `ansible-playbook -i production provision.yml`
+ - **Deploy**: `ansible-playbook -i production deploy.yml`
 
 ## Screenshot
 
