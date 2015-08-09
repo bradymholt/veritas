@@ -5,18 +5,18 @@
 - name: config database.yml
   template: src=database.yml.j2 dest={{ deploy_directory}}/config/database.yml
 - name: bundle install
-  command: bundle install chdir={{ deploy_directory }}
+  command: /usr/local/rvm/bin/rvm ruby-1.9.3 exec bundle install chdir={{ deploy_directory }}
 - name: migrate database
-  command: bundle exec rake db:migrate RAILS_ENV="production" chdir={{ deploy_directory }}
+  command: /usr/local/rvm/bin/rvm ruby-1.9.3 exec bundle exec rake db:migrate RAILS_ENV="production" chdir={{ deploy_directory }}
 - name: tmp clear
-  command: bundle exec rake tmp:clear chdir={{ deploy_directory }}
+  command: /usr/local/rvm/bin/rvm ruby-1.9.3 exec bundle exec rake tmp:clear chdir={{ deploy_directory }}
 - name: log clear
-  command: bundle exec rake log:clear chdir={{ deploy_directory }}
+  command: /usr/local/rvm/bin/rvm ruby-1.9.3 exec bundle exec rake log:clear chdir={{ deploy_directory }}
 - name: setup weekly bot cron
-  cron: name="Weekly Bot" minute="0" hour="8" weekday="1" 
+  cron: name="Weekly Bot" minute="0" hour="8" weekday="1"
     job="/bin/bash -l -c 'cd {{ deploy_directory }} && RAILS_ENV=production bundle exec rake app:weekly_bots'"
 - name: setup daily bot cron
-  cron: name="Daily Bot" minute="0" hour="14" 
+  cron: name="Daily Bot" minute="0" hour="14"
     job="/bin/bash -l -c 'cd {{ deploy_directory }} && RAILS_ENV=production bundle exec rake app:daily_bots'"
 - name: restart app
   command: touch tmp/restart.txt chdir={{ deploy_directory }}
