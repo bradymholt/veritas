@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
      session[:role] = 'admin'
      set_role_cookie
      redirect_to session[:login_return_to] || root_path
-    elsif params[:password] == Setting.cached.user_password
+   elsif params[:password] == Setting.cached.user_password
+       || Setting.cached.user_password.split(",").include?(params[:password]) 
      session[:role] = 'user'
      set_role_cookie
      redirect_to session[:login_return_to] || root_path
@@ -16,8 +17,8 @@ class SessionsController < ApplicationController
     flash[:error] = "Invalid Password"
     redirect_to root_path
     end
-    
-   
+
+
   end
 
   def destroy
