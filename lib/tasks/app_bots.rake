@@ -1,4 +1,4 @@
-require 'net/http'
+require "open-uri"
 
 namespace :app do
 	desc "Weekly App bots"
@@ -59,12 +59,8 @@ namespace :app do
 		puts "[fb_access_token_refresh_bot]"
 		settings = Setting.first
 		if !settings.facebook_access_token.blank?
-			url = URI.parse("https://graph.facebook.com/oauth/access_token?client_id=#{settings.facebook_app_id}&client_secret=#{settings.facebook_app_secret}&grant_type=fb_exchange_token&fb_exchange_token=#{settings.facebook_access_token}")
-			req = Net::HTTP::Get.new(url.to_s)
-			res = Net::HTTP.start(url.host, url.port) {|http|
-			  http.request(req)
-			}
-			puts res.body
+			response = URI.parse("https://graph.facebook.com/oauth/access_token?client_id=#{settings.facebook_app_id}&client_secret=#{settings.facebook_app_secret}&grant_type=fb_exchange_token&fb_exchange_token=#{settings.facebook_access_token}").read
+			puts response
 		end
 
 	end
