@@ -1,6 +1,8 @@
+require 'net/http'
+
 namespace :app do
 	desc "Weekly App bots"
-	task :weekly_bots => [:environment, :contact_bot, :contact_queue_bot, :calendar_bot]  do
+	task :weekly_bots => [:environment, :contact_bot, :contact_queue_bot, :calendar_bot, :fb_access_token_refresh_bot]  do
 	end
 
 	desc "Daily App bots"
@@ -20,7 +22,7 @@ namespace :app do
 		if !settings.contacts_inactivate_after_no_attendance_weeks.nil?
 			puts "Inactivating contacts without atendance in #{settings.contacts_inactivate_after_no_attendance_weeks} weeks."
 			last_attendance_before = DateTime.now - (settings.contacts_inactivate_after_no_attendance_weeks).weeks
-			
+
 			contact_id_inactive = Attendance.select('contact_id')
 				.includes(:contact)
 				.where('contacts.is_active = ?', true)
@@ -50,5 +52,20 @@ namespace :app do
 		else
 			"No calendar sync in configured."
 		end
+	end
+
+	desc "Facebook Access Token Refresh bot"
+	task :fb_access_token_refresh_bot => :environment do
+		puts "[fb_access_token_refresh_bot]"
+		settings = Setting.first
+		if !settings.facebook_access_token.blank?
+			url = URI.parse("https://graph.facebook.com/oauth/access_token?client_id=#{settings.facebook_app_id}&client_secret=#{settings.facebook_app_secret}&grant_type=fb_exchange_token&fb_exchange_token=#{settings.facebook_access_token}")
+			req = Net::HTTP::Get.new(url.to_s)
+			res = Net::HTTP.start(url.host, url.port) {|http|
+			  http.request(req)
+			}
+			puts res.body
+		end
+
 	end
 end

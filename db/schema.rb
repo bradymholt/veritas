@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150809200218) do
+ActiveRecord::Schema.define(:version => 20151025222854) do
 
   create_table "attendances", :force => true do |t|
     t.integer  "contact_id"
@@ -142,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20150809200218) do
     t.text     "new_member_email_html"
     t.string   "google_calendar_refresh_token"
     t.string   "aws_host_name"
+    t.string   "facebook_app_id"
+    t.string   "facebook_app_secret"
   end
 
   create_table "signup_slots", :force => true do |t|

@@ -21,20 +21,20 @@
   <li><a href="#misc">Misc</a></li>
 </ul>
 <div class="tab-content">
-  <div class="tab-pane active" id="general">  
+  <div class="tab-pane active" id="general">
     <div class="row">
      <div class="span4">
        <fieldset><legend>Group Information</legend>
         <%=f.label :group_name %>
-        <%=f.text_field :group_name %>  
+        <%=f.text_field :group_name %>
         <%=f.label :group_description%>
         <%=f.text_area :group_description, :rows => 3, :cols =>""  %>
          <%=f.label :host_name, "Website Host Name" %>
-        <%=f.text_field :host_name %> 
+        <%=f.text_field :host_name %>
         <%=f.label :contact_email%>
-        <%=f.text_field :contact_email %>   
+        <%=f.text_field :contact_email %>
         <label class="checkbox">
-          <%=f.check_box :contact_email_cc %>  
+          <%=f.check_box :contact_email_cc %>
           Copy Emails to this Address
         </label>
       </fieldset>
@@ -42,9 +42,9 @@
    <div class="span4">
      <fieldset><legend>Passwords</legend>
        <%=f.label :user_password %>
-       <%=f.text_field :user_password, :value => @settings.user_password %>  
+       <%=f.text_field :user_password, :value => @settings.user_password %>
        <%=f.label :admin_password %>
-       <%=f.text_field :admin_password, :value => @settings.admin_password %> 
+       <%=f.text_field :admin_password, :value => @settings.admin_password %>
      </fieldset>
    </div>
    <div class="span4">
@@ -136,8 +136,8 @@
    </div>
  </div>
  <div class="span4">
-  <%=f.label :contact_queue_notify_email %> 
-  <%=f.text_field :contact_queue_notify_email %> 
+  <%=f.label :contact_queue_notify_email %>
+  <%=f.text_field :contact_queue_notify_email %>
 </div>
 </div>
 </div>
@@ -150,7 +150,7 @@
     </label>
     <div id="google_calendar_fields">
      <%=f.label :google_calendar_refresh_token, "Google Calendar Refresh Token"%>
-     <%=f.text_field :google_calendar_refresh_token %>  
+     <%=f.text_field :google_calendar_refresh_token %>
      <div>
       <em>Contact events will be synced to Google Calendar weekly, on Mondays.</em>
      </div>
@@ -166,29 +166,33 @@
  </div>
  <div class="span4">
   <%=f.label :podcast_itunes_url%>
-  <%=f.text_field :podcast_itunes_url %>  
+  <%=f.text_field :podcast_itunes_url %>
+  <%=f.label :facebook_app_id %>
+  <%=f.text_field :facebook_app_id %>
+  <%=f.label :facebook_app_secret %>
+  <%=f.text_field :facebook_app_secret %>
   <%=f.label :facebook_access_token %>
-  <%=f.text_field :facebook_access_token %>  
+  <%=f.text_field :facebook_access_token %>
   <%=f.label :facebook_group_id %>
-  <%=f.text_field :facebook_group_id %> 
+  <%=f.text_field :facebook_group_id %>
   <%=f.label :carrier_lookup_api_key %>
-  <%=f.text_field :carrier_lookup_api_key %>  
+  <%=f.text_field :carrier_lookup_api_key %>
  </div>
  <div class="span4">
    <%=f.label :smtp_server %>
-   <%=f.text_field :smtp_server %> 
+   <%=f.text_field :smtp_server %>
    <%=f.label :smtp_username %>
-   <%=f.text_field :smtp_username %> 
+   <%=f.text_field :smtp_username %>
    <%=f.label :smtp_password %>
-   <%=f.password_field :smtp_password, :value => @settings.smtp_password %>  
+   <%=f.password_field :smtp_password, :value => @settings.smtp_password %>
    <%=f.label :smtp_port %>
-   <%=f.text_field :smtp_port %>  
+   <%=f.text_field :smtp_port %>
    <%=f.label :aws_access_key %>
-   <%=f.text_field :aws_access_key %>  
+   <%=f.text_field :aws_access_key %>
    <%=f.label :aws_secret_access_key %>
-   <%=f.text_field :aws_secret_access_key %>  
+   <%=f.text_field :aws_secret_access_key %>
    <%=f.label :aws_bucket_name %>
-   <%=f.text_field :aws_bucket_name %>  
+   <%=f.text_field :aws_bucket_name %>
  </div>
 </div>
 </div>
