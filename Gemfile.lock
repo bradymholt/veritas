@@ -110,7 +110,7 @@ GEM
       subexec (~> 0.2.1)
     multi_json (1.7.3)
     multipart-post (2.0.0)
-    mysql2 (0.3.11)
+    mysql2 (0.4.5)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.7)
